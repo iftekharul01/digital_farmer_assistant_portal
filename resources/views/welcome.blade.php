@@ -287,8 +287,8 @@ a:hover {
       </div>
       <div class="header-right">
         <div class="auth-links">
-          <a href="login.html">Login</a>
-          <a href="signup.html" class="signup-btn">Signup</a>
+          <a href="{{ route('login') }}">Login</a>
+          <a href="{{ route('signup') }}" class="signup-btn">Signup</a>
         </div>
         <div class="language-toggle">
           <button id="lang-en" class="lang-btn active">EN</button>
@@ -303,7 +303,7 @@ a:hover {
     <section class="hero">
       <h1>Empowering Farmers With Smart Technology</h1>
       <p>Your one-stop solution for crop health, market insights, weather updates, and government support. All in one place, just for you.</p>
-      <a href="signup.html" class="cta-btn">Get Started Now</a>
+      <a href="{{ route('signup') }}" class="cta-btn">Get Started Now</a>
     </section>
 
     <section class="features">
