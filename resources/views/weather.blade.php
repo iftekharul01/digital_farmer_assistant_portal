@@ -109,6 +109,41 @@
             font-size: 1.3rem;
         }
 
+        /* --- Weather Section --- */
+        .weather-section {
+            background: #f0fff4;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            }
+
+        .weather-card {
+            background: white;
+            border-left: 6px solid #4caf50;
+            padding: 25px 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+        .weather-card h2 {
+            margin-bottom: 15px;
+            color: #2e7d32;
+            }
+
+        .weather-card p {
+            margin: 6px 0;
+            font-size: 16px;
+            }
+
+        .status {
+            margin-top: 10px;
+            font-style: italic;
+            color: #888;
+            }
+
+
       
         /* --- Navbar Responsiveness & Mobile Menu --- */
       .menu-toggle {
@@ -345,9 +380,16 @@
 
       
 <!-- Main Content  -->
- <div>
-    <h1>This is the main content</h1>
- </div>
+ <section class="weather-section">
+  <div class="weather-card">
+    <h2>🌦️ Weather Update</h2>
+    <p><strong>Location:</strong> <span id="location">Detecting...</span></p>
+    <p><strong>Temperature:</strong> <span id="temperature">--</span></p>
+    <p><strong>Condition:</strong> <span id="condition">--</span></p>
+    <p id="status" class="status">Fetching weather...</p>
+  </div>
+</section>
+<!-- End Main Content  -->
 
 
 
@@ -418,6 +460,69 @@ mobileMenuOverlay.querySelectorAll('.nav-link').forEach(link => {
         mobileMenuOverlay.classList.remove('active');
     });
 });
+
+// Weather API Integration
+document.addEventListener("DOMContentLoaded", () => {
+  const locationSpan = document.getElementById("location");
+  const tempSpan = document.getElementById("temperature");
+  const conditionSpan = document.getElementById("condition");
+  const status = document.getElementById("status");
+
+  function getWeatherCodeDescription(code) {
+    const codes = {
+      0: "Clear Sky", 1: "Mainly Clear", 2: "Partly Cloudy", 3: "Overcast",
+      45: "Fog", 48: "Rime Fog", 51: "Light Drizzle", 61: "Light Rain",
+      71: "Snow Fall", 80: "Rain Showers", 95: "Thunderstorm"
+    };
+    return codes[code] || "Unknown";
+  }
+
+  async function getPlaceName(lat, lon) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": "FarmerPortal/1.0 (contact@example.com)" }
+      });
+      const data = await res.json();
+      const addr = data.address;
+      const district = addr.county || addr.city || "";
+      const division = addr.state || "";
+      const country = addr.country || "";
+      return [district, division, country].filter(Boolean).join(", ");
+    } catch {
+      return "Unknown location";
+    }
+  }
+
+  async function fetchWeather(lat, lon) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const temp = data.current.temperature_2m;
+    const code = data.current.weathercode;
+    const place = await getPlaceName(lat, lon);
+
+    locationSpan.textContent = place;
+    tempSpan.textContent = `${temp} °C`;
+    conditionSpan.textContent = getWeatherCodeDescription(code);
+    status.textContent = "✅ Weather data updated.";
+  }
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const { latitude, longitude } = pos.coords;
+        fetchWeather(latitude, longitude);
+      },
+      () => {
+        status.textContent = "❌ Location access denied.";
+      }
+    );
+  } else {
+    status.textContent = "❌ Geolocation not supported.";
+  }
+});
+
     </script>
 </body>
 </html>
