@@ -653,27 +653,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Language toggle (kept as in original, adjust if needed)
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
+       <script>
+    // Language toggle (kept as in original, adjust if needed)
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
         });
+    });
 
-        // Navbar active effect (kept as in original, adjust if needed for actual page linking)
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Remove active from all nav links in main-navbar
-                document.querySelectorAll('#main-navbar .nav-link').forEach(l => l.classList.remove('active'));
-                // Remove active from all nav links in mobile-navbar
-                document.querySelectorAll('.mobile-navbar .nav-link').forEach(l => l.classList.remove('active'));
+    // Navbar active effect (kept as in original, adjust if needed for actual page linking)
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Remove active from all nav links in main-navbar
+            document.querySelectorAll('#main-navbar .nav-link').forEach(l => l.classList.remove('active'));
+            // Remove active from all nav links in mobile-navbar
+            document.querySelectorAll('.mobile-navbar .nav-link').forEach(l => l.classList.remove('active'));
 
-                // Add active to the clicked link
-                this.classList.add('active');
-            });
+            // Add active to the clicked link
+            this.classList.add('active');
         });
+    });
 
 // Mobile Menu Toggle
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -723,139 +723,14 @@ let selectedItem = '';
 let uploadedFile = null;
 
 const categories = {
-    crop: ['Rice', 'Corn', 'Wheat', 'Tea', 'Potato', 'Soybean', 'Cotton'],
-    fruit: ['Mango', 'Litchi', 'Orange', 'Jackfruit', 'Banana', 'Apple', 'Guava'],
-    vegetable: ['Tomato', 'Onion', 'Carrot', 'Potato', 'Cucumber', 'Eggplant', 'Spinach']
+    crop: ['ধান', 'ভুট্টা', 'গম', 'চা', 'আলু', 'সয়াবিন', 'কাপাস'],
+    fruit: ['আম', 'লিচু', 'কমলা', 'কাঁঠাল', 'কলা', 'আপেল', 'পেয়ারা'],
+    vegetable: ['টমেটো', 'পিয়াজ', 'গাজর', 'আলু', 'শস্য', 'বেগুন', 'পালং শাক']
 };
 
-const dummyDiseaseData = {
-    'Rice': {
-        'Blast': {
-            image: 'https://via.placeholder.com/300x200?text=Rice+Blast',
-            description: 'Rice blast, caused by the fungus Magnaporthe oryzae, is one of the most destructive diseases of rice worldwide. It can infect all aerial parts of the rice plant.',
-            characteristics: [
-                'Fungus-driven disease.',
-                'Thrives in high humidity and moderate temperatures.',
-                'Can cause significant yield losses.'
-            ],
-            symptoms: [
-                'Diamond-shaped lesions on leaves with gray centers and reddish-brown margins.',
-                'Neck rot (lesions on the panicle neck leading to whiteheads).',
-                'Node blast (dark lesions on stem nodes).'
-            ],
-            treatments: [
-                'Use resistant rice varieties.',
-                'Apply fungicides (e.g., tricyclazole, azoxystrobin) at early stages.',
-                'Manage nitrogen fertilizer application to avoid excessive growth.',
-                'Flood and drain fields to reduce disease severity.'
-            ]
-        },
-        'Blight': {
-            image: 'https://via.placeholder.com/300x200?text=Rice+Blight',
-            description: 'Bacterial blight of rice is a significant disease caused by Xanthomonas oryzae pv. oryzae. It can lead to severe yield losses, especially in tropical and subtropical regions.',
-            characteristics: [
-                'Bacterial disease.',
-                'Spreads rapidly under warm, humid conditions.',
-                'Affects all growth stages of the plant.'
-            ],
-            symptoms: [
-                'Water-soaked lesions on the margins of leaves that turn yellowish and then greyish-white.',
-                '"Kresek" (wilting and death of seedlings).',
-                'Yellowing and drying of leaves, resembling drought stress.'
-            ],
-            treatments: [
-                'Plant resistant varieties.',
-                'Practice proper sanitation (remove infected stubble).',
-                'Avoid excessive nitrogen fertilization.',
-                'Drain fields periodically to reduce bacterial spread.'
-            ]
-        }
-    },
-    'Mango': {
-        'Anthracnose': {
-            image: 'https://via.placeholder.com/300x200?text=Mango+Anthracnose',
-            description: 'Anthracnose is a common and destructive fungal disease affecting mango trees, caused by Colletotrichum gloeosporioides. It can attack flowers, fruits, leaves, and twigs.',
-            characteristics: [
-                'Fungal disease, common in humid climates.',
-                'Affects all parts of the plant.',
-                'Causes significant post-harvest losses.'
-            ],
-            symptoms: [
-                'Irregular black spots on leaves, flowers, and fruits.',
-                'Blossom blight and fruit rot.',
-                'Black sunken lesions on ripening fruit.'
-            ],
-            treatments: [
-                'Prune infected branches to improve air circulation.',
-                'Apply fungicides (e.g., copper-based fungicides, azoxystrobin) during flowering and fruit development.',
-                'Sanitation: remove fallen leaves and fruit.',
-                'Hot water treatment for harvested fruit.'
-            ]
-        },
-        'Powdery Mildew': {
-            image: 'https://via.placeholder.com/300x200?text=Mango+Powdery+Mildew',
-            description: 'Powdery mildew, caused by Oidium mangiferae, is a serious disease of mango that primarily affects inflorescences and young fruits, leading to significant yield reduction.',
-            characteristics: [
-                'Fungal disease, thrives in dry, cool conditions.',
-                'Common during flowering period.',
-                'Reduces fruit set and quality.'
-            ],
-            symptoms: [
-                'White, powdery fungal growth on leaves, flowers, and young fruits.',
-                'Distortion and drying of affected parts.',
-                'Failure of fruit to set or premature fruit drop.'
-            ],
-            treatments: [
-                'Spray with sulfur-based fungicides or other recommended fungicides.',
-                'Proper tree spacing and pruning for good air circulation.',
-                'Avoid excessive nitrogen fertilization.'
-            ]
-        }
-    },
-    'Tomato': {
-        'Early Blight': {
-            image: 'https://via.placeholder.com/300x200?text=Tomato+Early+Blight',
-            description: 'Early blight, caused by Alternaria solani, is a common fungal disease of tomato and potato. It can affect plants at any stage of development, especially after fruit set.',
-            characteristics: [
-                'Fungal disease.',
-                'Favored by warm, humid conditions.',
-                'Can lead to defoliation and reduced yield.'
-            ],
-            symptoms: [
-                'Dark, concentric rings (bullseye pattern) on older leaves.',
-                'Yellow halo around spots.',
-                'Lesions on stems and fruit.'
-            ],
-            treatments: [
-                'Rotate crops every 2-3 years.',
-                'Ensure proper plant spacing for air circulation.',
-                'Remove infected plant debris.',
-                'Apply fungicides (e.g., chlorothalonil, mancozeb) preventatively.'
-            ]
-        },
-        'Late Blight': {
-            image: 'https://via.placeholder.com/300x200?text=Tomato+Late+Blight',
-            description: 'Late blight, caused by Phytophthora infestans, is a highly destructive disease that affects tomato and potato. It can rapidly destroy entire crops under cool, moist conditions.',
-            characteristics: [
-                'Caused by an oomycete (water mold).',
-                'Rapidly spreading and destructive.',
-                'Favored by cool, wet weather.'
-            ],
-            symptoms: [
-                'Irregular, water-soaked lesions that quickly expand on leaves, stems, and fruits.',
-                'White, fuzzy fungal growth on the underside of leaves (especially in high humidity).',
-                'Brown rot on fruits.'
-            ],
-            treatments: [
-                'Plant resistant varieties where available.',
-                'Ensure good air circulation and avoid overhead watering.',
-                'Apply targeted fungicides (e.g., fluazinam, propamocarb) preventatively or at first sign.',
-                'Remove and destroy infected plants promptly.'
-            ]
-        }
-    }
-    // Add more dummy data for other crops/fruits/vegetables and their diseases
-};
+// Your Gemini API key (replace with your actual key from Google AI Studio)
+const GEMINI_API_KEY = 'AIzaSyBkihp0AO--2AsSZf_luT4UUCZIFQS3k_Y'; // e.g., 'AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+// WARNING: For production, move this to a backend server!
 
 // Function to reset all steps
 function resetSteps() {
@@ -935,7 +810,7 @@ function populateSpecificItems(category) {
             specificItemOptions.appendChild(button);
         });
     } else {
-        specificItemOptions.innerHTML = '<p>No specific items available for this category yet.</p>';
+        specificItemOptions.innerHTML = '<p>এই বিভাগের জন্য কোনো নির্দিষ্ট আইটেম পাওয়া যায়নি।</p>';
     }
 }
 
@@ -963,7 +838,7 @@ pasteImageBtn.addEventListener('click', async () => {
     try {
         const permission = await navigator.permissions.query({ name: "clipboard-read" });
         if (permission.state === "denied") {
-            alert("Permission to access clipboard denied. Please grant clipboard read permission in your browser settings.");
+            alert("ক্লিপবোর্ড অ্যাক্সেসের অনুমতি প্রত্যাখ্যান করা হয়েছে। দয়া করে ব্রাউজার সেটিংসে অনুমতি প্রদান করুন।");
             return;
         }
 
@@ -976,7 +851,7 @@ pasteImageBtn.addEventListener('click', async () => {
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         uploadedImagePreview.src = e.target.result;
-                        imageNameDisplay.textContent = "Pasted Image";
+                        imageNameDisplay.textContent = "পেস্ট করা ছবি";
                         imagePreviewContainer.style.display = 'flex';
                         analyzeImageBtn.style.display = 'block';
                     };
@@ -985,85 +860,163 @@ pasteImageBtn.addEventListener('click', async () => {
                 }
             }
         }
-        alert("No image found in clipboard.");
+        alert("ক্লিপবোর্ডে কোনো ছবি পাওয়া যায়নি।");
     } catch (err) {
-        console.error('Failed to read clipboard contents: ', err);
-        alert('Failed to paste image. Please ensure you have an image copied and allow clipboard access if prompted.');
+        console.error('ক্লিপবোর্ড কনটেন্ট পড়তে ব্যর্থ:', err);
+        alert('ছবি পেস্ট করতে ব্যর্থ। দয়া করে নিশ্চিত করুন যে একটি ছবি কপি করা আছে এবং ক্লিপবোর্ড অ্যাক্সেসের জন্য অনুমতি দেওয়া আছে।');
     }
 });
 
 uploadFromDriveBtn.addEventListener('click', () => {
-    alert('Google Drive integration is not implemented in this demo. Please use "From Device" or "Paste Image".');
+    alert('গুগল ড্রাইভ ইন্টিগ্রেশন এই ডেমোতে বাস্তবায়িত হয়নি। দয়া করে "ডিভাইস থেকে" বা "পেস্ট ছবি" ব্যবহার করুন।');
 });
 
-
-analyzeImageBtn.addEventListener('click', () => {
+analyzeImageBtn.addEventListener('click', async () => {
     if (uploadedFile && selectedCategory && selectedItem) {
         // Show loading overlay
         loadingOverlay.classList.add('active');
 
-        // Simulate API call delay
-        setTimeout(() => {
+        try {
+            // Convert uploaded file to base64
+            const base64Image = await fileToBase64(uploadedFile);
+
+            // Build prompt for Gemini in Bangla
+            const prompt = `
+                এই ${selectedItem} ছবিটি বিশ্লেষণ করুন, যা একটি ${selectedCategory}। 
+                কোনো উদ্ভিদ রোগ ধরা পড়লে তা নির্ণয় করুন। যদি কোনো রোগ না পাওয়া যায়, তা স্পষ্টভাবে বলুন।
+                উত্তরটি নিম্নলিখিত সঠিক কাঠামোতে দিন (অতিরিক্ত টেক্সট ছাড়াই):
+                রোগের নাম: [নাম বা "কোনো রোগ ধরা পড়েনি"]
+                বর্ণনা: [১-২ প্যারাগ্রাফ বর্ণনা]
+                বৈশিষ্ট্য: - [বুলেট পয়েন্ট ১]\n- [বুলেট পয়েন্ট ২]\n- ইত্যাদি।
+                লক্ষণ: - [বুলেট পয়েন্ট ১]\n- [বুলেট পয়েন্ট ২]\n- ইত্যাদি।
+                চিকিৎসা: - [বুলেট পয়েন্ট ১]\n- [বুলেট পয়েন্ট ২]\n- ইত্যাদি।
+            `;
+
+            // Call Gemini API
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            { text: prompt },
+                            {
+                                inline_data: {
+                                    mime_type: uploadedFile.type || 'image/jpeg', // Adjust based on file type
+                                    data: base64Image
+                                }
+                            }
+                        ]
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('API রিকোয়েস্ট ব্যর্থ হয়েছে');
+            }
+
+            const data = await response.json();
+            const generatedText = data.candidates[0].content.parts[0].text;
+
+            // Parse the structured response
+            const parsedResult = parseGeminiResponse(generatedText);
+
+            // Hide loading and display result
             loadingOverlay.classList.remove('active');
-            displayResult(selectedItem); // Pass the selected specific item to get disease data
-            showStep(step4); // Show the result
-        }, 3000); // 3 seconds loading time
+            displayResult(parsedResult);
+            showStep(step4);
+        } catch (error) {
+            console.error('ছবি বিশ্লেষণে ত্রুটি:', error);
+            loadingOverlay.classList.remove('active');
+            alert('ছবি বিশ্লেষণে ব্যর্থ। দয়া করে আবার চেষ্টা করুন বা API কী চেক করুন।');
+        }
     } else {
-        alert('Please select a category, an item, and upload an image before analyzing.');
+        alert('দয়া করে একটি বিভাগ, আইটেম এবং ছবি আপলোড করুন আগে বিশ্লেষণের জন্য।');
     }
 });
 
+// Helper: Convert file to base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]); // Get base64 without prefix
+        reader.onerror = error => reject(error);
+    });
+}
+
+// Helper: Parse Gemini's text response into object
+function parseGeminiResponse(text) {
+    const lines = text.split('\n');
+    let currentSection = '';
+    const result = {
+        diseaseName: '',
+        description: '',
+        characteristics: [],
+        symptoms: [],
+        treatments: []
+    };
+
+    lines.forEach(line => {
+        if (line.startsWith('রোগের নাম:')) {
+            result.diseaseName = line.replace('রোগের নাম:', '').trim();
+        } else if (line.startsWith('বর্ণনা:')) {
+            currentSection = 'description';
+            result.description = line.replace('বর্ণনা:', '').trim();
+        } else if (line.startsWith('বৈশিষ্ট্য:')) {
+            currentSection = 'characteristics';
+        } else if (line.startsWith('লক্ষণ:')) {
+            currentSection = 'symptoms';
+        } else if (line.startsWith('চিকিৎসা:')) {
+            currentSection = 'treatments';
+        } else if (line.startsWith('- ') && currentSection) {
+            result[currentSection].push(line.replace('- ', '').trim());
+        } else if (currentSection === 'description') {
+            result.description += ' ' + line.trim(); // Append multi-line description
+        }
+    });
+
+    return result;
+}
+
 // Step 4: Display Result
-function displayResult(item) {
-    const itemDiseases = dummyDiseaseData[item];
+function displayResult(result) {
+    // For image: Reuse uploaded image or generate one if needed (Gemini doesn't return images, so keep placeholder or uploaded preview)
+    document.getElementById('result-disease-image').src = uploadedImagePreview.src || 'https://via.placeholder.com/300x200?text=বিশ্লেষিত ছবি';
 
-    if (itemDiseases && Object.keys(itemDiseases).length > 0) {
-        // Get a random disease for the selected item
-        const diseases = Object.keys(itemDiseases);
-        const randomDiseaseKey = diseases[Math.floor(Math.random() * diseases.length)];
-        const diseaseInfo = itemDiseases[randomDiseaseKey];
+    document.getElementById('disease-name').textContent = result.diseaseName || 'কোনো রোগ ধরা পড়েনি';
+    document.getElementById('disease-description').textContent = result.description || 'কোনো বর্ণনা উপলব্ধ নেই।';
 
-        document.getElementById('result-disease-image').src = diseaseInfo.image;
-        document.getElementById('disease-name').textContent = randomDiseaseKey;
-        document.getElementById('disease-description').textContent = diseaseInfo.description;
+    const characteristicsList = document.getElementById('disease-characteristics');
+    characteristicsList.innerHTML = '';
+    (result.characteristics.length > 0 ? result.characteristics : ['N/A']).forEach(char => {
+        const li = document.createElement('li');
+        li.textContent = char;
+        characteristicsList.appendChild(li);
+    });
 
-        const characteristicsList = document.getElementById('disease-characteristics');
-        characteristicsList.innerHTML = '';
-        diseaseInfo.characteristics.forEach(char => {
-            const li = document.createElement('li');
-            li.textContent = char;
-            characteristicsList.appendChild(li);
-        });
+    const symptomsList = document.getElementById('disease-symptoms');
+    symptomsList.innerHTML = '';
+    (result.symptoms.length > 0 ? result.symptoms : ['N/A']).forEach(symptom => {
+        const li = document.createElement('li');
+        li.textContent = symptom;
+        symptomsList.appendChild(li);
+    });
 
-        const symptomsList = document.getElementById('disease-symptoms');
-        symptomsList.innerHTML = '';
-        diseaseInfo.symptoms.forEach(symptom => {
-            const li = document.createElement('li');
-            li.textContent = symptom;
-            symptomsList.appendChild(li);
-        });
-
-        const treatmentsList = document.getElementById('disease-treatments');
-        treatmentsList.innerHTML = '';
-        diseaseInfo.treatments.forEach(treatment => {
-            const li = document.createElement('li');
-            li.textContent = treatment;
-            treatmentsList.appendChild(li);
-        });
-    } else {
-        // Fallback if no specific data for the selected item
-        document.getElementById('result-disease-image').src = 'https://via.placeholder.com/300x200?text=No+Diagnosis';
-        document.getElementById('disease-name').textContent = 'No Specific Disease Found';
-        document.getElementById('disease-description').textContent = 'We could not find specific disease information for the selected item and uploaded image. This is dummy data. In a real application, an AI model would process the image.';
-        document.getElementById('disease-characteristics').innerHTML = '<li>N/A</li>';
-        document.getElementById('disease-symptoms').innerHTML = '<li>N/A</li>';
-        document.getElementById('disease-treatments').innerHTML = '<li>Consider consulting a local agricultural expert.</li>';
-    }
+    const treatmentsList = document.getElementById('disease-treatments');
+    treatmentsList.innerHTML = '';
+    (result.treatments.length > 0 ? result.treatments : ['স্থানীয় বিশেষজ্ঞের সাথে পরামর্শ করুন।']).forEach(treatment => {
+        const li = document.createElement('li');
+        li.textContent = treatment;
+        treatmentsList.appendChild(li);
+    });
 }
 
 // Initialize by showing step 1
 showStep(step1);
+</script>
 
-    </script>
 </body>
 </html>
