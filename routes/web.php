@@ -1,23 +1,29 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\RegistrationController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route for login page
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+// Login routes
+Route::get('/login', [RegistrationController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [RegistrationController::class, 'login'])->name('login.post');
 
-// Route for signup page
-Route::get('/signup', function () {
-    return view('signup');
-})->name('signup');
+// Logout route
+Route::post('/logout', [RegistrationController::class, 'logout'])->name('logout');
 
-// Route for home page
+// Registration routes
+Route::get('/signup', [RegistrationController::class, 'showRegistrationForm'])->name('signup');
+Route::post('/signup', [RegistrationController::class, 'register'])->name('signup.post');
+
+// Route for home page (protected)
 Route::get('/home', function () {
+    if (!Session::get('logged_in')) {
+        return redirect()->route('login')->with('error', 'Please login to access the home page.');
+    }
     return view('home');
 })->name('home');
 

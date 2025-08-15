@@ -1,7 +1,7 @@
 <div class="header">
-    <div class="header-wrapper">
+    <div class="container header-wrapper">
         <div class="logo">
-            <a href="{{ route('home') }}">
+            <a href="{{ route('home') }}" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-seedling"></i> <span>Farmer Portal</span>
             </a>
         </div>
@@ -17,12 +17,30 @@
             <a href="{{ route('about-us') }}" class="nav-link">About Us</a>
             <a href="{{ route('contact') }}" class="nav-link">Contact</a>
         </nav>
-        <div class="user-profile">
-            <span>Shahriar</span>
-            <span class="profile-icon">
-                <i class="fas fa-user"></i>
-            </span>
-        </div>
+        
+        @if(Session::get('logged_in'))
+            <!-- Logged in user -->
+            <div class="user-profile">
+                <span>{{ Session::get('username') }}</span>
+                <span class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </span>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline; margin-left: 10px;">
+                    @csrf
+                    <button type="submit" style="background: transparent; border: 1px solid white; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s;">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        @else
+            <!-- Not logged in -->
+            <div class="header-right">
+                <div class="auth-links">
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('signup') }}" class="signup-btn">Signup</a>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -38,3 +56,4 @@
               <a href="{{ route('contact') }}" class="nav-link">Contact</a>
           </nav>
       </div>
+      

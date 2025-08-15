@@ -159,7 +159,7 @@ html, body {
             margin-bottom: 5px;
             display: block;
         }
-        input[type="email"], input[type="password"] {
+        input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
             padding: 10px 12px;
             border: 1.5px solid #e0e0e0;
@@ -169,7 +169,7 @@ html, body {
             background: #f8f8f8;
             transition: border 0.2s;
         }
-        input[type="email"]:focus, input[type="password"]:focus {
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
             border: 1.5px solid #0bd429;
             outline: none;
         }
@@ -341,26 +341,38 @@ html, body {
         </div>
         <div class="login-subtitle">Welcome back! Please login to your account.</div>
         <div class="login-title">Login to Farmer Portal</div>
-        <form>
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="you@email.com" required>
+        
+        @if (session('success'))
+            <div style="background: #e8f5e8; border: 1px solid #4caf50; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #2e7d32;">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div style="background: #fee; border: 1px solid #fcc; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #c33;">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('login.post') }}" method="POST">
+            @csrf
+            <label for="login">Username or Email</label>
+            <input type="text" id="login" name="login" placeholder="Username or Email" value="{{ old('login') }}" required>
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Your password" required>
+            <input type="password" id="password" name="password" placeholder="Your password" required>
             <button type="submit" class="login-btn">Login</button>
         </form>
+        
         <div class="or-divider">or</div>
         <button class="social-btn google-btn">
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;vertical-align:middle;margin-right:8px;">
             Continue with Google
         </button>
-        <button class="social-btn facebook-btn">
-            <i class="fab fa-facebook-f"></i>
-            Continue with Facebook
-        </button>
-        <button class="social-btn github-btn">
-            <i class="fab fa-github"></i>
-            Continue with GitHub
-        </button>
+        
         <div class="signup-link">
             Don't have an account? <a href="{{ route('signup') }}">Sign Up</a>
         </div>
@@ -408,10 +420,6 @@ html, body {
       this.classList.add('active');
     });
   });
-  document.querySelector('.login-btn[type="submit"]').onclick = function(e) {
-    e.preventDefault();
-    window.location.href = "{{ route('home') }}";
-  };
 </script>
 </body>
 </html>

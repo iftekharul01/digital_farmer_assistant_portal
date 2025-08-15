@@ -88,7 +88,7 @@
     .language-toggle {
       display: flex;
       gap: 10px;
-      align-items: center; /* ✅ Fix alignment */
+      align-items: center; 
     }
 
     .lang-btn {
@@ -355,30 +355,43 @@
     </div>
     <div class="signup-subtitle">Create your free account</div>
     <div class="signup-title">Sign Up for Farmer Portal</div>
-    <form>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Your name" required>
+    
+    @if ($errors->any())
+      <div style="background: #fee; border: 1px solid #fcc; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #c33;">
+        <ul style="margin: 0; padding-left: 20px;">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    <form action="{{ route('signup.post') }}" method="POST">
+      @csrf
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Choose a username" value="{{ old('username') }}" required>
+      
+      <label for="full_name">Full Name</label>
+      <input type="text" id="full_name" name="full_name" placeholder="Your full name" value="{{ old('full_name') }}" required>
+      
       <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="you@email.com" required>
+      <input type="email" id="email" name="email" placeholder="you@email.com" value="{{ old('email') }}" required>
+      
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Create a password" required>
-      <label for="password_confirmation">Confirm Password</label>
-      <input type="password" id="password_confirmation" placeholder="Confirm your password" required>
+      <input type="password" id="password" name="password" placeholder="Create a password (min 8 characters)" required>
+      
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+      
       <button type="submit" class="signup-btn">Sign Up</button>
     </form>
+    
     <div class="or-divider">or</div>
     <button class="social-btn google-btn">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;vertical-align:middle;margin-right:8px;">
       Sign up with Google
     </button>
-    <button class="social-btn facebook-btn">
-      <i class="fab fa-facebook-f"></i>
-      Sign up with Facebook
-    </button>
-    <button class="social-btn github-btn">
-      <i class="fab fa-github"></i>
-      Sign up with GitHub
-    </button>
+    
     <div class="login-link">
       Already have an account? <a href="{{ route('login') }}">Login</a>
     </div>
@@ -429,12 +442,6 @@
         this.classList.add('active');
       });
     });
-
-    // Redirect to login page after sign up
-    document.querySelector('.signup-btn[type="submit"]').onclick = function(e) {
-      e.preventDefault();
-      window.location.href = "{{ route('login') }}";
-    };
   </script>
 
 </body>
