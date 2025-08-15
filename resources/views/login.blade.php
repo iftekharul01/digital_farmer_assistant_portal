@@ -300,7 +300,6 @@ html, body {
   color: #888;
 }
 
-
         
         @media (max-width: 500px) {
             .login-container {
@@ -342,11 +341,6 @@ html, body {
         <div class="login-subtitle">Welcome back! Please login to your account.</div>
         <div class="login-title">Login to Farmer Portal</div>
         
-        @if (session('success'))
-            <div style="background: #e8f5e8; border: 1px solid #4caf50; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #2e7d32;">
-                {{ session('success') }}
-            </div>
-        @endif
 
         @if ($errors->any())
             <div style="background: #fee; border: 1px solid #fcc; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #c33;">
@@ -368,10 +362,10 @@ html, body {
         </form>
         
         <div class="or-divider">or</div>
-        <button class="social-btn google-btn">
+        <a href="{{ route('login.google') }}" class="social-btn google-btn">
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;vertical-align:middle;margin-right:8px;">
             Continue with Google
-        </button>
+        </a>
         
         <div class="signup-link">
             Don't have an account? <a href="{{ route('signup') }}">Sign Up</a>

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->string('full_name');
+            $table->string('full_name')->nullable(); // Allow null for Google users
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable(); // Allow null for Google users
             $table->timestamps();
         });
     }

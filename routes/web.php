@@ -62,5 +62,9 @@ Route::get('/contact', function () {
     return view('contact'); 
 })->name('contact');
 
+// Google OAuth Routes
+Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [RegistrationController::class, 'handleGoogleCallback']);
+
 
 

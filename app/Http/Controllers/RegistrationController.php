@@ -7,6 +7,8 @@ use App\Models\Registration;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Exception;
 
 class RegistrationController extends Controller
 {
@@ -104,5 +106,74 @@ class RegistrationController extends Controller
         
         // Redirect to welcome page
         return redirect('/')->with('success', 'You have been logged out successfully.');
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Handle the callback from Google OAuth
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleGoogleCallback()
+    {
+        try {
+            // Get user data from Google
+            $googleUser = Socialite::driver('google')->user();
+            
+            // Check if user already exists in our database
+            $existingUser = Registration::where('email', $googleUser->email)->first();
+            
+            if ($existingUser) {
+                // User exists, log them in
+                Session::put('user_id', $existingUser->id);
+                Session::put('username', $existingUser->username);
+                Session::put('full_name', $existingUser->full_name ?? '');
+                Session::put('email', $existingUser->email);
+                Session::put('logged_in', true);
+                
+                return redirect()->route('home');
+            } else {
+                // Create new user with only username and email
+                // Generate a username from email (before the @ symbol)
+                $username = explode('@', $googleUser->email)[0];
+                $originalUsername = $username;
+                $counter = 1;
+                
+                // Make sure username is unique
+                while (Registration::where('username', $username)->exists()) {
+                    $username = $originalUsername . $counter;
+                    $counter++;
+                }
+                
+                // Create new user with only username and email (no full_name, no password)
+                $newUser = Registration::create([
+                    'username' => $username,
+                    'email' => $googleUser->email,
+                    'full_name' => null, // Store as null for Google users
+                    'password' => null, // Store as null for Google users
+                ]);
+                
+                // Log in the new user
+                Session::put('user_id', $newUser->id);
+                Session::put('username', $newUser->username);
+                Session::put('full_name', ''); // Empty string for display
+                Session::put('email', $newUser->email);
+                Session::put('logged_in', true);
+                
+                return redirect()->route('home');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('login')
+                ->withErrors(['google' => 'Google authentication failed: ' . $e->getMessage()]);
+        }
     }
 }

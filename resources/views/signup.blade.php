@@ -387,10 +387,10 @@
     </form>
     
     <div class="or-divider">or</div>
-    <button class="social-btn google-btn">
+    <a href="{{ route('login.google') }}" class="social-btn google-btn">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;vertical-align:middle;margin-right:8px;">
-      Sign up with Google
-    </button>
+      Continue with Google
+    </a>
     
     <div class="login-link">
       Already have an account? <a href="{{ route('login') }}">Login</a>
