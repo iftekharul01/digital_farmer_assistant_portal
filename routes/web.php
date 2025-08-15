@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,6 +66,59 @@ Route::get('/contact', function () {
 // Google OAuth Routes
 Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('/login/google/callback', [RegistrationController::class, 'handleGoogleCallback']);
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    // Admin Login and Registration
+    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login.post');
+    Route::get('/register', [AdminController::class, 'showRegistrationForm'])->name('admin.register');
+    Route::post('/register', [AdminController::class, 'register'])->name('admin.register.post');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    
+    // Protected Admin Routes (require admin authentication)
+    Route::middleware('admin.auth')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.admin_dashboard');
+        })->name('admin.dashboard');
+        
+        Route::get('/home', function () {
+            return view('admin.admin_home');
+        })->name('admin.home');
+        
+        Route::get('/market-prices', function () {
+            return view('admin.admin_market-prices');
+        })->name('admin.market-prices');
+        
+        Route::get('/about-us', function () {
+            return view('admin.admin_about-us');
+        })->name('admin.about-us');
+        
+        Route::get('/contact', function () {
+            return view('admin.admin_contact');
+        })->name('admin.contact');
+        
+        Route::get('/crop-doctor', function () {
+            return view('admin.admin_crop-doctor');
+        })->name('admin.crop-doctor');
+        
+        Route::get('/tutorials', function () {
+            return view('admin.admin_tutorials');
+        })->name('admin.tutorials');
+        
+        Route::get('/subsidies-news', function () {
+            return view('admin.admin_subsidies-news');
+        })->name('admin.subsidies-news');
+        
+        Route::get('/weather', function () {
+            return view('admin.admin_weather');
+        })->name('admin.weather');
+        
+        Route::get('/welcome', function () {
+            return view('admin.admin_welcome');
+        })->name('admin.welcome');
+    });
+});
 
 
 
