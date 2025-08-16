@@ -63,27 +63,27 @@
 <footer class="footer">
         <div class="container footer-grid">
             <div class="footer-column">
-                <h3>Farmer Portal</h3>
-                <p>Connecting technology to every farmer's hand. Agriculture made smarter and accessible.</p>
+                <h3>কৃষক পোর্টাল</h3>
+                <p>প্রতিটি কৃষকের হাতে প্রযুক্তির সংযোগ। কৃষিকে আরও স্মার্ট এবং সহজলভ্য করা।</p>
             </div>
             <div class="footer-column">
-                <h4>Resources</h4>
+                <h4>সম্পদ</h4>
                 <ul>
-                    <li><a href="#">Crop Tips</a></li>
-                    <li><a href="#">Market Watch</a></li>
-                    <li><a href="#">Weather Alerts</a></li>
+                    <li><a href="#">ফসলের টিপস</a></li>
+                    <li><a href="#">বাজার পর্যবেক্ষণ</a></li>
+                    <li><a href="#">আবহাওয়া সতর্কতা</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h4>Community</h4>
+                <h4>কমিউনিটি</h4>
                 <ul>
-                    <li><a href="#">Success Stories</a></li>
-                    <li><a href="#">Ask Experts</a></li>
-                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">সফলতার গল্প</a></li>
+                    <li><a href="#">বিশেষজ্ঞদের জিজ্ঞাসা</a></li>
+                    <li><a href="#">ফোরাম</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; {{ date('Y') }} Farmer Portal. All rights reserved.
+            &copy; {{ date('Y') }} কৃষক পোর্টাল। সকল অধিকার সংরক্ষিত।
         </div>
     </footer>

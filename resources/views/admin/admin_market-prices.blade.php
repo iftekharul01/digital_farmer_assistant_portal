@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Market Prices | Farmer Portal</title>
+    <title>এডমিন - বাজার দর | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         :root {
             --primary-green: #0bd429;
@@ -293,10 +294,16 @@
             border-left: 4px solid;
         }
 
-        .alert-info {
-            background: #d1ecf1;
-            border-color: #bee5eb;
-            color: #0c5460;
+        .alert-success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
         }
 
         .crop-icon {
@@ -310,10 +317,81 @@
             font-size: 1.2rem;
         }
 
-        .rice-icon { background: #fff3cd; color: #856404; }
-        .wheat-icon { background: #f8d7da; color: #721c24; }
-        .corn-icon { background: #d4edda; color: #155724; }
-        .potato-icon { background: #cce5ff; color: #004085; }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-green);
+        }
+
+        /* Pagination Styles - Hide Previous/Next text, keep arrows small */
+        .pagination .page-link {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        
+        .pagination .page-link[rel="prev"]::before {
+            content: "‹";
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .pagination .page-link[rel="next"]::before {
+            content: "›";
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .pagination .page-link[rel="prev"],
+        .pagination .page-link[rel="next"] {
+            font-size: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         @media (max-width: 768px) {
             .form-row, .form-triple {
@@ -339,60 +417,70 @@
     <header class="admin-header">
         <nav class="admin-nav">
             <div class="admin-logo">
-                <i class="fas fa-seedling"></i> Admin Panel
+                <i class="fas fa-seedling"></i> এডমিন প্যানেল
             </div>
             <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> Dashboard</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
+                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
             </div>
         </nav>
     </header>
 
     <div class="content-container">
         <div class="page-header">
-            <h1 class="page-title"><i class="fas fa-chart-line"></i> Market Prices Management</h1>
+            <h1 class="page-title"><i class="fas fa-chart-line"></i> বাজার দর ব্যবস্থাপনা</h1>
             <button class="btn-primary" onclick="toggleAddForm()">
-                <i class="fas fa-plus"></i> Add New Price
+                <i class="fas fa-plus"></i> নতুন দাম যোগ করুন
             </button>
         </div>
+
+        <!-- Success/Error Messages -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+            </div>
+        @endif
 
         <!-- Statistics Cards -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">48</div>
-                <div class="stat-label">Total Crops</div>
+                <div class="stat-number">{{ $totalCrops }}</div>
+                <div class="stat-label">মোট ফসল</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">12</div>
-                <div class="stat-label">Markets</div>
+                <div class="stat-number">{{ $totalMarkets }}</div>
+                <div class="stat-label">বাজার</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">156</div>
-                <div class="stat-label">Price Updates Today</div>
+                <div class="stat-number">{{ $todayUpdates }}</div>
+                <div class="stat-label">আজকের আপডেট</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Data Accuracy</div>
+                <div class="stat-number">৯৮%</div>
+                <div class="stat-label">ডেটা নির্ভুলতা</div>
             </div>
         </div>
 
         <!-- Quick Actions -->
         <div class="admin-section">
             <h2 class="section-title">
-                <i class="fas fa-bolt"></i> Quick Actions
+                <i class="fas fa-bolt"></i> দ্রুত অ্যাকশন
             </h2>
             <div class="quick-actions">
-                <button class="btn-primary">
-                    <i class="fas fa-sync"></i> Bulk Update Prices
+                <button class="btn-primary" onclick="openBulkUpdateModal()">
+                    <i class="fas fa-sync"></i> বাল্ক প্রাইস আপডেট
+                </button>
+                <button class="btn-primary" onclick="exportData()">
+                    <i class="fas fa-download"></i> ডেটা এক্সপোর্ট
                 </button>
                 <button class="btn-primary">
-                    <i class="fas fa-download"></i> Export Data
-                </button>
-                <button class="btn-primary">
-                    <i class="fas fa-upload"></i> Import CSV
-                </button>
-                <button class="btn-primary">
-                    <i class="fas fa-bell"></i> Price Alerts
+                    <i class="fas fa-upload"></i> CSV ইমপোর্ট
                 </button>
             </div>
         </div>
@@ -400,80 +488,99 @@
         <!-- Add/Edit Price Form -->
         <div class="admin-section" id="addPriceForm" style="display: none;">
             <h2 class="section-title">
-                <i class="fas fa-plus-circle"></i> Add New Market Price
+                <i class="fas fa-plus-circle"></i> নতুন বাজার দর যোগ করুন
             </h2>
-            <form>
+            <form action="{{ route('admin.market-prices.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="crop_name">Crop Name</label>
-                        <select id="crop_name" name="crop_name" required>
-                            <option value="">Select Crop</option>
-                            <option value="rice">Rice</option>
-                            <option value="wheat">Wheat</option>
-                            <option value="corn">Corn</option>
-                            <option value="potato">Potato</option>
-                            <option value="onion">Onion</option>
-                            <option value="garlic">Garlic</option>
-                            <option value="tomato">Tomato</option>
-                            <option value="other">Other</option>
+                        <label for="crop_category">ফসলের ক্যাটেগরি</label>
+                        <select id="crop_category" name="crop_category" required>
+                            <option value="">ক্যাটেগরি নির্বাচন করুন</option>
+                            <option value="ধান">ধান</option>
+                            <option value="গম">গম</option>
+                            <option value="ভুট্টা">ভুট্টা</option>
+                            <option value="সবজি">সবজি</option>
+                            <option value="ডাল">ডাল</option>
+                            <option value="তেল">তেল</option>
+                            <option value="মসলা">মসলা</option>
+                            <option value="ফল">ফল</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="variety">Variety/Type</label>
-                        <input type="text" id="variety" name="variety" placeholder="e.g., Basmati, BR28">
+                        <label for="crop_name">ফসলের নাম</label>
+                        <input type="text" id="crop_name" name="crop_name" placeholder="যেমন: চাল, আলু" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="variety_type">জাত/ধরন</label>
+                        <input type="text" id="variety_type" name="variety_type" placeholder="যেমন: বাসমতি, BR28">
+                    </div>
+                    <div class="form-group">
+                        <label for="market_location">বাজারের অবস্থান</label>
+                        <select id="market_location" name="market_location" required>
+                            <option value="">বাজার নির্বাচন করুন</option>
+                            <option value="ঢাকা">ঢাকা</option>
+                            <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                            <option value="সিলেট">সিলেট</option>
+                            <option value="রাজশাহী">রাজশাহী</option>
+                            <option value="খুলনা">খুলনা</option>
+                            <option value="বরিশাল">বরিশাল</option>
+                            <option value="রংপুর">রংপুর</option>
+                            <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-triple">
                     <div class="form-group">
-                        <label for="current_price">Current Price (BDT/kg)</label>
+                        <label for="current_price">বর্তমান দাম (টাকা)</label>
                         <input type="number" id="current_price" name="current_price" step="0.01" required>
                     </div>
                     <div class="form-group">
-                        <label for="previous_price">Previous Price (BDT/kg)</label>
+                        <label for="previous_price">পূর্বের দাম (টাকা)</label>
                         <input type="number" id="previous_price" name="previous_price" step="0.01">
                     </div>
                     <div class="form-group">
-                        <label for="market_location">Market Location</label>
-                        <select id="market_location" name="market_location" required>
-                            <option value="">Select Market</option>
-                            <option value="dhaka">Dhaka</option>
-                            <option value="chittagong">Chittagong</option>
-                            <option value="sylhet">Sylhet</option>
-                            <option value="rajshahi">Rajshahi</option>
-                            <option value="khulna">Khulna</option>
-                            <option value="barisal">Barisal</option>
+                        <label for="unit">একক</label>
+                        <select id="unit" name="unit" required>
+                            <option value="কেজি">কেজি</option>
+                            <option value="টন">টন</option>
+                            <option value="মণ">মণ</option>
+                            <option value="সের">সের</option>
+                            <option value="লিটার">লিটার</option>
+                            <option value="ডজন">ডজন</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="unit">Unit</label>
-                        <select id="unit" name="unit" required>
-                            <option value="kg">Kilogram (kg)</option>
-                            <option value="ton">Ton</option>
-                            <option value="maund">Maund</option>
-                            <option value="seer">Seer</option>
+                        <label for="quality_grade">মানের গ্রেড</label>
+                        <select id="quality_grade" name="quality_grade" required>
+                            <option value="প্রিমিয়াম">প্রিমিয়াম</option>
+                            <option value="স্ট্যান্ডার্ড">স্ট্যান্ডার্ড</option>
+                            <option value="নিম্ন">নিম্ন গ্রেড</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="quality">Quality Grade</label>
-                        <select id="quality" name="quality">
-                            <option value="premium">Premium</option>
-                            <option value="standard">Standard</option>
-                            <option value="low">Low Grade</option>
-                        </select>
+                        <label for="product_image">পণ্যের ছবি</label>
+                        <div class="image-upload" onclick="document.getElementById('product_image').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-green);"></i>
+                            <p>ছবি আপলোড করতে ক্লিক করুন</p>
+                            <input type="file" id="product_image" name="product_image" style="display: none;" accept="image/*">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="remarks">Market Remarks</label>
-                    <textarea id="remarks" name="remarks" placeholder="Additional notes about market conditions, demand, etc."></textarea>
+                    <label for="market_remarks">বাজার মন্তব্য</label>
+                    <textarea id="market_remarks" name="market_remarks" placeholder="বাজারের অবস্থা, চাহিদা ইত্যাদি সম্পর্কে অতিরিক্ত তথ্য"></textarea>
                 </div>
                 <div class="form-row">
                     <button type="submit" class="btn-primary">
-                        <i class="fas fa-save"></i> Save Price Data
+                        <i class="fas fa-save"></i> দাম সংরক্ষণ করুন
                     </button>
                     <button type="button" class="btn-secondary" onclick="toggleAddForm()">
-                        <i class="fas fa-times"></i> Cancel
+                        <i class="fas fa-times"></i> বাতিল করুন
                     </button>
                 </div>
             </form>
@@ -482,182 +589,168 @@
         <!-- Search and Filter -->
         <div class="admin-section">
             <h2 class="section-title">
-                <i class="fas fa-table"></i> Current Market Prices
+                <i class="fas fa-table"></i> বর্তমান বাজার দর
             </h2>
-            <div class="search-filter">
-                <input type="text" placeholder="Search crop name..." id="searchCrop">
-                <select id="filterMarket">
-                    <option value="">All Markets</option>
-                    <option value="dhaka">Dhaka</option>
-                    <option value="chittagong">Chittagong</option>
-                    <option value="sylhet">Sylhet</option>
-                    <option value="rajshahi">Rajshahi</option>
-                </select>
-                <select id="filterCategory">
-                    <option value="">All Categories</option>
-                    <option value="cereals">Cereals</option>
-                    <option value="vegetables">Vegetables</option>
-                    <option value="spices">Spices</option>
-                </select>
-                <button class="btn-primary">
-                    <i class="fas fa-search"></i> Filter
-                </button>
-            </div>
-
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i>
-                <strong>Last Updated:</strong> January 15, 2024 at 2:30 PM | 
-                <strong>Next Update:</strong> Every 6 hours | 
-                <strong>Data Source:</strong> Live Market Feed
-            </div>
+            <form method="GET" action="{{ route('admin.market-prices') }}">
+                <div class="search-filter">
+                    <input type="text" name="search" placeholder="ফসলের নাম অনুসন্ধান..." value="{{ request('search') }}">
+                    <select name="category">
+                        <option value="">সব ক্যাটেগরি</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                                {{ $category }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <select name="location">
+                        <option value="">সব বাজার</option>
+                        @foreach($locations as $location)
+                            <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>
+                                {{ $location }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-search"></i> ফিল্টার
+                    </button>
+                </div>
+            </form>
 
             <table class="prices-table">
                 <thead>
                     <tr>
-                        <th>Crop</th>
-                        <th>Variety</th>
-                        <th>Market</th>
-                        <th>Current Price</th>
-                        <th>Previous Price</th>
-                        <th>Change</th>
-                        <th>Quality</th>
-                        <th>Last Updated</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>ফসল</th>
+                        <th>জাত</th>
+                        <th>বাজার</th>
+                        <th>বর্তমান দাম</th>
+                        <th>পূর্বের দাম</th>
+                        <th>পরিবর্তন</th>
+                        <th>মান</th>
+                        <th>সর্বশেষ আপডেট</th>
+                        <th>অ্যাকশন</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <span class="crop-icon rice-icon">🌾</span>
-                                Rice
-                            </div>
-                        </td>
-                        <td>BR28</td>
-                        <td>Dhaka</td>
-                        <td><strong>৳48.50/kg</strong></td>
-                        <td>৳47.20/kg</td>
-                        <td class="price-increase">+2.75%</td>
-                        <td>Premium</td>
-                        <td>2 hours ago</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <button class="btn-secondary btn-edit">Edit</button>
-                            <button class="btn-secondary btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <span class="crop-icon wheat-icon">🌾</span>
-                                Wheat
-                            </div>
-                        </td>
-                        <td>Local</td>
-                        <td>Chittagong</td>
-                        <td><strong>৳42.00/kg</strong></td>
-                        <td>৳43.50/kg</td>
-                        <td class="price-decrease">-3.45%</td>
-                        <td>Standard</td>
-                        <td>1 hour ago</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <button class="btn-secondary btn-edit">Edit</button>
-                            <button class="btn-secondary btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <span class="crop-icon corn-icon">🌽</span>
-                                Corn
-                            </div>
-                        </td>
-                        <td>Sweet Corn</td>
-                        <td>Sylhet</td>
-                        <td><strong>৳35.75/kg</strong></td>
-                        <td>৳35.75/kg</td>
-                        <td class="price-stable">0.00%</td>
-                        <td>Premium</td>
-                        <td>3 hours ago</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <button class="btn-secondary btn-edit">Edit</button>
-                            <button class="btn-secondary btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <span class="crop-icon potato-icon">🥔</span>
-                                Potato
-                            </div>
-                        </td>
-                        <td>Diamant</td>
-                        <td>Rajshahi</td>
-                        <td><strong>৳28.20/kg</strong></td>
-                        <td>৳26.80/kg</td>
-                        <td class="price-increase">+5.22%</td>
-                        <td>Standard</td>
-                        <td>30 minutes ago</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <button class="btn-secondary btn-edit">Edit</button>
-                            <button class="btn-secondary btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center;">
-                                <span class="crop-icon">🧄</span>
-                                Onion
-                            </div>
-                        </td>
-                        <td>Local Red</td>
-                        <td>Khulna</td>
-                        <td><strong>৳55.00/kg</strong></td>
-                        <td>৳58.25/kg</td>
-                        <td class="price-decrease">-5.58%</td>
-                        <td>Premium</td>
-                        <td>4 hours ago</td>
-                        <td><span class="status-badge status-inactive">Inactive</span></td>
-                        <td>
-                            <button class="btn-secondary btn-edit">Edit</button>
-                            <button class="btn-secondary btn-delete">Delete</button>
-                        </td>
-                    </tr>
+                    @forelse($products as $product)
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center;">
+                                    <span class="crop-icon" style="background: #f0f8ff; color: var(--primary-green);">
+                                        <i class="fas fa-seedling"></i>
+                                    </span>
+                                    <div>
+                                        <strong>{{ $product->crop_name }}</strong>
+                                        <br><small style="color: #666;">{{ $product->crop_category }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ $product->variety_type ?: 'N/A' }}</td>
+                            <td>{{ $product->market_location }}</td>
+                            <td><strong>৳{{ number_format($product->current_price, 2) }}/{{ $product->unit }}</strong></td>
+                            <td>৳{{ number_format($product->previous_price ?: 0, 2) }}/{{ $product->unit }}</td>
+                            <td>
+                                @if($product->previous_price && $product->previous_price > 0)
+                                    @php
+                                        $change = (($product->current_price - $product->previous_price) / $product->previous_price) * 100;
+                                        $changeClass = $change > 0 ? 'price-increase' : ($change < 0 ? 'price-decrease' : 'price-stable');
+                                        $changeIcon = $change > 0 ? 'fa-arrow-up' : ($change < 0 ? 'fa-arrow-down' : 'fa-minus');
+                                    @endphp
+                                    <span class="{{ $changeClass }}">
+                                        <i class="fas {{ $changeIcon }}"></i>
+                                        {{ number_format(abs($change), 1) }}%
+                                    </span>
+                                @else
+                                    <span class="price-stable">নতুন</span>
+                                @endif
+                            </td>
+                            <td>{{ $product->quality_grade }}</td>
+                            <td>{{ $product->updated_at->diffForHumans() }}</td>
+                            <td>
+                                <button class="btn-secondary btn-edit" onclick="editProduct({{ $product->id }})">
+                                    <i class="fas fa-edit"></i> এডিট
+                                </button>
+                                <form method="POST" action="{{ route('admin.market-prices.destroy', $product->id) }}" style="display: inline;" onsubmit="return confirm('আপনি কি নিশ্চিত যে এই পণ্যটি মুছে ফেলতে চান?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-secondary btn-delete">
+                                        <i class="fas fa-trash"></i> মুছুন
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" style="text-align: center; padding: 40px; color: #666;">
+                                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                                <br>কোনো পণ্য পাওয়া যায়নি
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-        </div>
 
-        <!-- Market Trends Section -->
-        <div class="admin-section">
-            <h2 class="section-title">
-                <i class="fas fa-chart-area"></i> Market Analysis & Trends
-            </h2>
-            <div class="form-row">
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                    <h4 style="color: var(--success-green); margin-bottom: 10px;">
-                        <i class="fas fa-arrow-up"></i> Price Increases (Last 24h)
-                    </h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li>• Rice (BR28): +2.75% - High demand</li>
-                        <li>• Potato (Diamant): +5.22% - Supply shortage</li>
-                        <li>• Garlic: +3.15% - Import delays</li>
-                    </ul>
+            <!-- Pagination -->
+            @if($products->hasPages())
+                <div style="margin-top: 20px; display: flex; justify-content: center;">
+                    {{ $products->appends(request()->query())->links('custom.pagination') }}
                 </div>
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                    <h4 style="color: var(--danger-red); margin-bottom: 10px;">
-                        <i class="fas fa-arrow-down"></i> Price Decreases (Last 24h)
-                    </h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li>• Wheat: -3.45% - Good harvest</li>
-                        <li>• Onion: -5.58% - Seasonal peak</li>
-                        <li>• Tomato: -2.20% - Local supply increase</li>
-                    </ul>
+            @endif
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2 style="margin-bottom: 20px;">পণ্য সম্পাদনা করুন</h2>
+            <form id="editForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div id="editFormContent">
+                    <!-- Form content will be loaded here -->
                 </div>
-            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bulk Update Modal -->
+    <div id="bulkUpdateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBulkUpdateModal()">&times;</span>
+            <h2 style="margin-bottom: 20px;">বাল্ক প্রাইস আপডেট</h2>
+            <form action="{{ route('admin.market-prices.bulk-update') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="price_increase_percentage">দাম বৃদ্ধির শতাংশ</label>
+                    <input type="number" id="price_increase_percentage" name="price_increase_percentage" step="0.1" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="selected_category">নির্দিষ্ট ক্যাটেগরি (ঐচ্ছিক)</label>
+                    <select id="selected_category" name="selected_category">
+                        <option value="">সব ক্যাটেগরি</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category }}">{{ $category }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="selected_location">নির্দিষ্ট বাজার (ঐচ্ছিক)</label>
+                    <select id="selected_location" name="selected_location">
+                        <option value="">সব বাজার</option>
+                        @foreach($locations as $location)
+                            <option value="{{ $location }}">{{ $location }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sync"></i> আপডেট করুন
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="closeBulkUpdateModal()">
+                        <i class="fas fa-times"></i> বাতিল
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -667,11 +760,146 @@
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Auto-refresh price data every 5 minutes
-        setInterval(function() {
-            console.log('Refreshing market data...');
-            // Add actual refresh logic here
-        }, 300000);
+        function editProduct(id) {
+            fetch(`/admin/market-prices/${id}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('editForm').action = `/admin/market-prices/${id}`;
+                    document.getElementById('editFormContent').innerHTML = `
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit_crop_category">ফসলের ক্যাটেগরি</label>
+                                <select id="edit_crop_category" name="crop_category" required>
+                                    <option value="ধান" ${data.crop_category === 'ধান' ? 'selected' : ''}>ধান</option>
+                                    <option value="গম" ${data.crop_category === 'গম' ? 'selected' : ''}>গম</option>
+                                    <option value="ভুট্টা" ${data.crop_category === 'ভুট্টা' ? 'selected' : ''}>ভুট্টা</option>
+                                    <option value="সবজি" ${data.crop_category === 'সবজি' ? 'selected' : ''}>সবজি</option>
+                                    <option value="ডাল" ${data.crop_category === 'ডাল' ? 'selected' : ''}>ডাল</option>
+                                    <option value="তেল" ${data.crop_category === 'তেল' ? 'selected' : ''}>তেল</option>
+                                    <option value="মসলা" ${data.crop_category === 'মসলা' ? 'selected' : ''}>মসলা</option>
+                                    <option value="ফল" ${data.crop_category === 'ফল' ? 'selected' : ''}>ফল</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_crop_name">ফসলের নাম</label>
+                                <input type="text" id="edit_crop_name" name="crop_name" value="${data.crop_name}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit_variety_type">জাত/ধরন</label>
+                                <input type="text" id="edit_variety_type" name="variety_type" value="${data.variety_type || ''}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_market_location">বাজারের অবস্থান</label>
+                                <select id="edit_market_location" name="market_location" required>
+                                    <option value="ঢাকা" ${data.market_location === 'ঢাকা' ? 'selected' : ''}>ঢাকা</option>
+                                    <option value="চট্টগ্রাম" ${data.market_location === 'চট্টগ্রাম' ? 'selected' : ''}>চট্টগ্রাম</option>
+                                    <option value="সিলেট" ${data.market_location === 'সিলেট' ? 'selected' : ''}>সিলেট</option>
+                                    <option value="রাজশাহী" ${data.market_location === 'রাজশাহী' ? 'selected' : ''}>রাজশাহী</option>
+                                    <option value="খুলনা" ${data.market_location === 'খুলনা' ? 'selected' : ''}>খুলনা</option>
+                                    <option value="বরিশাল" ${data.market_location === 'বরিশাল' ? 'selected' : ''}>বরিশাল</option>
+                                    <option value="রংপুর" ${data.market_location === 'রংপুর' ? 'selected' : ''}>রংপুর</option>
+                                    <option value="ময়মনসিংহ" ${data.market_location === 'ময়মনসিংহ' ? 'selected' : ''}>ময়মনসিংহ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-triple">
+                            <div class="form-group">
+                                <label for="edit_current_price">বর্তমান দাম</label>
+                                <input type="number" id="edit_current_price" name="current_price" value="${data.current_price}" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_previous_price">পূর্বের দাম</label>
+                                <input type="number" id="edit_previous_price" name="previous_price" value="${data.previous_price || ''}" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_unit">একক</label>
+                                <select id="edit_unit" name="unit" required>
+                                    <option value="কেজি" ${data.unit === 'কেজি' ? 'selected' : ''}>কেজি</option>
+                                    <option value="টন" ${data.unit === 'টন' ? 'selected' : ''}>টন</option>
+                                    <option value="মণ" ${data.unit === 'মণ' ? 'selected' : ''}>মণ</option>
+                                    <option value="সের" ${data.unit === 'সের' ? 'selected' : ''}>সের</option>
+                                    <option value="লিটার" ${data.unit === 'লিটার' ? 'selected' : ''}>লিটার</option>
+                                    <option value="ডজন" ${data.unit === 'ডজন' ? 'selected' : ''}>ডজন</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit_quality_grade">মানের গ্রেড</label>
+                                <select id="edit_quality_grade" name="quality_grade" required>
+                                    <option value="প্রিমিয়াম" ${data.quality_grade === 'প্রিমিয়াম' ? 'selected' : ''}>প্রিমিয়াম</option>
+                                    <option value="স্ট্যান্ডার্ড" ${data.quality_grade === 'স্ট্যান্ডার্ড' ? 'selected' : ''}>স্ট্যান্ডার্ড</option>
+                                    <option value="নিম্ন" ${data.quality_grade === 'নিম্ন' ? 'selected' : ''}>নিম্ন গ্রেড</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_product_image">নতুন ছবি</label>
+                                <input type="file" id="edit_product_image" name="product_image" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_market_remarks">বাজার মন্তব্য</label>
+                            <textarea id="edit_market_remarks" name="market_remarks">${data.market_remarks || ''}</textarea>
+                        </div>
+                        <div class="form-row">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> আপডেট করুন
+                            </button>
+                            <button type="button" class="btn-secondary" onclick="closeEditModal()">
+                                <i class="fas fa-times"></i> বাতিল
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('editModal').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('পণ্যের তথ্য লোড করতে সমস্যা হয়েছে।');
+                });
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function openBulkUpdateModal() {
+            document.getElementById('bulkUpdateModal').style.display = 'block';
+        }
+
+        function closeBulkUpdateModal() {
+            document.getElementById('bulkUpdateModal').style.display = 'none';
+        }
+
+        function exportData() {
+            window.location.href = '/admin/market-prices/export';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const editModal = document.getElementById('editModal');
+            const bulkModal = document.getElementById('bulkUpdateModal');
+            if (event.target === editModal) {
+                editModal.style.display = 'none';
+            }
+            if (event.target === bulkModal) {
+                bulkModal.style.display = 'none';
+            }
+        }
+
+        // Image upload preview
+        document.getElementById('product_image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadDiv = e.target.parentElement;
+                uploadDiv.innerHTML = `
+                    <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px; color: var(--success-green);"></i>
+                    <p>ছবি নির্বাচিত: ${file.name}</p>
+                `;
+            }
+        });
     </script>
 </body>
 </html>
+

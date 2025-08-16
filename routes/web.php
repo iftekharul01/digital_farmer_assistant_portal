@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MarketPriceController;
+use App\Http\Controllers\AdminPriceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,9 +31,7 @@ Route::get('/home', function () {
 })->name('home');
 
 // Route for market-prices page
-Route::get('/market-prices', function () {
-    return view('market-prices'); 
-})->name('market-prices');
+Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
 
 // Route for weather page
 Route::get('/weather', function () {
@@ -86,9 +86,12 @@ Route::prefix('admin')->group(function () {
             return view('admin.admin_home');
         })->name('admin.home');
         
-        Route::get('/market-prices', function () {
-            return view('admin.admin_market-prices');
-        })->name('admin.market-prices');
+        Route::get('/market-prices', [AdminPriceController::class, 'index'])->name('admin.market-prices');
+        Route::post('/market-prices', [AdminPriceController::class, 'store'])->name('admin.market-prices.store');
+        Route::get('/market-prices/{id}/edit', [AdminPriceController::class, 'edit'])->name('admin.market-prices.edit');
+        Route::put('/market-prices/{id}', [AdminPriceController::class, 'update'])->name('admin.market-prices.update');
+        Route::delete('/market-prices/{id}', [AdminPriceController::class, 'destroy'])->name('admin.market-prices.destroy');
+        Route::post('/market-prices/bulk-update', [AdminPriceController::class, 'bulkUpdate'])->name('admin.market-prices.bulk-update');
         
         Route::get('/about-us', function () {
             return view('admin.admin_about-us');
