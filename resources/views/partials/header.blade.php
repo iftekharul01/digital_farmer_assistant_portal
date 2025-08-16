@@ -324,6 +324,7 @@
             <a href="{{ route('market-prices') }}" class="nav-link">বাজার দর</a>
             <a href="{{ route('weather') }}" class="nav-link">আবহাওয়া</a>
             <a href="{{ route('crop-doctor') }}" class="nav-link">ফসল ডাক্তার</a>
+            <a href="{{ route('notifications') }}" class="nav-link">নোটিফিকেশন</a>
             <a href="{{ route('subsidies-news') }}" class="nav-link">ভর্তুকি/সংবাদ</a>
             <a href="{{ route('tutorials') }}" class="nav-link">টিউটোরিয়াল</a>
             <a href="{{ route('about-us') }}" class="nav-link">আমাদের সম্পর্কে</a>
@@ -399,6 +400,7 @@
         <a href="{{ route('market-prices') }}" class="nav-link">বাজার দর</a>
         <a href="{{ route('weather') }}" class="nav-link">আবহাওয়া</a>
         <a href="{{ route('crop-doctor') }}" class="nav-link">ফসল ডাক্তার</a>
+        <a href="{{ route('notifications') }}" class="nav-link">নোটিফিকেশন</a>
         <a href="{{ route('subsidies-news') }}" class="nav-link">ভর্তুকি/সংবাদ</a>
         <a href="{{ route('tutorials') }}" class="nav-link">টিউটোরিয়াল</a>
         <a href="{{ route('about-us') }}" class="nav-link">আমাদের সম্পর্কে</a>

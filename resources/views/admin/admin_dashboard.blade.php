@@ -203,6 +203,12 @@
                 <h3 class="card-title">Welcome Page</h3>
                 <p class="card-description">Customize welcome page layout, banners, and promotional content.</p>
             </a>
+
+            <a href="{{ route('admin.notifications') }}" class="admin-card">
+                <div class="card-icon"><i class="fas fa-bell"></i></div>
+                <h3 class="card-title">Notification Management</h3>
+                <p class="card-description">Create, edit and manage system notifications for users.</p>
+            </a>
         </div>
     </div>
 </body>

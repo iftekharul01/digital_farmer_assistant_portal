@@ -569,7 +569,7 @@
             </div>
         </div>
         <div class="section-cta">
-            <a href="#" class="cta-button">
+            <a href="{{ route('notifications') }}" class="cta-button">
                 View All Notifications <i class="fas fa-arrow-right"></i>
             </a>
         </div>

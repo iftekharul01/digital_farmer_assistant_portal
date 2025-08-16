@@ -9,6 +9,8 @@ use App\Http\Controllers\AdminPriceController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AdminWelcomeController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AdminNotificationController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -39,6 +41,9 @@ Route::post('/user-profile/update', [UserProfileController::class, 'updateProfil
 Route::get('/user-settings', [UserProfileController::class, 'settings'])->name('user.settings');
 Route::post('/user-settings/update-password', [UserProfileController::class, 'updatePassword'])->name('user.settings.update-password');
 Route::get('/user-favourites', [UserProfileController::class, 'favourites'])->name('user.favourites');
+
+// Notification Routes
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
 // Route for market-prices page
 Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
@@ -129,6 +134,11 @@ Route::prefix('admin')->group(function () {
         
         Route::get('/welcome', [AdminWelcomeController::class, 'index'])->name('admin.welcome');
         Route::put('/welcome', [AdminWelcomeController::class, 'update'])->name('admin.welcome.update');
+        
+        Route::get('/notifications', [AdminNotificationController::class, 'index'])->name('admin.notifications');
+        Route::post('/notifications', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
+        Route::put('/notifications/{id}', [AdminNotificationController::class, 'update'])->name('admin.notifications.update');
+        Route::delete('/notifications/{id}', [AdminNotificationController::class, 'destroy'])->name('admin.notifications.destroy');
     });
 });
 
