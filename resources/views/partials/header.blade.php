@@ -110,6 +110,7 @@
             align-items: center;
             gap: 15px;
             color: white;
+            position: relative;
         }
         .profile-icon {
             background: rgba(255,255,255,0.2);
@@ -120,6 +121,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .profile-icon:hover {
+            background: rgba(255,255,255,0.3);
         }
         .user-profile button {
             background: transparent;
@@ -133,6 +139,101 @@
         }
         .user-profile button:hover {
             background: rgba(255,255,255,0.1);
+        }
+
+        /* Profile Sidebar */
+        .profile-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: none;
+        }
+        .profile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            transition: right 0.3s ease;
+            z-index: 10000;
+            overflow-y: auto;
+        }
+        .profile-sidebar.active {
+            right: 0;
+        }
+        .sidebar-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .sidebar-menu {
+            padding: 20px;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            text-decoration: none;
+            color: var(--text-color-dark);
+            transition: all 0.2s ease;
+        }
+        .sidebar-menu-item:hover {
+            color: var(--primary-green);
+            padding-left: 10px;
+        }
+        .sidebar-menu-item i {
+            font-size: 1.1rem;
+            width: 20px;
+        }
+        .sidebar-user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .sidebar-user-info .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--light-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+        .sidebar-user-info h4 {
+            margin: 0 0 5px;
+            color: var(--text-color-dark);
+        }
+        .sidebar-user-info p {
+            margin: 0;
+            color: #777;
+            font-size: 0.9rem;
         }
 
         /* Mobile Navigation */
@@ -200,6 +301,10 @@
             .header-wrapper {
                 padding: 0 16px;
             }
+            .profile-sidebar {
+                width: 100%;
+                right: -100%;
+            }
         }
     </style>
 </head>
@@ -229,7 +334,7 @@
             <!-- Logged in user -->
             <div class="user-profile">
                 <span>{{ Session::get('username') }}</span>
-                <span class="profile-icon">
+                <span class="profile-icon" id="profile-icon">
                     <i class="fas fa-user"></i>
                 </span>
                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
@@ -250,6 +355,43 @@
         @endif
     </div>
 </div>
+
+<!-- Profile Sidebar -->
+@if(Session::get('logged_in'))
+<div class="profile-sidebar-overlay" id="profile-sidebar-overlay">
+    <div class="profile-sidebar" id="profile-sidebar">
+        <div class="sidebar-header">
+            <h3>প্রোফাইল মেনু</h3>
+            <button class="sidebar-close" id="sidebar-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h4>{{ Session::get('username') }}</h4>
+            <p>কৃষক সদস্য</p>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="/user-profile" class="sidebar-menu-item">
+                <i class="fas fa-user-circle"></i>
+                <span>আমার প্রোফাইল</span>
+            </a>
+            <a href="/user-settings" class="sidebar-menu-item">
+                <i class="fas fa-cog"></i>
+                <span>অ্যাকাউন্ট সেটিংস</span>
+            </a>
+            <a href="/user-favourites" class="sidebar-menu-item">
+                <i class="fas fa-heart"></i>
+                <span>আমার পছন্দের তালিকা</span>
+            </a>
+        </div>
+    </div>
+</div>
+@endif
 
 <div class="mobile-menu-overlay" id="mobile-menu-overlay">
     <div class="close-btn" id="mobile-menu-close">&times;</div>
@@ -290,5 +432,31 @@
             this.style.display = 'none';
         }
     });
+
+    // Profile sidebar toggle
+    @if(Session::get('logged_in'))
+    document.getElementById('profile-icon').addEventListener('click', function() {
+        document.getElementById('profile-sidebar-overlay').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('profile-sidebar').classList.add('active');
+        }, 10);
+    });
+
+    document.getElementById('sidebar-close').addEventListener('click', function() {
+        document.getElementById('profile-sidebar').classList.remove('active');
+        setTimeout(() => {
+            document.getElementById('profile-sidebar-overlay').style.display = 'none';
+        }, 300);
+    });
+
+    document.getElementById('profile-sidebar-overlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('profile-sidebar').classList.remove('active');
+            setTimeout(() => {
+                this.style.display = 'none';
+            }, 300);
+        }
+    });
+    @endif
 </script>
       

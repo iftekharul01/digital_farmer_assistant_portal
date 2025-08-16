@@ -6,10 +6,13 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MarketPriceController;
 use App\Http\Controllers\AdminPriceController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AdminWelcomeController;
+use App\Http\Controllers\UserProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
+Route::put('/admin/welcome', [AdminWelcomeController::class, 'update']);
 
 // Login routes
 Route::get('/login', [RegistrationController::class, 'showLoginForm'])->name('login');
@@ -29,6 +32,13 @@ Route::get('/home', function () {
     }
     return view('home');
 })->name('home');
+
+// User Profile Routes (protected)
+Route::get('/user-profile', [UserProfileController::class, 'profile'])->name('user.profile');
+Route::post('/user-profile/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
+Route::get('/user-settings', [UserProfileController::class, 'settings'])->name('user.settings');
+Route::post('/user-settings/update-password', [UserProfileController::class, 'updatePassword'])->name('user.settings.update-password');
+Route::get('/user-favourites', [UserProfileController::class, 'favourites'])->name('user.favourites');
 
 // Route for market-prices page
 Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
@@ -117,9 +127,8 @@ Route::prefix('admin')->group(function () {
             return view('admin.admin_weather');
         })->name('admin.weather');
         
-        Route::get('/welcome', function () {
-            return view('admin.admin_welcome');
-        })->name('admin.welcome');
+        Route::get('/welcome', [AdminWelcomeController::class, 'index'])->name('admin.welcome');
+        Route::put('/welcome', [AdminWelcomeController::class, 'update'])->name('admin.welcome.update');
     });
 });
 

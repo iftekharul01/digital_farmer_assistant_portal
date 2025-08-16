@@ -283,16 +283,16 @@ a:hover {
   <div class="header">
     <div class="container header-wrapper">
       <div class="logo">
-        <i class="fas fa-seedling"></i> <span>Farmer Portal</span>
+        <i class="fas fa-seedling"></i> <span>কৃষক পোর্টাল</span>
       </div>
       <div class="header-right">
         <div class="auth-links">
-          <a href="{{ route('login') }}">Login</a>
-          <a href="{{ route('signup') }}" class="signup-btn">Signup</a>
+          <a href="{{ route('login') }}">লগইন</a>
+          <a href="{{ route('signup') }}" class="signup-btn">নিবন্ধন</a>
         </div>
         <div class="language-toggle">
-          <button id="lang-en" class="lang-btn active">EN</button>
-          <button id="lang-bn" class="lang-btn">বাংলা</button>
+          <button id="lang-en" class="lang-btn">EN</button>
+          <button id="lang-bn" class="lang-btn active">বাংলা</button>
         </div>
       </div>
     </div>
@@ -300,32 +300,32 @@ a:hover {
 
   <!-- 🌿 Hero Section -->
   <div class="main-section">
-    <section class="hero">
-      <h1>Empowering Farmers With Smart Technology</h1>
-      <p>Your one-stop solution for crop health, market insights, weather updates, and government support. All in one place, just for you.</p>
-      <a href="{{ route('signup') }}" class="cta-btn">Get Started Now</a>
+    <section class="hero" style="background: linear-gradient(to bottom, rgba(246,255,246,0.6), rgba(217,255,214,0.3)), url('{{ $content && $content->hero_background_image ? asset('storage/assets/hero_sections/' . $content->hero_background_image) : '/assets/images/agri2.jpg' }}') center/cover no-repeat; background-blend-mode: lighten;">
+      <h1>{{ $content ? $content->hero_title : 'স্মার্ট প্রযুক্তির সাথে কৃষকদের ক্ষমতায়ন' }}</h1>
+      <p>{{ $content ? $content->hero_subtitle : 'ফসলের স্বাস্থ্য, বাজার অন্তর্দৃষ্টি, আবহাওয়া আপডেট এবং সরকারি সহায়তার জন্য আপনার এক-স্টপ সমাধান। সবকিছু এক জায়গায়, শুধুমাত্র আপনার জন্য।' }}</p>
+      <a href="{{ route('signup') }}" class="cta-btn">এখনই শুরু করুন</a>
     </section>
 
     <section class="features">
       <div class="feature-card">
         <i class="fas fa-leaf"></i>
-        <h3>Smarter Farming</h3>
-        <p>Detect diseases instantly with AI and take actionable steps to protect your crops effectively.</p>
+        <h3>{{ $content ? $content->feature_1_title : 'স্মার্ট চাষাবাদ' }}</h3>
+        <p>{{ $content ? $content->feature_1_description : 'AI দিয়ে তাৎক্ষণিকভাবে রোগ সনাক্ত করুন এবং আপনার ফসল কার্যকরভাবে রক্ষা করার জন্য কার্যকর পদক্ষেপ নিন।' }}</p>
       </div>
       <div class="feature-card">
         <i class="fas fa-cloud-sun-rain"></i>
-        <h3>Live Weather Tracking</h3>
-        <p>Check localized forecasts to better plan seeding, harvesting, and irrigation schedules.</p>
+        <h3>{{ $content ? $content->feature_2_title : 'লাইভ আবহাওয়া ট্র্যাকিং' }}</h3>
+        <p>{{ $content ? $content->feature_2_description : 'বীজ বপন, ফসল কাটা এবং সেচের সময়সূচী ভালভাবে পরিকল্পনা করতে স্থানীয় পূর্বাভাস দেখুন।' }}</p>
       </div>
       <div class="feature-card">
         <i class="fas fa-hand-holding-usd"></i>
-        <h3>Govt Subsidies</h3>
-        <p>Never miss an opportunity — view, track, and apply for available government support.</p>
+        <h3>{{ $content ? $content->feature_3_title : 'সরকারি ভর্তুকি' }}</h3>
+        <p>{{ $content ? $content->feature_3_description : 'কখনও সুযোগ হাতছাড়া করবেন না — উপলব্ধ সরকারি সহায়তা দেখুন, ট্র্যাক করুন এবং আবেদন করুন।' }}</p>
       </div>
       <div class="feature-card">
         <i class="fas fa-book-reader"></i>
-        <h3>Learn Modern Farming</h3>
-        <p>Access expert tutorials, guides, and videos for improved agricultural practices.</p>
+        <h3>{{ $content ? $content->feature_4_title : 'আধুনিক চাষাবাদ শিখুন' }}</h3>
+        <p>{{ $content ? $content->feature_4_description : 'উন্নত কৃষি অনুশীলনের জন্য বিশেষজ্ঞ টিউটোরিয়াল, গাইড এবং ভিডিওতে অ্যাক্সেস পান।' }}</p>
       </div>
     </section>
   </div>
@@ -334,27 +334,27 @@ a:hover {
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-column">
-        <h3>Farmer Portal</h3>
-        <p>Connecting technology to every farmer's hand. Agriculture made smarter and accessible.</p>
+        <h3>কৃষক পোর্টাল</h3>
+        <p>প্রযুক্তিকে প্রতিটি কৃষকের হাতে পৌঁছে দেওয়া। কৃষিকে আরও স্মার্ট এবং সহজলভ্য করে তোলা।</p>
       </div>
       <div class="footer-column">
-        <h4>Resources</h4>
+        <h4>সম্পদ</h4>
         <ul>
-          <li><a href="#">Crop Tips</a></li>
-          <li><a href="#">Market Watch</a></li>
-          <li><a href="#">Weather Alerts</a></li>
+          <li><a href="#">ফসলের টিপস</a></li>
+          <li><a href="#">বাজার পর্যবেক্ষণ</a></li>
+          <li><a href="#">আবহাওয়া সতর্কতা</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Community</h4>
+        <h4>কমিউনিটি</h4>
         <ul>
-          <li><a href="#">Success Stories</a></li>
-          <li><a href="#">Ask Experts</a></li>
-          <li><a href="#">Forum</a></li>
+          <li><a href="#">সফলতার গল্প</a></li>
+          <li><a href="#">বিশেষজ্ঞদের জিজ্ঞাসা</a></li>
+          <li><a href="#">ফোরাম</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Stay Connected</h4>
+        <h4>যোগাযোগ রাখুন</h4>
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-youtube"></i></a>
@@ -363,7 +363,7 @@ a:hover {
       </div>
     </div>
     <div class="footer-bottom">
-      © 2025 Farmer Portal. Designed with ❤️ for our farmers.
+      © ২০২৫ কৃষক পোর্টাল। আমাদের কৃষকদের জন্য ❤️ দিয়ে ডিজাইন করা।
     </div>
   </footer>
 
