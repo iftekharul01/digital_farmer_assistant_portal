@@ -200,7 +200,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: url('https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg') center center/cover no-repeat;
+            background: url('{{ $heroContent->hero_background_image ? "/storage/assets/hero_sections/" . $heroContent->hero_background_image : "https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg" }}') center center/cover no-repeat;
             border-radius: 0 0 32px 32px;
             box-shadow: 0 8px 32px var(--shadow-medium);
             margin-bottom: 0;
@@ -536,12 +536,12 @@
     <section class="hero-section">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-title animate__animated animate__fadeInDown">Welcome to Farmer Portal</div>
+            <div class="hero-title animate__animated animate__fadeInDown">{{ $heroContent->hero_title }}</div>
             <div class="hero-typed">
                 <span id="typed"></span>
             </div>
             <div class="hero-desc animate__animated animate__fadeInUp">
-                Your digital companion for smarter, more profitable, and sustainable farming in Bangladesh.
+                আপনার ডিজিটাল সাথী স্মার্ট, আরও লাভজনক এবং টেকসই কৃষিকাজের জন্য বাংলাদেশে।
             </div>
         </div>
     </section>
@@ -549,105 +549,91 @@
     <hr class="divider" />
 
     <section class="section-wrapper" data-aos="fade-up">
-        <h2 class="section-heading"><i class="fas fa-bell"></i> Notifications</h2>
+        <h2 class="section-heading"><i class="fas fa-bell"></i> নোটিফিকেশন</h2>
         <div class="timeline">
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
-                <h4>Power Outage – Rangpur</h4>
-                <p>Scheduled maintenance on July 18, 10am–2pm</p>
-            </div>
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
-                <h4>Pest Alert – Barisal</h4>
-                <p>Brown planthopper detected. Inspect paddy fields.</p>
-            </div>
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
-                <h4>Seed Distribution – Rajshahi</h4>
-                <p>BADC starts Aman seed distribution</p>
-            </div>
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
-                <h4>Flood Warning – Sirajganj</h4>
-                <p>Jamuna river level rising. Move equipment.</p>
-            </div>
+            @forelse($notifications as $notification)
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="{{ $loop->iteration * 100 }}">
+                    <h4>{{ $notification->title }}</h4>
+                    <p>{{ $notification->content }}</p>
+                </div>
+            @empty
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+                    <h4>কোনো নোটিফিকেশন নেই</h4>
+                    <p>বর্তমানে কোনো নতুন নোটিফিকেশন নেই।</p>
+                </div>
+            @endforelse
         </div>
         <div class="section-cta">
             <a href="{{ route('notifications') }}" class="cta-button">
-                View All Notifications <i class="fas fa-arrow-right"></i>
+                সব নোটিফিকেশন দেখুন <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </section>
 
     <section class="section-wrapper" data-aos="fade-up">
-        <h2 class="section-heading"><i class="fas fa-bullhorn"></i> Announcements</h2>
+        <h2 class="section-heading"><i class="fas fa-bullhorn"></i> ঘোষণা</h2>
         <div class="announcement-filters">
-            <button class="filter-button active" data-filter="all">All</button>
-            <button class="filter-button" data-filter="event">Events</button>
-            <button class="filter-button" data-filter="subsidy">Subsidies</button>
-            <button class="filter-button" data-filter="alert">Alerts</button>
+            <button class="filter-button active" data-filter="all">সবগুলো</button>
+            <button class="filter-button" data-filter="event">ইভেন্ট</button>
+            <button class="filter-button" data-filter="subsidy">ভর্তুকি</button>
+            <button class="filter-button" data-filter="alert">সতর্কতা</button>
+            <button class="filter-button" data-filter="general">সাধারণ</button>
         </div>
         <div class="announcement-grid">
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="50" data-category="event">
-                <h4>Organic Week</h4>
-                <p>Join the national campaign for organic farming, July 20–26.</p>
-            </div>
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="100" data-category="subsidy">
-                <h4>Solar Pump Subsidy</h4>
-                <p>Apply for 30% subsidy on solar pumps in Khulna.</p>
-            </div>
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="150" data-category="event">
-                <h4>Free Rice Workshop</h4>
-                <p>Chattogram, July 22. Register online now.</p>
-            </div>
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="200" data-category="alert">
-                <h4>Storm Recovery Grants</h4>
-                <p>Available for cyclone-affected farmers in coastal areas.</p>
-            </div>
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="250" data-category="subsidy">
-                <h4>Crop Insurance</h4>
-                <p>Enroll before July 31st for Boro season.</p>
-            </div>
-            <div class="announcement-card show" data-aos="fade-up" data-aos-delay="300" data-category="subsidy">
-                <h4>Startup Grants</h4>
-                <p>Apply for agri innovation grants by August 5th.</p>
-            </div>
+            @forelse($announcements as $announcement)
+                <div class="announcement-card show" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 50 }}" data-category="{{ $announcement->category }}">
+                    <h4>{{ $announcement->title }}</h4>
+                    <p>{{ $announcement->description }}</p>
+                    @if($announcement->subtitle)
+                        <small style="color: #666; font-style: italic;">{{ $announcement->subtitle }}</small>
+                    @endif
+                </div>
+            @empty
+                <div class="announcement-card show" data-aos="fade-up" data-aos-delay="50" data-category="general">
+                    <h4>কোনো ঘোষণা নেই</h4>
+                    <p>বর্তমানে কোনো নতুন ঘোষণা নেই।</p>
+                </div>
+            @endforelse
         </div>
         <div class="section-cta">
             <a href="{{ route('announcements') }}" class="cta-button">
-                Explore All Announcements <i class="fas fa-arrow-right"></i>
+                সব ঘোষণা দেখুন <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </section>
 
     <section class="section-wrapper" data-aos="fade-up">
-        <h2 class="section-heading"><i class="fas fa-cloud-sun-rain"></i> Weather Report</h2>
+        <h2 class="section-heading"><i class="fas fa-cloud-sun-rain"></i> আবহাওয়া রিপোর্ট</h2>
         <div class="weather-section-grid">
             <div class="weather-box" data-aos="fade-right" data-aos-delay="100">
                 <i class="fas fa-cloud-showers-heavy"></i>
-                <h4>Dhaka</h4>
-                <p>Heavy rain, July 16–18</p>
+                <h4>ঢাকা</h4>
+                <p>ভারী বৃষ্টি, জুলাই ১৬–১৮</p>
             </div>
             <div class="weather-box" data-aos="fade-right" data-aos-delay="200">
                 <i class="fas fa-temperature-high"></i>
-                <h4>Rajshahi</h4>
-                <p>Heatwave alert: 38°C</p>
+                <h4>রাজশাহী</h4>
+                <p>তাপপ্রবাহ সতর্কতা: ৩৮°সে</p>
             </div>
             <div class="weather-box" data-aos="fade-right" data-aos-delay="300">
                 <i class="fas fa-wind"></i>
-                <h4>Khulna</h4>
-                <p>Strong winds – Secure equipment</p>
+                <h4>খুলনা</h4>
+                <p>প্রবল বাতাস – যন্ত্রপাতি সুরক্ষিত করুন</p>
             </div>
             <div class="weather-box" data-aos="fade-right" data-aos-delay="400">
                 <i class="fas fa-cloud"></i>
-                <h4>Barisal</h4>
-                <p>Cloudy – Good for jute retting</p>
+                <h4>বরিশাল</h4>
+                <p>মেঘলা – পাট জাগ দেওয়ার জন্য ভালো</p>
             </div>
             <div class="weather-box" data-aos="fade-right" data-aos-delay="500">
                 <i class="fas fa-water"></i>
-                <h4>Chattogram</h4>
-                <p>Storm risk – Monitor fish ponds</p>
+                <h4>চট্টগ্রাম</h4>
+                <p>ঝড়ের ঝুঁকি – মাছের পুকুর পর্যবেক্ষণ করুন</p>
             </div>
         </div>
         <div class="section-cta">
             <a href="#" class="cta-button">
-                Full Weather Forecast <i class="fas fa-arrow-right"></i>
+                সম্পূর্ণ আবহাওয়া পূর্বাভাস <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </section>
@@ -682,11 +668,13 @@
         // Typed.js animation for hero
         var typed = new Typed('#typed', {
             strings: [
-                "Real-time Market Prices for Every Crop.",
-                "Weather Alerts Tailored for Your Region.",
-                "Expert Advice, Whenever You Need It.",
-                "Government Schemes & Subsidies Updates.",
-                "Grow More. Earn More. Live Better."
+                "{{ $heroContent->hero_subtitle1 }}",
+                @if($heroContent->hero_subtitle2)
+                "{{ $heroContent->hero_subtitle2 }}",
+                @endif
+                "বিশেষজ্ঞ পরামর্শ, যখনই আপনার প্রয়োজন।",
+                "সরকারী প্রকল্প ও ভর্তুকির আপডেট।",
+                "আরো ফলান। আরো আয় করুন। ভালো থাকুন।"
             ],
             typeSpeed: 38,
             backSpeed: 24,

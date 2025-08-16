@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AdminNotificationController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AdminAnnouncementController;
+use App\Http\Controllers\AdminHomeController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -34,7 +35,28 @@ Route::get('/home', function () {
     if (!Session::get('logged_in')) {
         return redirect()->route('login')->with('error', 'Please login to access the home page.');
     }
-    return view('home');
+    
+    // Get dynamic hero content
+    $heroContent = \App\Models\HeroContent::getActive() ?? (object)[
+        'hero_title' => 'কৃষক পোর্টালে স্বাগতম',
+        'hero_subtitle1' => 'প্রতিটি ফসলের রিয়েল-টাইম মার্কেট প্রাইস।',
+        'hero_subtitle2' => 'আপনার অঞ্চলের জন্য আবহাওয়া সতর্কতা।',
+        'hero_background_image' => 'https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg'
+    ];
+    
+    // Get top 5 latest notifications
+    $notifications = \App\Models\Notification::where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+    
+    // Get top 5 latest announcements
+    $announcements = \App\Models\Announcement::where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+    
+    return view('home', compact('heroContent', 'notifications', 'announcements'));
 })->name('home');
 
 // User Profile Routes (protected)
@@ -102,9 +124,8 @@ Route::prefix('admin')->group(function () {
             return view('admin.admin_dashboard');
         })->name('admin.dashboard');
         
-        Route::get('/home', function () {
-            return view('admin.admin_home');
-        })->name('admin.home');
+        Route::get('/home', [AdminHomeController::class, 'index'])->name('admin.home');
+        Route::put('/home', [AdminHomeController::class, 'update'])->name('admin.home.update');
         
         Route::get('/market-prices', [AdminPriceController::class, 'index'])->name('admin.market-prices');
         Route::post('/market-prices', [AdminPriceController::class, 'store'])->name('admin.market-prices.store');

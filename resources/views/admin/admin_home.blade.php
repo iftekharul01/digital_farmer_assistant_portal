@@ -142,44 +142,92 @@
     </header>
 
     <div class="content-container">
-        <h1 class="page-title"><i class="fas fa-home"></i> Home Page Management</h1>
+        <h1 class="page-title"><i class="fas fa-home"></i> হোম পেজ ম্যানেজমেন্ট</h1>
+
+        @if(session('success'))
+            <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <div class="admin-section">
-            <h2 class="section-title">Hero Section</h2>
-            <form>
+            <h2 class="section-title">হিরো সেকশন</h2>
+            <form action="{{ route('admin.home.update') }}" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="form-group">
-                    <label for="hero_title">Hero Title</label>
-                    <input type="text" id="hero_title" name="hero_title" value="Empowering Farmers With Smart Technology">
+                    <label for="hero_title">হিরো টাইটেল</label>
+                    <input type="text" id="hero_title" name="hero_title" 
+                           value="{{ old('hero_title', $heroContent->hero_title) }}" required>
+                    @error('hero_title')
+                        <span style="color: #dc3545; font-size: 0.875rem;">{{ $message }}</span>
+                    @enderror
                 </div>
+                
                 <div class="form-group">
-                    <label for="hero_subtitle">Hero Subtitle</label>
-                    <textarea id="hero_subtitle" name="hero_subtitle" rows="3">Your one-stop solution for crop health, market insights, weather updates, and government support. All in one place, just for you.</textarea>
+                    <label for="hero_subtitle1">হিরো সাবটাইটেল ১</label>
+                    <input type="text" id="hero_subtitle1" name="hero_subtitle1" 
+                           value="{{ old('hero_subtitle1', $heroContent->hero_subtitle1) }}" required>
+                    @error('hero_subtitle1')
+                        <span style="color: #dc3545; font-size: 0.875rem;">{{ $message }}</span>
+                    @enderror
                 </div>
-                <button type="submit" class="btn-primary">Update Hero Section</button>
+                
+                <div class="form-group">
+                    <label for="hero_subtitle2">হিরো সাবটাইটেল ২</label>
+                    <input type="text" id="hero_subtitle2" name="hero_subtitle2" 
+                           value="{{ old('hero_subtitle2', $heroContent->hero_subtitle2) }}">
+                    @error('hero_subtitle2')
+                        <span style="color: #dc3545; font-size: 0.875rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+                
+                <div class="form-group">
+                    <label for="hero_background_image">ব্যাকগ্রাউন্ড ইমেজ (ফাইলের নাম)</label>
+                    <input type="text" id="hero_background_image" name="hero_background_image" 
+                           value="{{ old('hero_background_image', $heroContent->hero_background_image) }}" 
+                           placeholder="যেমন: farm_landscape.jpg">
+                    <small style="color: #666; font-size: 0.875rem; display: block; margin-top: 5px;">
+                        ছবিটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন
+                    </small>
+                    @error('hero_background_image')
+                        <span style="color: #dc3545; font-size: 0.875rem;">{{ $message }}</span>
+                    @enderror
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> হিরো সেকশন আপডেট করুন
+                </button>
             </form>
         </div>
 
         <div class="admin-section">
-            <h2 class="section-title">Features Section</h2>
-            <form>
-                <div class="form-group">
-                    <label for="feature1_title">Feature 1 Title</label>
-                    <input type="text" id="feature1_title" name="feature1_title" value="Smarter Farming">
-                </div>
-                <div class="form-group">
-                    <label for="feature1_desc">Feature 1 Description</label>
-                    <textarea id="feature1_desc" name="feature1_desc" rows="2">Detect diseases instantly with AI and take actionable steps to protect your crops effectively.</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="feature2_title">Feature 2 Title</label>
-                    <input type="text" id="feature2_title" name="feature2_title" value="Live Weather Tracking">
-                </div>
-                <div class="form-group">
-                    <label for="feature2_desc">Feature 2 Description</label>
-                    <textarea id="feature2_desc" name="feature2_desc" rows="2">Check localized forecasts to better plan seeding, harvesting, and irrigation schedules.</textarea>
-                </div>
-                <button type="submit" class="btn-primary">Update Features</button>
-            </form>
+            <h2 class="section-title">বর্তমান হিরো সেকশন প্রিভিউ</h2>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                <h3 style="color: var(--primary-green); font-size: 1.8rem; margin-bottom: 10px;">
+                    {{ $heroContent->hero_title }}
+                </h3>
+                <p style="font-size: 1.1rem; color: #666; margin-bottom: 5px;">
+                    {{ $heroContent->hero_subtitle1 }}
+                </p>
+                @if($heroContent->hero_subtitle2)
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 10px;">
+                        {{ $heroContent->hero_subtitle2 }}
+                    </p>
+                @endif
+                @if($heroContent->hero_background_image)
+                    <div style="margin-top: 15px;">
+                        <strong>ব্যাকগ্রাউন্ড ইমেজ:</strong><br>
+                        <img src="{{ '/storage/assets/hero_sections/' . $heroContent->hero_background_image }}" 
+                             alt="Hero Background" 
+                             style="max-width: 300px; height: 150px; object-fit: cover; border-radius: 8px; margin-top: 5px;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div style="display: none; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-top: 5px;">
+                            ছবি পাওয়া যায়নি। অনুগ্রহ করে সঠিক ফাইলের নাম দিন।
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 </body>
