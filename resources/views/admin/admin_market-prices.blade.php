@@ -490,7 +490,7 @@
             <h2 class="section-title">
                 <i class="fas fa-plus-circle"></i> নতুন বাজার দর যোগ করুন
             </h2>
-            <form action="{{ route('admin.market-prices.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.market-prices.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="form-group">
@@ -563,12 +563,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="product_image">পণ্যের ছবি</label>
-                        <div class="image-upload" onclick="document.getElementById('product_image').click()">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-green);"></i>
-                            <p>ছবি আপলোড করতে ক্লিক করুন</p>
-                            <input type="file" id="product_image" name="product_image" style="display: none;" accept="image/*">
-                        </div>
+                        <label for="product_image">পণ্যের ছবি (ফাইলের নাম)</label>
+                        <input type="text" id="product_image" name="product_image" 
+                               placeholder="যেমন: rice_br28.png" class="form-input">
+                        <small style="color: #666; font-size: 0.875rem; display: block; margin-top: 5px;">
+                            ছবিটি storage/app/public/assets/product_images/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন
+                        </small>
                     </div>
                 </div>
                 <div class="form-group">
@@ -619,6 +619,7 @@
             <table class="prices-table">
                 <thead>
                     <tr>
+                        <th>ছবি</th>
                         <th>ফসল</th>
                         <th>জাত</th>
                         <th>বাজার</th>
@@ -633,6 +634,21 @@
                 <tbody>
                     @forelse($products as $product)
                         <tr>
+                            <td>
+                                @if($product->product_image)
+                                    <img src="{{ '/storage/assets/product_images/' . $product->product_image }}" 
+                                         alt="{{ $product->crop_name }}" 
+                                         style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div style="display: none; width: 50px; height: 50px; background: #f0f0f0; border-radius: 8px; align-items: center; justify-content: center; color: #999;">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                @else
+                                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                @endif
+                            </td>
                             <td>
                                 <div style="display: flex; align-items: center;">
                                     <span class="crop-icon" style="background: #f0f8ff; color: var(--primary-green);">
@@ -680,7 +696,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 40px; color: #666;">
+                            <td colspan="10" style="text-align: center; padding: 40px; color: #666;">
                                 <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px;"></i>
                                 <br>কোনো পণ্য পাওয়া যায়নি
                             </td>
@@ -703,7 +719,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
             <h2 style="margin-bottom: 20px;">পণ্য সম্পাদনা করুন</h2>
-            <form id="editForm" method="POST" enctype="multipart/form-data">
+            <form id="editForm" method="POST">
                 @csrf
                 @method('PUT')
                 <div id="editFormContent">
@@ -835,8 +851,25 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="edit_product_image">নতুন ছবি</label>
-                                <input type="file" id="edit_product_image" name="product_image" accept="image/*">
+                                <label for="edit_product_image">পণ্যের ছবি (ফাইলের নাম)</label>
+                                <input type="text" id="edit_product_image" name="product_image" 
+                                       value="${data.product_image || ''}" 
+                                       placeholder="যেমন: rice_br28.png" class="form-input">
+                                <small style="color: #666; font-size: 0.875rem; display: block; margin-top: 5px;">
+                                    ছবিটি storage/app/public/assets/product_images/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন
+                                </small>
+                                ${data.product_image ? `
+                                    <div style="margin-top: 10px;">
+                                        <p><strong>বর্তমান ছবি:</strong></p>
+                                        <img src="/storage/assets/product_images/${data.product_image}" 
+                                             alt="${data.crop_name}" 
+                                             style="max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover;"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <div style="display: none; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-top: 5px;">
+                                            ছবি পাওয়া যায়নি।
+                                        </div>
+                                    </div>
+                                ` : ''}
                             </div>
                         </div>
                         <div class="form-group">
@@ -888,17 +921,7 @@
             }
         }
 
-        // Image upload preview
-        document.getElementById('product_image').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const uploadDiv = e.target.parentElement;
-                uploadDiv.innerHTML = `
-                    <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px; color: var(--success-green);"></i>
-                    <p>ছবি নির্বাচিত: ${file.name}</p>
-                `;
-            }
-        });
+        // No longer needed - using filename input instead of file upload
     </script>
 </body>
 </html>

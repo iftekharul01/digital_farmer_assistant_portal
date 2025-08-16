@@ -255,19 +255,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="hero_background_image">হিরো ব্যাকগ্রাউন্ড ছবি</label>
-                    <input type="file" id="hero_background_image" name="hero_background_image" 
-                           accept="image/*" onchange="previewImage(this, 'hero-preview')">
+                    <label for="hero_background_image">হিরো ব্যাকগ্রাউন্ড ছবি (ফাইলের নাম)</label>
+                    <input type="text" id="hero_background_image" name="hero_background_image" 
+                           value="{{ old('hero_background_image', $content->hero_background_image ?? '') }}" 
+                           placeholder="যেমন: welcome_hero.jpg">
+                    <small style="color: #666; font-size: 0.875rem; display: block; margin-top: 5px;">
+                        ছবিটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন
+                    </small>
                     
                     @if($content && $content->hero_background_image)
                         <div class="current-image">
                             <p><strong>বর্তমান ছবি:</strong></p>
-                            <img src="{{ asset('storage/assets/hero_sections/' . $content->hero_background_image) }}" 
-                                 alt="Current Hero Image">
+                            <img src="{{ '/storage/assets/hero_sections/' . $content->hero_background_image }}" 
+                                 alt="Current Hero Image"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="display: none; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-top: 5px;">
+                                ছবি পাওয়া যায়নি। অনুগ্রহ করে সঠিক ফাইলের নাম দিন।
+                            </div>
                         </div>
                     @endif
-                    
-                    <img id="hero-preview" class="image-preview" style="display: none;">
                 </div>
             </div>
 
@@ -342,17 +348,7 @@
     </div>
 
     <script>
-        function previewImage(input, previewId) {
-            const preview = document.getElementById(previewId);
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+        // Add any future JavaScript functionality here
     </script>
 </body>
 </html>

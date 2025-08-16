@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductPrice;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
 class AdminPriceController extends Controller
@@ -74,22 +73,16 @@ class AdminPriceController extends Controller
             'quality_grade' => 'required|string|max:255',
             'market_remarks' => 'nullable|string',
             'unit' => 'required|string|max:50',
-            'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'product_image' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_\-\.]+\.(jpg|jpeg|png|gif|webp)$/i']
+        ], [
+            'product_image.regex' => 'অনুগ্রহ করে একটি বৈধ ইমেজ ফাইলের নাম দিন (jpg, jpeg, png, gif, webp)'
         ]);
 
         $productData = $request->only([
             'crop_category', 'crop_name', 'variety_type', 'current_price', 
             'previous_price', 'market_location', 'quality_grade', 
-            'market_remarks', 'unit'
+            'market_remarks', 'unit', 'product_image'
         ]);
-
-        // Handle image upload
-        if ($request->hasFile('product_image')) {
-            $image = $request->file('product_image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('public/assets/product_images', $imageName);
-            $productData['product_image'] = 'storage/assets/product_images/' . $imageName;
-        }
 
         ProductPrice::create($productData);
 
@@ -117,27 +110,16 @@ class AdminPriceController extends Controller
             'quality_grade' => 'required|string|max:255',
             'market_remarks' => 'nullable|string',
             'unit' => 'required|string|max:50',
-            'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'product_image' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_\-\.]+\.(jpg|jpeg|png|gif|webp)$/i']
+        ], [
+            'product_image.regex' => 'অনুগ্রহ করে একটি বৈধ ইমেজ ফাইলের নাম দিন (jpg, jpeg, png, gif, webp)'
         ]);
 
         $productData = $request->only([
             'crop_category', 'crop_name', 'variety_type', 'current_price', 
             'previous_price', 'market_location', 'quality_grade', 
-            'market_remarks', 'unit'
+            'market_remarks', 'unit', 'product_image'
         ]);
-
-        // Handle image upload
-        if ($request->hasFile('product_image')) {
-            // Delete old image if exists
-            if ($product->product_image && Storage::exists('public/assets/product_images/' . basename($product->product_image))) {
-                Storage::delete('public/assets/product_images/' . basename($product->product_image));
-            }
-
-            $image = $request->file('product_image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('public/assets/product_images', $imageName);
-            $productData['product_image'] = 'storage/assets/product_images/' . $imageName;
-        }
 
         $product->update($productData);
 
@@ -148,12 +130,6 @@ class AdminPriceController extends Controller
     public function destroy($id)
     {
         $product = ProductPrice::findOrFail($id);
-
-        // Delete image if exists
-        if ($product->product_image && Storage::exists('public/assets/product_images/' . basename($product->product_image))) {
-            Storage::delete('public/assets/product_images/' . basename($product->product_image));
-        }
-
         $product->delete();
 
         return redirect()->route('admin.market-prices')

@@ -302,7 +302,7 @@ a:hover {
 
   <!-- 🌿 Hero Section -->
   <div class="main-section">
-    <section class="hero" style="background: linear-gradient(to bottom, rgba(246,255,246,0.6), rgba(217,255,214,0.3)), url('{{ $content && $content->hero_background_image ? asset('storage/assets/hero_sections/' . $content->hero_background_image) : '/assets/images/agri2.jpg' }}') center/cover no-repeat; background-blend-mode: lighten;">
+    <section class="hero" style="background: linear-gradient(to bottom, rgba(246,255,246,0.6), rgba(217,255,214,0.3)), url('{{ $content && $content->hero_background_image ? "/storage/assets/hero_sections/" . $content->hero_background_image : "/assets/images/agri2.jpg" }}') center/cover no-repeat; background-blend-mode: lighten;">
       <h1>{{ $content ? $content->hero_title : 'স্মার্ট প্রযুক্তির সাথে কৃষকদের ক্ষমতায়ন' }}</h1>
       <p>{{ $content ? $content->hero_subtitle : 'ফসলের স্বাস্থ্য, বাজার অন্তর্দৃষ্টি, আবহাওয়া আপডেট এবং সরকারি সহায়তার জন্য আপনার এক-স্টপ সমাধান। সবকিছু এক জায়গায়, শুধুমাত্র আপনার জন্য।' }}</p>
       <a href="{{ route('signup') }}" class="cta-btn">এখনই শুরু করুন</a>
