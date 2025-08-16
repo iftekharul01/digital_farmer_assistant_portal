@@ -209,6 +209,12 @@
                 <h3 class="card-title">Notification Management</h3>
                 <p class="card-description">Create, edit and manage system notifications for users.</p>
             </a>
+
+            <a href="{{ route('admin.announcements') }}" class="admin-card">
+                <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                <h3 class="card-title">Announcement Management</h3>
+                <p class="card-description">Create, edit and manage announcements, events and news.</p>
+            </a>
         </div>
     </div>
 </body>

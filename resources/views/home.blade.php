@@ -610,7 +610,7 @@
             </div>
         </div>
         <div class="section-cta">
-            <a href="#" class="cta-button">
+            <a href="{{ route('announcements') }}" class="cta-button">
                 Explore All Announcements <i class="fas fa-arrow-right"></i>
             </a>
         </div>

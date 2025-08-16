@@ -11,6 +11,8 @@ use App\Http\Controllers\AdminWelcomeController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AdminNotificationController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AdminAnnouncementController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -44,6 +46,9 @@ Route::get('/user-favourites', [UserProfileController::class, 'favourites'])->na
 
 // Notification Routes
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+
+// Announcement Routes
+Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements');
 
 // Route for market-prices page
 Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
@@ -139,6 +144,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/notifications', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
         Route::put('/notifications/{id}', [AdminNotificationController::class, 'update'])->name('admin.notifications.update');
         Route::delete('/notifications/{id}', [AdminNotificationController::class, 'destroy'])->name('admin.notifications.destroy');
+        
+        Route::get('/announcements', [AdminAnnouncementController::class, 'index'])->name('admin.announcements');
+        Route::post('/announcements', [AdminAnnouncementController::class, 'store'])->name('admin.announcements.store');
+        Route::put('/announcements/{id}', [AdminAnnouncementController::class, 'update'])->name('admin.announcements.update');
+        Route::delete('/announcements/{id}', [AdminAnnouncementController::class, 'destroy'])->name('admin.announcements.destroy');
     });
 });
 
