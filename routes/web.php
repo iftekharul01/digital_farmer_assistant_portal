@@ -95,6 +95,47 @@ Route::get('/tutorials', function () {
     return view('tutorials'); 
 })->name('tutorials');
 
+// Individual Tutorial Pages
+Route::get('/tutorials/soil-testing', function () {
+    return view('tutorials.soil-testing');
+})->name('tutorials.soil-testing');
+
+Route::get('/tutorials/weather-forecasting', function () {
+    return view('tutorials.weather-forecasting');
+})->name('tutorials.weather-forecasting');
+
+Route::get('/tutorials/crop-selection', function () {
+    return view('tutorials.crop-selection');
+})->name('tutorials.crop-selection');
+
+Route::get('/tutorials/irrigation-management', function () {
+    return view('tutorials.irrigation-management');
+})->name('tutorials.irrigation-management');
+
+Route::get('/tutorials/pest-control', function () {
+    return view('tutorials.pest-control');
+})->name('tutorials.pest-control');
+
+Route::get('/tutorials/fertilizers', function () {
+    return view('tutorials.fertilizers');
+})->name('tutorials.fertilizers');
+
+Route::get('/tutorials/post-harvest-storage', function () {
+    return view('tutorials.post-harvest-storage');
+})->name('tutorials.post-harvest-storage');
+
+Route::get('/tutorials/government-subsidies', function () {
+    return view('tutorials.government-subsidies');
+})->name('tutorials.government-subsidies');
+
+Route::get('/tutorials/digital-tools', function () {
+    return view('tutorials.digital-tools');
+})->name('tutorials.digital-tools');
+
+Route::get('/tutorials/farm-laws', function () {
+    return view('tutorials.farm-laws');
+})->name('tutorials.farm-laws');
+
 // Route for about-us page
 Route::get('/about-us', function () {
     return view('about-us'); 
