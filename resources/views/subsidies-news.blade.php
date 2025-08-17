@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Home | Farmer Portal</title>
+    <title>ভর্তুকি ও সংবাদ | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -347,6 +347,83 @@
             padding: 30px 0;
             grid-column: 1/-1;
         }
+
+        /* Filter Section Styles */
+        .news-filters {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-card);
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+        }
+        .filters-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 150px;
+        }
+        .filter-label {
+            font-weight: 600;
+            color: var(--dark-green);
+            font-size: 0.95rem;
+        }
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            background: white;
+            color: var(--dark-green);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .apply-filters-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .apply-filters-btn:hover {
+            background: #089c24;
+        }
+        .clear-filters-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background 0.2s;
+        }
+        .clear-filters-btn:hover {
+            background: #5a6268;
+        }
+
         @media (max-width: 900px) {
             .news-grid {
                 grid-template-columns: 1fr;
@@ -358,6 +435,13 @@
             .news-img {
                 height: 120px;
             }
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group {
+                min-width: unset;
+            }
         }
     </style>
 </head>
@@ -368,9 +452,55 @@
 <!-- Main Content  -->
 <div class="section-wrapper news-main-bg">
     <div class="news-header">
-        <h1 class="section-heading"><i class="fas fa-newspaper"></i> Farmer & Agriculture News</h1>
-        <div class="news-subheading">Latest updates, editor's picks, business, sports, environment & more</div>
+        <h1 class="section-heading"><i class="fas fa-newspaper"></i> কৃষি ও কৃষক সংবাদ</h1>
+        <div class="news-subheading">সর্বশেষ আপডেট, সম্পাদকের পছন্দ, ব্যবসা, খেলাধুলা, পরিবেশ এবং আরও অনেক কিছু</div>
     </div>
+    
+    <!-- News Filters -->
+    <div class="news-filters">
+        <div class="filters-title">🔍 সংবাদ ফিল্টার</div>
+        <div class="filter-row">
+            <div class="filter-group">
+                <label class="filter-label">দেশ</label>
+                <select id="country-filter" class="filter-select">
+                    <option value="">সব দেশ</option>
+                    <option value="bd">বাংলাদেশ</option>
+                    <option value="in">ভারত</option>
+                    <option value="us">যুক্তরাষ্ট্র</option>
+                    <option value="gb">যুক্তরাজ্য</option>
+                    <option value="au">অস্ট্রেলিয়া</option>
+                    <option value="ca">কানাডা</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">বিষয়</label>
+                <select id="category-filter" class="filter-select">
+                    <option value="">সব বিষয়</option>
+                    <option value="business">ব্যবসা</option>
+                    <option value="environment">পরিবেশ</option>
+                    <option value="politics">রাজনীতি</option>
+                    <option value="technology">প্রযুক্তি</option>
+                    <option value="science">বিজ্ঞান</option>
+                    <option value="health">স্বাস্থ্য</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">ভাষা</label>
+                <select id="language-filter" class="filter-select">
+                    <option value="">সব ভাষা</option>
+                    <option value="en">ইংরেজি</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="hi">হিন্দি</option>
+                    <option value="ur">উর্দু</option>
+                </select>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 15px;">
+            <button id="apply-filters" class="apply-filters-btn">ফিল্টার প্রয়োগ করুন</button>
+            <button id="clear-filters" class="clear-filters-btn">সাফ করুন</button>
+        </div>
+    </div>
+    
     <div id="news-grid" class="news-grid"></div>
 </div>
 
@@ -420,42 +550,94 @@ mobileMenuOverlay.querySelectorAll('.nav-link').forEach(link => {
 // Replace with your own NewsData.io API key
 const NEWS_API_KEY = 'pub_4fd10ade31234520bbd90d86e26f3de1';
 const newsGrid = document.getElementById('news-grid');
-newsGrid.innerHTML = '<div class="loading-news">Loading news...</div>';
 
-fetch(`https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=agriculture OR farming OR farmer`)
-    .then(res => res.json())
-    .then(data => {
-        newsGrid.innerHTML = '';
-        if (data.results && data.results.length > 0) {
-            data.results.forEach(article => {
-                const card = document.createElement('a');
-                card.className = 'news-card';
-                card.href = article.link;
-                card.target = '_blank';
-                card.rel = 'noopener noreferrer';
-                card.innerHTML = `
-                    ${article.image_url ? `<img src="${article.image_url}" class="news-img" alt="News Image">` : `<div class="news-img"></div>`}
-                    <div class="news-content">
-                        <div>
-                            <div class="news-title">${article.title}</div>
-                            <div class="news-desc">${article.description ? article.description : ''}</div>
+// Function to convert English digits to Bangla digits
+function toBanglaDigits(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return number.toString().replace(/\d/g, digit => banglaDigits[digit]);
+}
+
+// Function to format date in Bangla
+function formatDateInBangla(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const months = ['জান', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগ', 'সেপ', 'অক্ট', 'নভে', 'ডিসে'];
+    const day = toBanglaDigits(date.getDate());
+    const month = months[date.getMonth()];
+    const year = toBanglaDigits(date.getFullYear());
+    return `${day} ${month}, ${year}`;
+}
+
+// Function to build API URL with filters
+function buildApiUrl() {
+    const country = document.getElementById('country-filter').value;
+    const category = document.getElementById('category-filter').value;
+    const language = document.getElementById('language-filter').value;
+    const query = 'agriculture OR farming OR farmer'; // Fixed search query
+    
+    let url = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=${encodeURIComponent(query)}`;
+    
+    if (country) url += `&country=${country}`;
+    if (category) url += `&category=${category}`;
+    if (language) url += `&language=${language}`;
+    
+    return url;
+}
+
+// Function to load news
+function loadNews() {
+    newsGrid.innerHTML = '<div class="loading-news">সংবাদ লোড হচ্ছে...</div>';
+    
+    const apiUrl = buildApiUrl();
+    
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            newsGrid.innerHTML = '';
+            if (data.results && data.results.length > 0) {
+                data.results.forEach(article => {
+                    const card = document.createElement('a');
+                    card.className = 'news-card';
+                    card.href = article.link;
+                    card.target = '_blank';
+                    card.rel = 'noopener noreferrer';
+                    card.innerHTML = `
+                        ${article.image_url ? `<img src="${article.image_url}" class="news-img" alt="সংবাদের ছবি">` : `<div class="news-img"></div>`}
+                        <div class="news-content">
+                            <div>
+                                <div class="news-title">${article.title}</div>
+                                <div class="news-desc">${article.description ? article.description : ''}</div>
+                            </div>
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-newspaper"></i> ${article.source_id ? article.source_id : 'অজানা'}</span>
+                                <span class="news-date"><i class="far fa-clock"></i> ${formatDateInBangla(article.pubDate)}</span>
+                            </div>
                         </div>
-                        <div class="news-meta">
-                            <span class="news-source"><i class="fas fa-newspaper"></i> ${article.source_id ? article.source_id : 'Unknown'}</span>
-                            <span class="news-date"><i class="far fa-clock"></i> ${article.pubDate ? new Date(article.pubDate).toLocaleDateString() : ''}</span>
-                        </div>
-                    </div>
-                `;
-                newsGrid.appendChild(card);
-            });
-        } else {
-            newsGrid.innerHTML = '<div class="loading-news">No news found. Please check back later.</div>';
-        }
-    })
-    .catch(err => {
-        console.error('Error fetching news:', err);
-        newsGrid.innerHTML = '<div class="loading-news">Error loading news. Please try again later.</div>';
-    });
+                    `;
+                    newsGrid.appendChild(card);
+                });
+            } else {
+                newsGrid.innerHTML = '<div class="loading-news">কোনো সংবাদ পাওয়া যায়নি। অনুগ্রহ করে ফিল্টার পরিবর্তন করুন বা পরে আবার চেষ্টা করুন।</div>';
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching news:', err);
+            newsGrid.innerHTML = '<div class="loading-news">সংবাদ লোড করতে ত্রুটি। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</div>';
+        });
+}
+
+// Event listeners for filters
+document.getElementById('apply-filters').addEventListener('click', loadNews);
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+    document.getElementById('country-filter').value = '';
+    document.getElementById('category-filter').value = '';
+    document.getElementById('language-filter').value = '';
+    loadNews();
+});
+
+// Load news on page load
+loadNews();
     </script>
 </body>
 </html>
