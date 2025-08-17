@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\ProductPrice;
 
-class ProductPriceSeeder extends Seeder
+class ProductPriceSeederNew extends Seeder
 {
     /**
      * Run the database seeder.
