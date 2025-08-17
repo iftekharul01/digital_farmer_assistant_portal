@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Home | Farmer Portal</title>
+    <title>টিউটোরিয়াল | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -324,57 +324,57 @@
 
 <!-- Main Content  -->
 <div class="section-wrapper" style="padding-top:40px;">
-    <h1 class="section-heading" style="text-align:center; margin-bottom:32px;">🌱 Farmer Tutorials</h1>
+    <h1 class="section-heading" style="text-align:center; margin-bottom:32px;">🌱 কৃষি টিউটোরিয়াল</h1>
     <div class="tutorials-grid">
         <a href="/tutorials/soil-testing" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-vial"></i></div>
-            <div class="tutorial-title">Soil Testing Techniques</div>
-            <div class="tutorial-desc">Learn how to test soil quality and nutrients for better crop yield.</div>
+            <div class="tutorial-title">মাটি পরীক্ষার কৌশল</div>
+            <div class="tutorial-desc">ভাল ফসল উৎপাদনের জন্য মাটির গুণমান এবং পুষ্টি পরীক্ষা করার পদ্ধতি শিখুন।</div>
         </a>
         <a href="/tutorials/weather-forecasting" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-cloud-sun"></i></div>
-            <div class="tutorial-title">Weather Forecasting for Farmers</div>
-            <div class="tutorial-desc">Understand weather patterns and forecasts to plan your farming activities.</div>
+            <div class="tutorial-title">কৃষকদের জন্য আবহাওয়ার পূর্বাভাস</div>
+            <div class="tutorial-desc">কৃষি কাজের পরিকল্পনার জন্য আবহাওয়ার ধরণ এবং পূর্বাভাস বুঝুন।</div>
         </a>
         <a href="/tutorials/crop-selection" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-seedling"></i></div>
-            <div class="tutorial-title">How to Choose the Right Crop</div>
-            <div class="tutorial-desc">Tips for selecting crops based on soil, climate, and market demand.</div>
+            <div class="tutorial-title">সঠিক ফসল নির্বাচনের উপায়</div>
+            <div class="tutorial-desc">মাটি, জলবায়ু এবং বাজারের চাহিদার ভিত্তিতে ফসল নির্বাচনের পরামর্শ।</div>
         </a>
         <a href="/tutorials/irrigation-management" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-water"></i></div>
-            <div class="tutorial-title">Irrigation Setup and Management</div>
-            <div class="tutorial-desc">Efficient irrigation methods and management for healthy crops.</div>
+            <div class="tutorial-title">সেচ ব্যবস্থাপনা ও পরিচালনা</div>
+            <div class="tutorial-desc">স্বাস্থ্যকর ফসলের জন্য দক্ষ সেচ পদ্ধতি এবং পরিচালনা।</div>
         </a>
         <a href="/tutorials/pest-control" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-bug"></i></div>
-            <div class="tutorial-title">Identifying and Controlling Pests</div>
-            <div class="tutorial-desc">Identify common pests and learn effective control techniques.</div>
+            <div class="tutorial-title">পোকামাকড় চিহ্নিতকরণ ও নিয়ন্ত্রণ</div>
+            <div class="tutorial-desc">সাধারণ পোকামাকড় চিহ্নিত করুন এবং কার্যকর নিয়ন্ত্রণ কৌশল শিখুন।</div>
         </a>
         <a href="/tutorials/fertilizers" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-leaf"></i></div>
-            <div class="tutorial-title">Organic vs Chemical Fertilizers</div>
-            <div class="tutorial-desc">Compare organic and chemical fertilizers for sustainable farming.</div>
+            <div class="tutorial-title">জৈব বনাম রাসায়নিক সার</div>
+            <div class="tutorial-desc">টেকসই কৃষির জন্য জৈব এবং রাসায়নিক সারের তুলনা।</div>
         </a>
         <a href="/tutorials/post-harvest-storage" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-warehouse"></i></div>
-            <div class="tutorial-title">Post-Harvest Storage Tips</div>
-            <div class="tutorial-desc">Best practices for storing crops after harvest to reduce losses.</div>
+            <div class="tutorial-title">ফসল সংরক্ষণের পরামর্শ</div>
+            <div class="tutorial-desc">ফসল কাটার পর ক্ষতি কমানোর জন্য সংরক্ষণের সর্বোত্তম পদ্ধতি।</div>
         </a>
         <a href="/tutorials/government-subsidies" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-file-signature"></i></div>
-            <div class="tutorial-title">Applying for Government Farming Subsidies</div>
-            <div class="tutorial-desc">Step-by-step guide to apply for government support and subsidies.</div>
+            <div class="tutorial-title">সরকারি কৃষি ভর্তুকির আবেদন</div>
+            <div class="tutorial-desc">সরকারি সহায়তা এবং ভর্তুকির জন্য আবেদনের ধাপে ধাপে গাইড।</div>
         </a>
         <a href="/tutorials/digital-tools" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-tablet-alt"></i></div>
-            <div class="tutorial-title">Digital Tools for Farm Record Keeping</div>
-            <div class="tutorial-desc">Discover digital tools to manage and track your farm records easily.</div>
+            <div class="tutorial-title">খামার রেকর্ড রাখার ডিজিটাল টুলস</div>
+            <div class="tutorial-desc">সহজে খামারের রেকর্ড পরিচালনা ও ট্র্যাক করার জন্য ডিজিটাল টুলস আবিষ্কার করুন।</div>
         </a>
         <a href="/tutorials/farm-laws" class="tutorial-card">
             <div class="tutorial-icon"><i class="fas fa-gavel"></i></div>
-            <div class="tutorial-title">Understanding Farm Laws and Rights</div>
-            <div class="tutorial-desc">Know your rights and important laws related to farming in Bangladesh.</div>
+            <div class="tutorial-title">কৃষি আইন ও অধিকার বোঝা</div>
+            <div class="tutorial-desc">বাংলাদেশে কৃষি সংক্রান্ত আপনার অধিকার এবং গুরুত্বপূর্ণ আইন জানুন।</div>
         </a>
     </div>
 </div>
