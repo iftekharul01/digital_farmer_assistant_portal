@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Home | Farmer Portal</title>
+    <title>আবহাওয়া | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -374,15 +374,15 @@
 <section class="weather-section">
         <div class="weather-wrapper">
             <div class="weather-box">
-                <h2>🌦️ Weather Forecast</h2>
-                <p><strong>Location:</strong> <span id="location">Detecting...</span></p>
+                <h2>🌦️ আবহাওয়ার পূর্বাভাস</h2>
+                <p><strong>অবস্থান:</strong> <span id="location">শনাক্ত করা হচ্ছে...</span></p>
                 <div class="current-weather-image-container">                
-                    <img id="weather-image" src="assets/images/default.png" alt="Weather image">
+                    <img id="weather-image" src="assets/images/default.png" alt="আবহাওয়ার ছবি">
                 </div>
-                <p><strong>Temp:</strong> <span id="temperature">--</span> | 
-                    <strong>Cond:</strong> <span id="condition">--</span></p>
-                <p><strong>Humidity:</strong> <span id="humidity">--</span>% | 
-                    <strong>Wind:</strong> <span id="wind">--</span> km/h</p>
+                <p><strong>তাপমাত্রা:</strong> <span id="temperature">--</span> | 
+                    <strong>অবস্থা:</strong> <span id="condition">--</span></p>
+                <p><strong>আর্দ্রতা:</strong> <span id="humidity">--</span>% | 
+                    <strong>বায়ুর বেগ:</strong> <span id="wind">--</span> কি.মি./ঘন্টা</p>
 
                 <div class="forecast-container" id="forecast-container"></div>
             </div>
@@ -433,15 +433,55 @@ mobileMenuOverlay.querySelectorAll('.nav-link').forEach(link => {
 // Weather API Integration
 const apiKey = 'b10e1647e62b7085c879761cb8f9925e'; // Replace with your OpenWeatherMap API key
 
+// Function to translate weather conditions to Bangla
+function getWeatherConditionInBangla(condition) {
+    const translations = {
+        'Clear': 'পরিষ্কার',
+        'Clouds': 'মেঘলা',
+        'Rain': 'বৃষ্টি',
+        'Drizzle': 'গুঁড়ি গুঁড়ি বৃষ্টি',
+        'Thunderstorm': 'বজ্রপাত',
+        'Snow': 'তুষারপাত',
+        'Mist': 'কুয়াশা',
+        'Smoke': 'ধোঁয়া',
+        'Haze': 'কুয়াশাচ্ছন্ন',
+        'Dust': 'ধুলিঝড়',
+        'Fog': 'ঘন কুয়াশা',
+        'Sand': 'বালিঝড়',
+        'Ash': 'ছাই',
+        'Squall': 'দমকা হাওয়া',
+        'Tornado': 'টর্নেডো'
+    };
+    return translations[condition] || condition;
+}
+
+// Function to convert English digits to Bangla digits
+function toBanglaDigits(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return number.toString().replace(/\d/g, digit => banglaDigits[digit]);
+}
+
+// Function to get day names in Bangla
+function getDayInBangla(date) {
+    const days = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'];
+    const months = ['জান', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগ', 'সেপ', 'অক্ট', 'নভে', 'ডিসে'];
+    
+    const dayName = days[date.getDay()];
+    const monthName = months[date.getMonth()];
+    const dayNumber = toBanglaDigits(date.getDate());
+    
+    return `${dayName}, ${monthName} ${dayNumber}`;
+}
+
 // Get user's location
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getWeather, showGeoError);
 } else {
-    alert("Geolocation is not supported by this browser.");
+    alert("এই ব্রাউজার ভৌগোলিক অবস্থান সমর্থন করে না।");
 }
 
 function showGeoError() {
-    document.getElementById('location').innerText = 'Unable to detect location';
+    document.getElementById('location').innerText = 'অবস্থান শনাক্ত করতে অক্ষম';
 }
 
 // Fetch current weather and forecast
@@ -457,17 +497,17 @@ function getWeather(position) {
             getForecast(lat, lon);
         })
         .catch(error => {
-            document.getElementById('location').innerText = 'Error fetching weather';
+            document.getElementById('location').innerText = 'আবহাওয়ার তথ্য আনতে ত্রুটি';
             console.error('Error fetching weather data:', error);
         });
 }
 
 function displayCurrentWeather(data) {
-    document.getElementById('location').innerText = data.name || 'Unknown';
-    document.getElementById('temperature').innerText = `${Math.round(data.main.temp)}°C`;
-    document.getElementById('condition').innerText = data.weather[0].main;
-    document.getElementById('humidity').innerText = data.main.humidity;
-    document.getElementById('wind').innerText = Math.round(data.wind.speed);
+    document.getElementById('location').innerText = data.name || 'অজানা';
+    document.getElementById('temperature').innerText = `${toBanglaDigits(Math.round(data.main.temp))}°সে`;
+    document.getElementById('condition').innerText = getWeatherConditionInBangla(data.weather[0].main);
+    document.getElementById('humidity').innerText = toBanglaDigits(data.main.humidity);
+    document.getElementById('wind').innerText = toBanglaDigits(Math.round(data.wind.speed));
 
     // Set weather image
     const icon = data.weather[0].icon;
@@ -494,7 +534,7 @@ function displayForecast(data) {
     const daily = {};
     data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
-        const day = date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+        const day = getDayInBangla(date);
         if (date.getHours() === 12 && !daily[day]) {
             daily[day] = item;
         }
@@ -503,15 +543,15 @@ function displayForecast(data) {
     Object.keys(daily).slice(0, 5).forEach(day => {
         const item = daily[day];
         const icon = item.weather[0].icon;
-        const temp = Math.round(item.main.temp);
-        const desc = item.weather[0].main;
+        const temp = toBanglaDigits(Math.round(item.main.temp));
+        const desc = getWeatherConditionInBangla(item.weather[0].main);
 
         const dayDiv = document.createElement('div');
         dayDiv.className = 'forecast-day';
         dayDiv.innerHTML = `
             <div>${day}</div>
             <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${desc}">
-            <div>${temp}°C</div>
+            <div>${temp}°সে</div>
             <div>${desc}</div>
         `;
         forecastDiv.appendChild(dayDiv);
