@@ -339,6 +339,7 @@
         .news-date {
             font-size: 0.95rem;
             color: #888;
+            
         }
         .loading-news {
             text-align: center;
