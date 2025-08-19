@@ -16,6 +16,8 @@ use App\Http\Controllers\AdminAnnouncementController;
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminContactController;
+use App\Http\Controllers\AdminAboutUsController;
+use App\Http\Controllers\AboutUsController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -139,9 +141,7 @@ Route::get('/tutorials/farm-laws', function () {
 })->name('tutorials.farm-laws');
 
 // Route for about-us page
-Route::get('/about-us', function () {
-    return view('about-us'); 
-})->name('about-us');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 
 // Route for contact page (requires login)
 Route::get('/contact', function() {
@@ -191,9 +191,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/market-prices/{id}', [AdminPriceController::class, 'destroy'])->name('admin.market-prices.destroy');
         Route::post('/market-prices/bulk-update', [AdminPriceController::class, 'bulkUpdate'])->name('admin.market-prices.bulk-update');
         
-        Route::get('/about-us', function () {
-            return view('admin.admin_about-us');
-        })->name('admin.about-us');
+        Route::get('/about-us', [App\Http\Controllers\AdminAboutUsController::class, 'index'])->name('admin.about-us');
+        Route::put('/about-us', [App\Http\Controllers\AdminAboutUsController::class, 'update'])->name('admin.about-us.update');
         
         Route::get('/contact', [AdminContactController::class, 'index'])->name('admin.contact');
         Route::post('/contact/settings', [AdminContactController::class, 'updateSettings'])->name('admin.contact.settings');
