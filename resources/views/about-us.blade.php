@@ -253,7 +253,7 @@
         .about-hero-section {
             display: flex;
             background: linear-gradient(to bottom, rgba(246,255,246,0.6), rgba(217,255,214,0.3)),
-    url('{{ $content && $content->hero_background_image ? asset("assets/images/" . $content->hero_background_image) : "https://images.pexels.com/photos/539282/pexels-photo-539282.jpeg" }}') center/cover no-repeat;
+    url('{{ $content && $content->hero_background_image ? asset("storage/assets/hero_sections/" . $content->hero_background_image) : "https://images.pexels.com/photos/539282/pexels-photo-539282.jpeg" }}') center/cover no-repeat;
             min-height: 60vh;
             color: white;
             padding: 80px 0;
@@ -261,15 +261,35 @@
             margin-bottom: 40px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            box-shadow: 0 8px 25px var(--shadow-medium);
+            box-shadow: 0 15px 40px rgba(11, 212, 41, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(11, 212, 41, 0.1) 0%, rgba(11, 212, 41, 0.05) 100%);
+            animation: backgroundShift 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
         .about-hero-section h1 {
             font-size: 3.5rem;
             margin-bottom: 15px;
             font-weight: 900;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             position: relative;
             display: inline-block;
+            z-index: 1;
+            animation: slideInDown 1s ease-out;
         }
         .about-hero-section h1::after {
             content: '';
@@ -279,25 +299,52 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: white;
+            background: linear-gradient(90deg, white, rgba(255,255,255,0.7), white);
             border-radius: 2px;
+            animation: expandWidth 1.5s ease-out 0.5s both;
         }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
         .about-hero-section p {
             font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.7;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 0.9; }
         }
 
         /* General Section Styling */
         .section-container {
             background: #fff;
             padding: 50px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px var(--shadow-card);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(11, 212, 41, 0.15);
             margin-bottom: 40px;
             text-align: center;
+            transition: all 0.4s ease;
+            transform: translateY(0);
+        }
+
+        .section-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(11, 212, 41, 0.25);
         }
 
         .section-heading {
@@ -310,10 +357,62 @@
             gap: 15px;
             font-weight: 800;
             text-transform: uppercase;
+            position: relative;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), #20c96a, var(--primary-green));
+            border-radius: 2px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         .section-heading i {
             font-size: 2.8rem;
             color: var(--primary-green);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mission-vision-card i {
+            font-size: 3.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .impact-item i {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            25% { transform: translateY(-5px); }
+            75% { transform: translateY(5px); }
         }
         .section-content {
             text-align: left;
@@ -348,11 +447,16 @@
 
         /* Mission & Vision Section (Two Column Layout) */
         .mission-vision-section {
-            background-color: var(--light-green); /* Light green background */
+            background: linear-gradient(135deg, var(--light-green) 0%, rgba(234, 252, 233, 0.7) 100%);
             padding: 50px 30px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 15px var(--shadow-light);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(11, 212, 41, 0.12);
             margin-bottom: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .mission-vision-section:hover {
+            box-shadow: 0 12px 40px rgba(11, 212, 41, 0.2);
         }
         .mission-vision-grid {
             display: grid;
@@ -362,16 +466,36 @@
             margin: 0 auto;
         }
         .mission-vision-card {
-            background-color: white;
+            background: linear-gradient(145deg, white 0%, #f8fff9 100%);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px var(--shadow-card);
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(11, 212, 41, 0.1);
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(11, 212, 41, 0.1);
+            position: relative;
+            overflow: hidden;
         }
+
+        .mission-vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(11, 212, 41, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .mission-vision-card:hover::before {
+            left: 100%;
+        }
+
         .mission-vision-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px var(--shadow-medium);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(11, 212, 41, 0.2);
+            border-color: rgba(11, 212, 41, 0.3);
         }
         .mission-vision-card i {
             font-size: 3.5rem;
@@ -392,11 +516,16 @@
 
         /* Impact/Values Section (Icons with Text) */
         .impact-section {
-            background: #fff;
+            background: linear-gradient(135deg, #fff 0%, #f9fff9 100%);
             padding: 50px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px var(--shadow-card);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(11, 212, 41, 0.15);
             margin-bottom: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .impact-section:hover {
+            box-shadow: 0 12px 40px rgba(11, 212, 41, 0.25);
         }
         .impact-grid {
             display: grid;
@@ -407,13 +536,38 @@
         }
         .impact-item {
             text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: var(--light-green); /* Subtle background for each item */
-            transition: background-color 0.3s ease;
+            padding: 25px 20px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, var(--light-green) 0%, rgba(234, 252, 233, 0.6) 100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(11, 212, 41, 0.2);
+            position: relative;
+            overflow: hidden;
         }
+
+        .impact-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(11, 212, 41, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .impact-item:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
         .impact-item:hover {
-            background-color: rgba(11,212,41,0.1); /* Slightly darker light green on hover */
+            background: linear-gradient(145deg, rgba(11, 212, 41, 0.15) 0%, rgba(234, 252, 233, 0.8) 100%);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(11, 212, 41, 0.2);
+            border-color: rgba(11, 212, 41, 0.4);
         }
         .impact-item i {
             font-size: 3rem;
@@ -434,11 +588,16 @@
 
         /* Team Section */
         .team-section {
-            background-color: var(--light-green);
+            background: linear-gradient(135deg, var(--light-green) 0%, rgba(234, 252, 233, 0.7) 100%);
             padding: 50px 20px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 15px var(--shadow-light);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(11, 212, 41, 0.12);
             margin-bottom: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .team-section:hover {
+            box-shadow: 0 12px 40px rgba(11, 212, 41, 0.2);
         }
         .team-section .section-heading {
              margin-bottom: 40px; /* More space below heading */
@@ -453,19 +612,40 @@
         }
 
         .team-member-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px var(--shadow-card);
-            padding: 25px;
+            background: linear-gradient(145deg, white 0%, #f8fff9 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(11, 212, 41, 0.15);
+            padding: 30px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(11, 212, 41, 0.1);
+            position: relative;
+            overflow: hidden;
         }
+
+        .team-member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), #20c96a, var(--primary-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .team-member-card:hover::before {
+            transform: scaleX(1);
+        }
+
         .team-member-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px var(--shadow-medium);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(11, 212, 41, 0.25);
+            border-color: rgba(11, 212, 41, 0.3);
         }
 
         .member-image {
@@ -474,11 +654,15 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary-green);
-            margin-bottom: 15px;
-            transition: border-color 0.3s ease;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(11, 212, 41, 0.3);
         }
+
         .team-member-card:hover .member-image {
             border-color: var(--dark-green);
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(11, 212, 41, 0.4);
         }
 
         .member-name {
@@ -506,11 +690,16 @@
         .member-socials a {
             color: var(--dark-green);
             font-size: 1.5rem;
-            transition: color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(11, 212, 41, 0.1);
         }
         .member-socials a:hover {
-            color: var(--primary-green);
-            transform: translateY(-2px);
+            color: white;
+            background: var(--primary-green);
+            transform: translateY(-3px) scale(1.2);
+            box-shadow: 0 8px 20px rgba(11, 212, 41, 0.4);
         }
 
         /* Responsive adjustments for About Us sections */
@@ -736,7 +925,7 @@
                     @foreach($content->team_members as $index => $member)
                         <div class="team-member-card" data-aos="zoom-in" data-aos-delay="{{ 1200 + ($index * 100) }}">
                             @if($member['image'] ?? null)
-                                <img src="{{ asset('assets/images/team/' . $member['image']) }}" alt="{{ $member['name'] ?? 'Team Member' }}" class="member-image">
+                                <img src="{{ asset('storage/assets/hero_sections/' . $member['image']) }}" alt="{{ $member['name'] ?? 'Team Member' }}" class="member-image">
                             @else
                                 <img src="https://via.placeholder.com/150/0bd429/ffffff?text={{ urlencode(substr($member['name'] ?? 'TM', 0, 1)) }}" alt="{{ $member['name'] ?? 'Team Member' }}" class="member-image">
                             @endif

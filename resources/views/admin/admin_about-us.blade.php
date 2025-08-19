@@ -341,7 +341,7 @@
                            value="{{ old('hero_background_image', $content->hero_background_image ?? '') }}" 
                            placeholder="example.jpg">
                     <div class="help-text">
-                        <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি public/assets/images/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন (যেমন: about-hero.jpg)
+                        <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন (যেমন: about-hero.jpg)
                     </div>
                 </div>
             </div>
@@ -439,7 +439,7 @@
                                            value="{{ old('team_members.' . $index . '.image', $member['image'] ?? '') }}" 
                                            placeholder="member1.jpg">
                                     <div class="help-text">
-                                        <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি public/assets/images/team/ ফোল্ডারে রাখুন
+                                        <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন
                                     </div>
                                 </div>
                                 
@@ -499,7 +499,7 @@
                                 <input type="text" name="team_members[0][image]" class="form-input" 
                                        value="{{ old('team_members.0.image', '') }}" placeholder="member1.jpg">
                                 <div class="help-text">
-                                    <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি public/assets/images/team/ ফোল্ডারে রাখুন
+                                    <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন
                                 </div>
                             </div>
                             
@@ -573,7 +573,7 @@
                         <label class="form-label">ইমেজ ফাইলের নাম</label>
                         <input type="text" name="team_members[${memberCount}][image]" class="form-input" placeholder="member${memberCount + 1}.jpg">
                         <div class="help-text">
-                            <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি public/assets/images/team/ ফোল্ডারে রাখুন
+                            <i class="fas fa-info-circle"></i> ইমেজ ফাইলটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন
                         </div>
                     </div>
                     
