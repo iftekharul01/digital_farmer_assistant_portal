@@ -39,35 +39,6 @@
         gap: 10px;
     }
 
-    .settings-navigation {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    .nav-item {
-        background: #f8f9fa;
-        color: #666;
-        padding: 10px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.2s;
-        border: 2px solid transparent;
-    }
-
-    .nav-item.active {
-        background: var(--light-green);
-        color: var(--primary-green);
-        border-color: var(--primary-green);
-    }
-
-    .nav-item:hover {
-        background: var(--light-green);
-        color: var(--primary-green);
-        text-decoration: none;
-    }
-
     .empty-state {
         text-align: center;
         padding: 60px 20px;
@@ -255,10 +226,6 @@
             padding: 20px;
         }
 
-        .settings-navigation {
-            flex-direction: column;
-        }
-
         .favourites-grid {
             grid-template-columns: 1fr;
         }
@@ -276,20 +243,7 @@
             <p>আপনার সংরক্ষিত এবং পছন্দের আইটেমগুলি এখানে দেখুন</p>
         </div>
 
-        <div class="settings-navigation">
-            <a href="/user-profile" class="nav-item">
-                <i class="fas fa-user"></i> প্রোফাইল
-            </a>
-            <a href="/user-settings" class="nav-item">
-                <i class="fas fa-cog"></i> সেটিংস
-            </a>
-            <a href="/user-favourites" class="nav-item active">
-                <i class="fas fa-heart"></i> পছন্দের তালিকা
-            </a>
-            <a href="{{ route('user.messages') }}" class="nav-item">
-                <i class="fas fa-envelope"></i> আমার বার্তাসমূহ
-            </a>
-        </div>
+        <!-- Favourites content starts here -->
 
         <!-- Quick Access -->
         <div class="quick-access">

@@ -170,35 +170,6 @@
         border: 1px solid #f5c6cb;
     }
 
-    .settings-navigation {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    .nav-item {
-        background: #f8f9fa;
-        color: #666;
-        padding: 10px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.2s;
-        border: 2px solid transparent;
-    }
-
-    .nav-item.active {
-        background: var(--light-green);
-        color: var(--primary-green);
-        border-color: var(--primary-green);
-    }
-
-    .nav-item:hover {
-        background: var(--light-green);
-        color: var(--primary-green);
-        text-decoration: none;
-    }
-
     @media (max-width: 768px) {
         .form-row {
             grid-template-columns: 1fr;
@@ -211,10 +182,6 @@
 
         .profile-form {
             padding: 20px;
-        }
-
-        .settings-navigation {
-            flex-direction: column;
         }
     }
 </style>
@@ -248,21 +215,7 @@
             <p>{{ $userInfo ? $userInfo->profession : 'কৃষক সদস্য' }}</p>
         </div>
 
-        <div class="settings-navigation">
-            <a href="/user-profile" class="nav-item active">
-                <i class="fas fa-user"></i> প্রোফাইল
-            </a>
-            <a href="/user-settings" class="nav-item">
-                <i class="fas fa-cog"></i> সেটিংস
-            </a>
-            <a href="/user-favourites" class="nav-item">
-                <i class="fas fa-heart"></i> পছন্দের তালিকা
-            </a>
-            <a href="{{ route('user.messages') }}" class="nav-item">
-                <i class="fas fa-envelope"></i> আমার বার্তাসমূহ
-            </a>
-        </div>
-
+        <!-- Profile content starts here -->
         <form action="/user-profile/update" method="POST" enctype="multipart/form-data" class="profile-form">
             @csrf
             

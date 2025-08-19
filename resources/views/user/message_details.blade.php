@@ -6,61 +6,22 @@
         min-height: calc(100vh - 100px);
     }
 
-    .profile-container {
+    .content-container {
         max-width: 1000px;
         margin: 0 auto;
         padding: 20px;
     }
 
-    .profile-header {
-        background: linear-gradient(135deg, var(--primary-green), #0a8220);
-        color: white;
-        padding: 30px;
-        border-radius: 12px;
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-color-dark);
         margin-bottom: 30px;
         text-align: center;
-    }
-
-    .profile-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.2);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 2.5rem;
-        border: 4px solid rgba(255,255,255,0.3);
-    }
-
-    .settings-navigation {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    .nav-item {
-        background: #f8f9fa;
-        color: #666;
-        padding: 10px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.2s;
-        border: 2px solid transparent;
-    }
-
-    .nav-item.active {
-        background: var(--light-green);
-        color: var(--primary-green);
-        border-color: var(--primary-green);
-    }
-
-    .nav-item:hover {
-        background: var(--light-green);
-        color: var(--primary-green);
-        text-decoration: none;
+        gap: 15px;
     }
 
     .message-container {
@@ -306,16 +267,12 @@
     }
 
     @media (max-width: 768px) {
-        .profile-container {
+        .content-container {
             padding: 15px;
         }
 
         .message-container {
             padding: 20px;
-        }
-
-        .settings-navigation {
-            flex-direction: column;
         }
 
         .message-meta {
@@ -339,7 +296,7 @@
 </style>
 
 <div class="page-content">
-    <div class="profile-container">
+    <div class="content-container">
         @if(session('success'))
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i> {{ session('success') }}
@@ -355,28 +312,10 @@
             </div>
         @endif
 
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <h1>{{ Session::get('full_name') ?: Session::get('username') }}</h1>
-            <p>কৃষক সদস্য</p>
-        </div>
-
-        <div class="settings-navigation">
-            <a href="{{ route('user.profile') }}" class="nav-item">
-                <i class="fas fa-user"></i> প্রোফাইল
-            </a>
-            <a href="{{ route('user.settings') }}" class="nav-item">
-                <i class="fas fa-cog"></i> সেটিংস
-            </a>
-            <a href="{{ route('user.favourites') }}" class="nav-item">
-                <i class="fas fa-heart"></i> পছন্দের তালিকা
-            </a>
-            <a href="{{ route('user.messages') }}" class="nav-item active">
-                <i class="fas fa-envelope"></i> আমার বার্তাসমূহ
-            </a>
-        </div>
+        <h1 class="page-title">
+            <i class="fas fa-envelope-open"></i>
+            বার্তার বিস্তারিত
+        </h1>
 
         <div class="message-container">
             <a href="{{ route('user.messages') }}" class="back-link">
