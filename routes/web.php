@@ -158,6 +158,10 @@ Route::post('/contact', function(Illuminate\Http\Request $request) {
     return app(ContactController::class)->store($request);
 })->name('contact.store');
 
+// Route for user's contact messages and replies
+Route::get('/my-messages', [ContactController::class, 'myMessages'])->name('user.messages');
+Route::get('/my-messages/{id}', [ContactController::class, 'viewMyMessage'])->name('user.message.view');
+
 // Google OAuth Routes
 Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('/login/google/callback', [RegistrationController::class, 'handleGoogleCallback']);

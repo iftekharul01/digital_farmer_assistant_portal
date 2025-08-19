@@ -286,6 +286,9 @@
             <a href="/user-favourites" class="nav-item active">
                 <i class="fas fa-heart"></i> পছন্দের তালিকা
             </a>
+            <a href="{{ route('user.messages') }}" class="nav-item">
+                <i class="fas fa-envelope"></i> আমার বার্তাসমূহ
+            </a>
         </div>
 
         <!-- Quick Access -->

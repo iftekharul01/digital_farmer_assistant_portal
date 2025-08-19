@@ -81,4 +81,38 @@ class ContactController extends Controller
         return redirect()->route('contact')
             ->with('success', 'আপনার বার্তা সফলভাবে পাঠানো হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।');
     }
+
+    /**
+     * Show user's contact messages and admin replies
+     */
+    public function myMessages()
+    {
+        if (!Session::get('logged_in')) {
+            return redirect()->route('login')->with('error', 'আপনার বার্তা দেখার জন্য অনুগ্রহ করে লগইন করুন।');
+        }
+
+        $userId = Session::get('user_id');
+        $messages = ContactMessage::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('user.my_messages', compact('messages'));
+    }
+
+    /**
+     * Show specific message details for user
+     */
+    public function viewMyMessage($id)
+    {
+        if (!Session::get('logged_in')) {
+            return redirect()->route('login')->with('error', 'আপনার বার্তা দেখার জন্য অনুগ্রহ করে লগইন করুন।');
+        }
+
+        $userId = Session::get('user_id');
+        $message = ContactMessage::where('user_id', $userId)
+            ->where('id', $id)
+            ->firstOrFail();
+
+        return view('user.message_details', compact('message'));
+    }
 }

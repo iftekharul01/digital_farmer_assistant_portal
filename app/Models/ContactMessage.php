@@ -69,6 +69,17 @@ class ContactMessage extends Model
     }
 
     /**
+     * Scope to get messages with admin replies that user hasn't seen
+     */
+    public function scopeUnreadReplies($query, $userId)
+    {
+        return $query->where('user_id', $userId)
+            ->where('status', 'replied')
+            ->whereNotNull('admin_reply')
+            ->whereNotNull('replied_at');
+    }
+
+    /**
      * Mark message as replied
      */
     public function markAsReplied($reply = null)
