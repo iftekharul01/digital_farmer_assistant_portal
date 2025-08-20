@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <title>লগইন | কৃষক পোর্টাল</title>
@@ -78,37 +78,14 @@ html, body {
 }
 
 .auth-links a:hover,
-.auth-links a.signup-btn:hover,
-.lang-btn:hover {
+.auth-links a.signup-btn:hover {
   background: white;
   color: var(--primary-green);
 }
 
-.language-toggle {
-  display: flex;
-  gap: 10px;
-  margin-left: 20px;
-}
-
-.lang-btn {
-  border: none;
-  background: transparent;
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-
-.lang-btn.active {
-  background: white;
-  color: var(--primary-green);
-}
-
-/* Move language toggle to the right of auth-links */
 .header-right {
-  flex-direction: row-reverse;
+  display: flex;
+  align-items: center;
   gap: 20px;
 }
 
@@ -326,10 +303,6 @@ html, body {
           <a href="{{ route('login') }}">লগইন</a>
           <a href="{{ route('signup') }}" class="signup-btn">সাইন আপ</a>
         </div>
-        <div class="language-toggle">
-          <button id="lang-en" class="lang-btn active">EN</button>
-          <button id="lang-bn" class="lang-btn">বাংলা</button>
-        </div>
       </div>
     </div>
   </div>
@@ -407,13 +380,5 @@ html, body {
       © ২০২৫ কৃষক পোর্টাল। আমাদের কৃষকদের জন্য ❤️ দিয়ে ডিজাইন করা।
     </div>
   </footer>
-  <script>
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-</script>
 </body>
 </html>
