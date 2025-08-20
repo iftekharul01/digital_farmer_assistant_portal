@@ -478,7 +478,7 @@
                                     <td>{{ $notification->created_at->format('d M Y') }}</td>
                                     <td>
                                         <div class="action-buttons">
-                                            <button onclick="toggleEditForm({{ $notification->id }})" class="btn-secondary">
+                                            <button onclick="toggleEditForm('{{ $notification->id }}')" class="btn-secondary">
                                                 <i class="fas fa-edit"></i> সম্পাদনা
                                             </button>
                                             <form action="/admin/notifications/{{ $notification->id }}" method="POST" style="display: inline;">
@@ -541,7 +541,7 @@
 
                                                 <div style="margin-top: 15px;">
                                                     <button type="submit" class="btn-primary">আপডেট করুন</button>
-                                                    <button type="button" onclick="toggleEditForm({{ $notification->id }})" class="btn-secondary">বাতিল</button>
+                                                    <button type="button" onclick="toggleEditForm('{{ $notification->id }}')" class="btn-secondary">বাতিল</button>
                                                 </div>
                                             </form>
                                         </div>

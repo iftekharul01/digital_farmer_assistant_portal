@@ -682,7 +682,7 @@
                             <td>{{ $product->quality_grade }}</td>
                             <td>{{ $product->updated_at->diffForHumans() }}</td>
                             <td>
-                                <button class="btn-secondary btn-edit" onclick="editProduct({{ $product->id }})">
+                                <button class="btn-secondary btn-edit" onclick="editProduct('{{ (int) $product->id }}')">
                                     <i class="fas fa-edit"></i> এডিট
                                 </button>
                                 <form method="POST" action="{{ route('admin.market-prices.destroy', $product->id) }}" style="display: inline;" onsubmit="return confirm('আপনি কি নিশ্চিত যে এই পণ্যটি মুছে ফেলতে চান?')">

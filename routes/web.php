@@ -19,6 +19,8 @@ use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminAboutUsController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\SavedNewsController;
+use App\Http\Controllers\AdminTutorialController;
+use App\Http\Controllers\TutorialController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -107,9 +109,10 @@ Route::get('/test-saved-news', function () {
 });
 
 // Route for  tutorials page
-Route::get('/tutorials', function () {
-    return view('tutorials'); 
-})->name('tutorials');
+Route::get('/tutorials', [TutorialController::class, 'index'])->name('tutorials');
+
+// Dynamic tutorial route
+Route::get('/tutorial/{slug}', [TutorialController::class, 'show'])->name('tutorials.dynamic');
 
 // Individual Tutorial Pages
 Route::get('/tutorials/soil-testing', function () {
@@ -216,9 +219,14 @@ Route::prefix('admin')->group(function () {
             return view('admin.admin_crop-doctor');
         })->name('admin.crop-doctor');
         
-        Route::get('/tutorials', function () {
-            return view('admin.admin_tutorials');
-        })->name('admin.tutorials');
+        // Tutorial Management Routes
+        Route::get('/tutorials', [App\Http\Controllers\AdminTutorialController::class, 'index'])->name('admin.tutorials');
+        Route::get('/tutorials/create', [App\Http\Controllers\AdminTutorialController::class, 'create'])->name('admin.tutorials.create');
+        Route::post('/tutorials', [App\Http\Controllers\AdminTutorialController::class, 'store'])->name('admin.tutorials.store');
+        Route::get('/tutorials/{id}/edit', [App\Http\Controllers\AdminTutorialController::class, 'edit'])->name('admin.tutorials.edit');
+        Route::put('/tutorials/{id}', [App\Http\Controllers\AdminTutorialController::class, 'update'])->name('admin.tutorials.update');
+        Route::delete('/tutorials/{id}', [App\Http\Controllers\AdminTutorialController::class, 'destroy'])->name('admin.tutorials.destroy');
+        Route::get('/tutorials/{id}/toggle', [App\Http\Controllers\AdminTutorialController::class, 'toggleStatus'])->name('admin.tutorials.toggle');
         
         Route::get('/subsidies-news', function () {
             return view('admin.admin_subsidies-news');
