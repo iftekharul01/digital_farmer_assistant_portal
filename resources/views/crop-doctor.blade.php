@@ -1,6 +1,18 @@
 @include('partials.header')
 
 <style>
+        :root {
+            --primary-green: #0bd429;
+            --dark-green: #1e3d2c;
+            --gradient-primary: linear-gradient(135deg, #0bd429 0%, #28a745 100%);
+            --gradient-light: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+            --border-light: #d4edda;
+            --text-color-dark: #495057;
+            --shadow-light: rgba(11, 212, 41, 0.1);
+            --shadow-medium: rgba(11, 212, 41, 0.2);
+            --shadow-heavy: rgba(11, 212, 41, 0.3);
+        }
+
         /* Hero Section */
         .hero-section {
             background: url('https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg') center/cover no-repeat;
@@ -182,24 +194,28 @@
         }
 
         .upload-btn {
-            background: var(--gradient-primary);
+            background: #0bd429;
+            background: linear-gradient(135deg, #0bd429 0%, #28a745 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 18px 35px;
             border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px var(--shadow-light);
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(11, 212, 41, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px var(--shadow-medium);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(11, 212, 41, 0.4);
+            background: linear-gradient(135deg, #28a745 0%, #0bd429 100%);
         }
 
         .upload-btn:active {
@@ -804,7 +820,7 @@
 
         // Global variables
         let uploadedFile = null;
-        const GEMINI_API_KEY = 'MyAPIKey'; 
+        const GEMINI_API_KEY = ''; 
 
         // DOM elements
         const uploadArea = document.getElementById('upload-area');
