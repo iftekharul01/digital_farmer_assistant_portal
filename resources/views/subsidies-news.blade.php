@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>ভর্তুকি ও সংবাদ | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -264,6 +265,62 @@
             font-size: 0.95rem;
             color: #888;  
         }
+        .news-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-light);
+        }
+        .save-btn {
+            background: none;
+            border: none;
+            color: var(--primary-green);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .save-btn:hover {
+            background: var(--light-green);
+        }
+        .save-btn.saved {
+            color: #e74c3c;
+        }
+        .save-btn.saved:hover {
+            background: #ffeaea;
+        }
+        .read-more {
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+        .toast.success {
+            background: #27ae60;
+        }
+        .toast.error {
+            background: #e74c3c;
+        }
         .loading-news {
             text-align: center;
             font-size: 1.1rem;
@@ -428,6 +485,8 @@
     <div id="news-grid" class="news-grid"></div>
 </div>
 
+<div id="toast" class="toast"></div>
+
 
 
 <!-- Footer Section -->
@@ -520,26 +579,40 @@ function loadNews() {
             newsGrid.innerHTML = '';
             if (data.results && data.results.length > 0) {
                 data.results.forEach(article => {
-                    const card = document.createElement('a');
+                    const card = document.createElement('div');
                     card.className = 'news-card';
-                    card.href = article.link;
-                    card.target = '_blank';
-                    card.rel = 'noopener noreferrer';
+                    
+                    // Safely escape strings for HTML attributes
+                    const safeTitle = (article.title || '').replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                    const safeDesc = (article.description || '').replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                    const safeLink = article.link || '';
+                    const safeImageUrl = article.image_url || '';
+                    const safeSourceId = article.source_id || '';
+                    const safePubDate = formatDateInBangla(article.pubDate);
+                    
                     card.innerHTML = `
-                        ${article.image_url ? `<img src="${article.image_url}" class="news-img" alt="সংবাদের ছবি">` : `<div class="news-img"></div>`}
+                        ${article.image_url ? `<img src="${safeImageUrl}" class="news-img" alt="সংবাদের ছবি">` : `<div class="news-img"><i class="fas fa-newspaper"></i></div>`}
                         <div class="news-content">
                             <div>
-                                <div class="news-title">${article.title}</div>
-                                <div class="news-desc">${article.description ? article.description : ''}</div>
+                                <div class="news-title">${safeTitle}</div>
+                                <div class="news-desc">${safeDesc}</div>
                             </div>
                             <div class="news-meta">
-                                <span class="news-source"><i class="fas fa-newspaper"></i> ${article.source_id ? article.source_id : 'অজানা'}</span>
-                                <span class="news-date"><i class="far fa-clock"></i> ${formatDateInBangla(article.pubDate)}</span>
+                                <span class="news-source"><i class="fas fa-newspaper"></i> ${safeSourceId || 'অজানা'}</span>
+                                <span class="news-date"><i class="far fa-clock"></i> ${safePubDate}</span>
+                            </div>
+                            <div class="news-actions">
+                                <a href="${safeLink}" target="_blank" rel="noopener noreferrer" class="read-more">পড়ুন <i class="fas fa-external-link-alt"></i></a>
+                                <button class="save-btn" data-title="${safeTitle}" data-link="${safeLink}" data-desc="${safeDesc}" data-image="${safeImageUrl}" data-source="${safeSourceId}" data-date="${safePubDate}">
+                                    <i class="fas fa-bookmark"></i> সংরক্ষণ
+                                </button>
                             </div>
                         </div>
                     `;
                     newsGrid.appendChild(card);
                 });
+                // Check saved status for all news
+                checkAllSavedStatus();
             } else {
                 newsGrid.innerHTML = '<div class="loading-news">কোনো সংবাদ পাওয়া যায়নি। অনুগ্রহ করে ফিল্টার পরিবর্তন করুন বা পরে আবার চেষ্টা করুন।</div>';
             }
@@ -562,6 +635,107 @@ document.getElementById('clear-filters').addEventListener('click', () => {
 
 // Load news on page load
 loadNews();
+
+// Save/Unsave news functionality with event delegation
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.save-btn')) {
+        e.preventDefault();
+        const button = e.target.closest('.save-btn');
+        const title = button.getAttribute('data-title');
+        const link = button.getAttribute('data-link');
+        const description = button.getAttribute('data-desc');
+        const imageUrl = button.getAttribute('data-image');
+        const sourceId = button.getAttribute('data-source');
+        const pubDate = button.getAttribute('data-date');
+        
+        toggleSaveNews(button, title, link, description, imageUrl, sourceId, pubDate);
+    }
+});
+
+function toggleSaveNews(button, title, link, description, imageUrl, sourceId, pubDate) {
+    const isSaved = button.classList.contains('saved');
+    
+    if (isSaved) {
+        // Unsave news - this would require finding the saved news ID
+        showToast('সংবাদ আনসেভ করার জন্য সংরক্ষিত সংবাদ পেজে যান।', 'info');
+        return;
+    }
+    
+    // Save news
+    const newsData = {
+        title: title,
+        link: link,
+        description: description,
+        image_url: imageUrl,
+        source_id: sourceId,
+        pub_date: pubDate,
+        category: document.getElementById('category-filter').value,
+        country: document.getElementById('country-filter').value,
+        language: document.getElementById('language-filter').value
+    };
+    
+    fetch('/saved-news', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(newsData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            button.classList.add('saved');
+            button.innerHTML = '<i class="fas fa-bookmark"></i> সংরক্ষিত';
+            showToast(data.message, 'success');
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('সংবাদ সংরক্ষণে ত্রুটি হয়েছে!', 'error');
+    });
+}
+
+// Check if news are already saved
+function checkAllSavedStatus() {
+    const saveButtons = document.querySelectorAll('.save-btn');
+    saveButtons.forEach(button => {
+        const link = button.getAttribute('data-link');
+        
+        fetch('/saved-news/check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ link: link })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.is_saved) {
+                button.classList.add('saved');
+                button.innerHTML = '<i class="fas fa-bookmark"></i> সংরক্ষিত';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking saved status:', error);
+        });
+    });
+}
+
+// Toast notification function
+function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast ${type}`;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
     </script>
 </body>
 </html>

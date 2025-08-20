@@ -385,6 +385,10 @@
                 <i class="fas fa-heart"></i>
                 <span>আমার পছন্দের তালিকা</span>
             </a>
+            <a href="{{ route('saved-news') }}" class="sidebar-menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>সংরক্ষিত সংবাদ</span>
+            </a>
             <a href="{{ route('user.messages') }}" class="sidebar-menu-item">
                 <i class="fas fa-envelope"></i>
                 <span>আমার বার্তাসমূহ</span>
@@ -441,9 +445,10 @@
             this.style.display = 'none';
         }
     });
-
+</script>
+@if(Session::get('logged_in'))
+<script>
     // Profile sidebar toggle
-    @if(Session::get('logged_in'))
     document.getElementById('profile-icon').addEventListener('click', function() {
         document.getElementById('profile-sidebar-overlay').style.display = 'block';
         setTimeout(() => {
@@ -466,6 +471,6 @@
             }, 300);
         }
     });
-    @endif
 </script>
+@endif
       
