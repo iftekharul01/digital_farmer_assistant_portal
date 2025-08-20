@@ -17,7 +17,7 @@ class AdminAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (!Session::get('admin_logged_in')) {
-            return redirect()->route('admin.login')->with('error', 'Please login as admin to access this page.');
+            return redirect()->route('admin.login')->with('error', 'এই পেজ দেখার জন্য অনুগ্রহ করে অ্যাডমিন হিসেবে লগইন করুন।');
         }
         
         return $next($request);

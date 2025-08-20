@@ -1,4 +1,8 @@
 <!-- Admin Dashboard Header (Bangla) -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <header class="admin-header">
     <div class="admin-nav">
         <div class="admin-logo">
@@ -90,4 +94,28 @@
         }
     }
 </style>
+
+<script>
+    // Prevent back button access after admin logout
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+            // Check if admin is logged in
+            @if(!Session::get('admin_logged_in'))
+                window.location.href = '{{ route('admin.login') }}';
+            @endif
+        }
+    });
+
+    // Disable cache for admin pages
+    window.addEventListener('beforeunload', function() {
+        // Clear any cached data
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function() {
+                window.location.href = '{{ route('admin.login') }}';
+            };
+        }
+    });
+</script>
+
 <!-- End Admin Header -->

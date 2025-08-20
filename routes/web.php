@@ -172,26 +172,38 @@ Route::get('/test-auth', function () {
     return 'Authentication middleware is working! You are logged in.';
 })->middleware(['user.auth', 'no.cache']);
 
+// Test admin authentication middleware
+Route::get('/admin/test-auth', function () {
+    return 'Admin authentication middleware is working! You are logged in as admin.';
+})->middleware(['admin.auth', 'no.cache']);
+
 // Admin Routes
 Route::prefix('admin')->group(function () {
-    // Admin Login and Registration
+    // Redirect /admin to admin login
+    Route::get('/', function () {
+        return redirect()->route('admin.login');
+    });
+    
+    // Public Admin Routes (Login/Register only)
     Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login'])->name('admin.login.post');
     Route::get('/register', [AdminController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('/register', [AdminController::class, 'register'])->name('admin.register.post');
-    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     
-    Route::get('/welcome', [AdminWelcomeController::class, 'index']);
-    Route::put('/welcome', [AdminWelcomeController::class, 'update']);
+    // Logout route (with no-cache)
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout')->middleware('no.cache');
     
-    // Protected Admin Routes (require admin authentication)
-    Route::middleware('admin.auth')->group(function () {
+    // Protected Admin Routes (require admin authentication and no-cache)
+    Route::middleware(['admin.auth', 'no.cache'])->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.admin_dashboard');
         })->name('admin.dashboard');
         
         Route::get('/home', [AdminHomeController::class, 'index'])->name('admin.home');
         Route::put('/home', [AdminHomeController::class, 'update'])->name('admin.home.update');
+        
+        Route::get('/welcome', [AdminWelcomeController::class, 'index'])->name('admin.welcome');
+        Route::put('/welcome', [AdminWelcomeController::class, 'update'])->name('admin.welcome.update');
         
         Route::get('/market-prices', [AdminPriceController::class, 'index'])->name('admin.market-prices');
         Route::post('/market-prices', [AdminPriceController::class, 'store'])->name('admin.market-prices.store');
@@ -230,9 +242,6 @@ Route::prefix('admin')->group(function () {
             return view('admin.admin_weather');
         })->name('admin.weather');
         
-        Route::get('/welcome', [AdminWelcomeController::class, 'index'])->name('admin.welcome');
-        Route::put('/welcome', [AdminWelcomeController::class, 'update'])->name('admin.welcome.update');
-        
         Route::get('/notifications', [AdminNotificationController::class, 'index'])->name('admin.notifications');
         Route::post('/notifications', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
         Route::put('/notifications/{id}', [AdminNotificationController::class, 'update'])->name('admin.notifications.update');
@@ -242,5 +251,10 @@ Route::prefix('admin')->group(function () {
         Route::post('/announcements', [AdminAnnouncementController::class, 'store'])->name('admin.announcements.store');
         Route::put('/announcements/{id}', [AdminAnnouncementController::class, 'update'])->name('admin.announcements.update');
         Route::delete('/announcements/{id}', [AdminAnnouncementController::class, 'destroy'])->name('admin.announcements.destroy');
+    });
+    
+    // Catch any unmatched admin routes and redirect to login
+    Route::fallback(function () {
+        return redirect()->route('admin.login')->with('error', 'অবৈধ অ্যাডমিন পেজ। অনুগ্রহ করে লগইন করুন।');
     });
 });
