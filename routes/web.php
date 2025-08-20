@@ -22,164 +22,155 @@ use App\Http\Controllers\SavedNewsController;
 use App\Http\Controllers\AdminTutorialController;
 use App\Http\Controllers\TutorialController;
 
+// Public routes (only welcome, login, signup)
 Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
-Route::put('/admin/welcome', [AdminWelcomeController::class, 'update']);
 
 // Login routes
 Route::get('/login', [RegistrationController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [RegistrationController::class, 'login'])->name('login.post');
 
-// Logout route
-Route::post('/logout', [RegistrationController::class, 'logout'])->name('logout');
-
 // Registration routes
 Route::get('/signup', [RegistrationController::class, 'showRegistrationForm'])->name('signup');
 Route::post('/signup', [RegistrationController::class, 'register'])->name('signup.post');
 
-// Route for home page (protected)
-Route::get('/home', function () {
-    if (!Session::get('logged_in')) {
-        return redirect()->route('login')->with('error', 'Please login to access the home page.');
-    }
+// Google OAuth Routes
+Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [RegistrationController::class, 'handleGoogleCallback']);
+
+// Logout route (with no-cache)
+Route::post('/logout', [RegistrationController::class, 'logout'])->name('logout')->middleware('no.cache');
+
+// Protected User Routes (require authentication)
+Route::middleware(['user.auth', 'no.cache'])->group(function () {
     
-    // Get dynamic hero content
-    $heroContent = \App\Models\HeroContent::getActive() ?? (object)[
-        'hero_title' => 'কৃষক পোর্টালে স্বাগতম',
-        'hero_subtitle1' => 'প্রতিটি ফসলের রিয়েল-টাইম মার্কেট প্রাইস।',
-        'hero_subtitle2' => 'আপনার অঞ্চলের জন্য আবহাওয়া সতর্কতা।',
-        'hero_background_image' => 'https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg'
-    ];
-    
-    // Get top 5 latest notifications
-    $notifications = \App\Models\Notification::where('is_active', true)
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get();
-    
-    // Get top 5 latest announcements
-    $announcements = \App\Models\Announcement::where('is_active', true)
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get();
-    
-    return view('home', compact('heroContent', 'notifications', 'announcements'));
-})->name('home');
+    // Home page 
+    Route::get('/home', function () {
+        // Get dynamic hero content
+        $heroContent = \App\Models\HeroContent::getActive() ?? (object)[
+            'hero_title' => 'কৃষক পোর্টালে স্বাগতম',
+            'hero_subtitle1' => 'প্রতিটি ফসলের রিয়েল-টাইম মার্কেট প্রাইস।',
+            'hero_subtitle2' => 'আপনার অঞ্চলের জন্য আবহাওয়া সতর্কতা।',
+            'hero_background_image' => 'https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg'
+        ];
+        
+        // Get top 5 latest notifications
+        $notifications = \App\Models\Notification::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        
+        // Get top 5 latest announcements
+        $announcements = \App\Models\Announcement::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        
+        return view('home', compact('heroContent', 'notifications', 'announcements'));
+    })->name('home');
 
-// User Profile Routes (protected)
-Route::get('/user-profile', [UserProfileController::class, 'profile'])->name('user.profile');
-Route::post('/user-profile/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
-Route::get('/user-settings', [UserProfileController::class, 'settings'])->name('user.settings');
-Route::post('/user-settings/update-password', [UserProfileController::class, 'updatePassword'])->name('user.settings.update-password');
-Route::get('/user-favourites', [UserProfileController::class, 'favourites'])->name('user.favourites');
+    // User Profile Routes
+    Route::get('/user-profile', [UserProfileController::class, 'profile'])->name('user.profile');
+    Route::post('/user-profile/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
+    Route::get('/user-settings', [UserProfileController::class, 'settings'])->name('user.settings');
+    Route::post('/user-settings/update-password', [UserProfileController::class, 'updatePassword'])->name('user.settings.update-password');
+    Route::get('/user-favourites', [UserProfileController::class, 'favourites'])->name('user.favourites');
 
-// Notification Routes
-Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+    // Notification Routes
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
-// Announcement Routes
-Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements');
+    // Announcement Routes
+    Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements');
 
-// Route for market-prices page
-Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
+    // Market Prices
+    Route::get('/market-prices', [MarketPriceController::class, 'index'])->name('market-prices');
 
-// Route for weather page
-Route::get('/weather', function () {
-    return view('weather'); 
-})->name('weather');
+    // Weather
+    Route::get('/weather', function () {
+        return view('weather'); 
+    })->name('weather');
 
-// Route for crop-doctor page
-Route::get('/crop-doctor', function () {
-    return view('crop-doctor'); 
-})->name('crop-doctor');
+    // Crop Doctor
+    Route::get('/crop-doctor', function () {
+        return view('crop-doctor'); 
+    })->name('crop-doctor');
 
-// Route for subsidies-news page
-Route::get('/subsidies-news', function () {
-    return view('subsidies-news'); 
-})->name('subsidies-news');
+    // Subsidies News
+    Route::get('/subsidies-news', function () {
+        return view('subsidies-news'); 
+    })->name('subsidies-news');
 
-// Saved News Routes
-Route::get('/saved-news', [SavedNewsController::class, 'index'])->name('saved-news');
-Route::post('/saved-news', [SavedNewsController::class, 'store'])->name('saved-news.store');
-Route::delete('/saved-news/{id}', [SavedNewsController::class, 'destroy'])->name('saved-news.destroy');
-Route::post('/saved-news/check', [SavedNewsController::class, 'checkSaved'])->name('saved-news.check');
+    // Saved News Routes
+    Route::get('/saved-news', [SavedNewsController::class, 'index'])->name('saved-news');
+    Route::post('/saved-news', [SavedNewsController::class, 'store'])->name('saved-news.store');
+    Route::delete('/saved-news/{id}', [SavedNewsController::class, 'destroy'])->name('saved-news.destroy');
+    Route::post('/saved-news/check', [SavedNewsController::class, 'checkSaved'])->name('saved-news.check');
 
-// Test route for saved news
+    // Tutorials
+    Route::get('/tutorials', [TutorialController::class, 'index'])->name('tutorials');
+    Route::get('/tutorial/{slug}', [TutorialController::class, 'show'])->name('tutorials.dynamic');
+
+    // Individual Tutorial Pages
+    Route::get('/tutorials/soil-testing', function () {
+        return view('tutorials.soil-testing');
+    })->name('tutorials.soil-testing');
+
+    Route::get('/tutorials/weather-forecasting', function () {
+        return view('tutorials.weather-forecasting');
+    })->name('tutorials.weather-forecasting');
+
+    Route::get('/tutorials/crop-selection', function () {
+        return view('tutorials.crop-selection');
+    })->name('tutorials.crop-selection');
+
+    Route::get('/tutorials/irrigation-management', function () {
+        return view('tutorials.irrigation-management');
+    })->name('tutorials.irrigation-management');
+
+    Route::get('/tutorials/pest-control', function () {
+        return view('tutorials.pest-control');
+    })->name('tutorials.pest-control');
+
+    Route::get('/tutorials/fertilizers', function () {
+        return view('tutorials.fertilizers');
+    })->name('tutorials.fertilizers');
+
+    Route::get('/tutorials/post-harvest-storage', function () {
+        return view('tutorials.post-harvest-storage');
+    })->name('tutorials.post-harvest-storage');
+
+    Route::get('/tutorials/government-subsidies', function () {
+        return view('tutorials.government-subsidies');
+    })->name('tutorials.government-subsidies');
+
+    Route::get('/tutorials/digital-tools', function () {
+        return view('tutorials.digital-tools');
+    })->name('tutorials.digital-tools');
+
+    Route::get('/tutorials/farm-laws', function () {
+        return view('tutorials.farm-laws');
+    })->name('tutorials.farm-laws');
+
+    // About Us
+    Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
+
+    // Contact
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+    // User's contact messages
+    Route::get('/my-messages', [ContactController::class, 'myMessages'])->name('user.messages');
+    Route::get('/my-messages/{id}', [ContactController::class, 'viewMyMessage'])->name('user.message.view');
+});
+
+// Test route for saved news (remove in production)
 Route::get('/test-saved-news', function () {
     return 'Saved news route is working!';
 });
 
-// Route for  tutorials page
-Route::get('/tutorials', [TutorialController::class, 'index'])->name('tutorials');
-
-// Dynamic tutorial route
-Route::get('/tutorial/{slug}', [TutorialController::class, 'show'])->name('tutorials.dynamic');
-
-// Individual Tutorial Pages
-Route::get('/tutorials/soil-testing', function () {
-    return view('tutorials.soil-testing');
-})->name('tutorials.soil-testing');
-
-Route::get('/tutorials/weather-forecasting', function () {
-    return view('tutorials.weather-forecasting');
-})->name('tutorials.weather-forecasting');
-
-Route::get('/tutorials/crop-selection', function () {
-    return view('tutorials.crop-selection');
-})->name('tutorials.crop-selection');
-
-Route::get('/tutorials/irrigation-management', function () {
-    return view('tutorials.irrigation-management');
-})->name('tutorials.irrigation-management');
-
-Route::get('/tutorials/pest-control', function () {
-    return view('tutorials.pest-control');
-})->name('tutorials.pest-control');
-
-Route::get('/tutorials/fertilizers', function () {
-    return view('tutorials.fertilizers');
-})->name('tutorials.fertilizers');
-
-Route::get('/tutorials/post-harvest-storage', function () {
-    return view('tutorials.post-harvest-storage');
-})->name('tutorials.post-harvest-storage');
-
-Route::get('/tutorials/government-subsidies', function () {
-    return view('tutorials.government-subsidies');
-})->name('tutorials.government-subsidies');
-
-Route::get('/tutorials/digital-tools', function () {
-    return view('tutorials.digital-tools');
-})->name('tutorials.digital-tools');
-
-Route::get('/tutorials/farm-laws', function () {
-    return view('tutorials.farm-laws');
-})->name('tutorials.farm-laws');
-
-// Route for about-us page
-Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
-
-// Route for contact page (requires login)
-Route::get('/contact', function() {
-    if (!Session::get('logged_in')) {
-        return redirect()->route('login')->with('error', 'যোগাযোগ পেজ দেখার জন্য অনুগ্রহ করে লগইন করুন।');
-    }
-    return app(ContactController::class)->index();
-})->name('contact');
-
-Route::post('/contact', function(Illuminate\Http\Request $request) {
-    if (!Session::get('logged_in')) {
-        return redirect()->route('login')->with('error', 'বার্তা পাঠানোর জন্য অনুগ্রহ করে লগইন করুন।');
-    }
-    return app(ContactController::class)->store($request);
-})->name('contact.store');
-
-// Route for user's contact messages and replies
-Route::get('/my-messages', [ContactController::class, 'myMessages'])->name('user.messages');
-Route::get('/my-messages/{id}', [ContactController::class, 'viewMyMessage'])->name('user.message.view');
-
-// Google OAuth Routes
-Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('/login/google/callback', [RegistrationController::class, 'handleGoogleCallback']);
+// Test authentication middleware
+Route::get('/test-auth', function () {
+    return 'Authentication middleware is working! You are logged in.';
+})->middleware(['user.auth', 'no.cache']);
 
 // Admin Routes
 Route::prefix('admin')->group(function () {
@@ -189,6 +180,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/register', [AdminController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('/register', [AdminController::class, 'register'])->name('admin.register.post');
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    
+    Route::get('/welcome', [AdminWelcomeController::class, 'index']);
+    Route::put('/welcome', [AdminWelcomeController::class, 'update']);
     
     // Protected Admin Routes (require admin authentication)
     Route::middleware('admin.auth')->group(function () {
@@ -250,6 +244,3 @@ Route::prefix('admin')->group(function () {
         Route::delete('/announcements/{id}', [AdminAnnouncementController::class, 'destroy'])->name('admin.announcements.destroy');
     });
 });
-
-
-

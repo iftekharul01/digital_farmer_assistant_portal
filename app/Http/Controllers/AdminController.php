@@ -97,7 +97,16 @@ class AdminController extends Controller
     public function logout()
     {
         Session::flush();
-        return redirect()->route('admin.login')->with('success', 'Logged out successfully.');
+        
+        // Create response with cache prevention headers
+        $response = redirect()->route('admin.login')->with('success', 'অ্যাডমিন সফলভাবে লগআউট হয়েছেন।');
+        
+        // Prevent browser caching
+        $response->headers->set('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT');
+        
+        return $response;
     }
 
     /**

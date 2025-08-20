@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Prevent caching for authenticated pages -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -469,6 +475,27 @@
             setTimeout(() => {
                 this.style.display = 'none';
             }, 300);
+        }
+    });
+
+    // Prevent back button access after logout
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+            // Check if user is logged in
+            @if(!Session::get('logged_in'))
+                window.location.href = '{{ route('login') }}';
+            @endif
+        }
+    });
+
+    // Disable cache for this page
+    window.addEventListener('beforeunload', function() {
+        // Clear any cached data
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function() {
+                window.location.href = '{{ route('login') }}';
+            };
         }
     });
 </script>
