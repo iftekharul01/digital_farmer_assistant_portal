@@ -29,86 +29,6 @@
             line-height: 1.6;
         }
 
-        /* Header */
-        .header {
-            background: var(--primary-green);
-            margin: 0;
-            border-radius: 0;
-            box-shadow: 0 2px 12px var(--shadow-light);
-        }
-        .header-wrapper {
-            display: flex;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 32px;
-            height: 74px;
-            position: relative; /* For responsiveness */
-        }
-        .logo {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-right: 32px;
-        }
-        .logo a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        nav#main-navbar {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex: 1;
-            min-width: 0;
-        }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 1.05rem;
-            transition: background 0.2s, color 0.2s;
-            white-space: nowrap;
-        }
-        .nav-link:hover, .nav-link.active {
-            background: white !important;
-            color: var(--primary-green) !important;
-            text-decoration: none;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-            margin-left: auto; /* Push to the right */
-        }
-        .user-profile span {
-            color: white;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-        .user-profile .profile-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            background: white;
-            border-radius: 50%;
-        }
-        .user-profile .profile-icon i {
-            color: var(--primary-green);
-            font-size: 1.3rem;
-        }
-
         /* --- Weather Section --- */
         .weather-section {
             padding: 40px 20px;
@@ -285,52 +205,7 @@
       }
 
       /* Adjustments for smaller screens */
-      @media (max-width: 900px) {
-          #main-navbar {
-              display: none; /* Hide desktop nav */
-          }
-          .user-profile {
-              display: none; /* Hide profile on smaller screens or adjust its position */
-          }
-          .menu-toggle {
-              display: block; /* Show hamburger */
-          }
-          .header-wrapper {
-              justify-content: space-between; /* Space out logo and toggle */
-              flex-direction: row; /* Keep them in a row */
-              padding: 0 20px; /* Adjust padding */
-          }
-          .logo {
-              margin-right: 0; /* Remove right margin */
-          }
-      }
-
-
-        /* Media Queries */
-        @media (max-width: 900px) {
-            .header-wrapper {
-                height: auto; /* Allow header to expand */
-                padding: 15px 20px;
-                flex-direction: column; /* Stack logo and nav */
-                gap: 15px;
-            }
-            .logo {
-                margin-right: 0;
-                margin-bottom: 10px; /* Space below logo */
-            }
-            nav#main-navbar {
-                flex-wrap: wrap; /* Allow nav links to wrap */
-                justify-content: center;
-                gap: 10px;
-            }
-            .nav-link {
-                padding: 5px 10px;
-                font-size: 0.95rem;
-            }
-            .user-profile {
-                margin-left: 0; /* Center user profile */
-                margin-top: 15px;
-            }
+        /* Media Queries - Weather Page Specific */
             .section-wrapper {
                 padding: 30px 16px;
             }
@@ -359,9 +234,6 @@
             .section-wrapper { padding: 25px 10px; }
             .header-wrapper { padding: 10px; }
             .logo { font-size: 1.4rem; }
-            .nav-link { font-size: 0.9rem; padding: 4px 8px; }
-            .footer-column { flex: 1 1 100%; text-align: center; } /* Stack footer columns */
-            .footer-column ul { padding-inline-start: 0; } /* Remove default ul padding */
         }
     </style>
 </head>

@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Home | Farmer Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
+@include('partials.header')
+
+<style>
         :root {
             --primary-green: #0bd429;
             --light-green: #eafce9;
@@ -26,171 +18,7 @@
             font-family: 'Manrope', sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
         }
-
-        /* Header */
-        .header {
-            background: var(--primary-green);
-            margin: 0;
-            border-radius: 0;
-            box-shadow: 0 2px 12px var(--shadow-light);
-        }
-        .header-wrapper {
-            display: flex;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 32px;
-            height: 74px;
-            position: relative; /* For responsiveness */
-        }
-        .logo {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-right: 32px;
-        }
-        .logo a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        nav#main-navbar {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex: 1;
-            min-width: 0;
-        }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 1.05rem;
-            transition: background 0.2s, color 0.2s;
-            white-space: nowrap;
-        }
-        .nav-link:hover, .nav-link.active {
-            background: white !important;
-            color: var(--primary-green) !important;
-            text-decoration: none;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-            margin-left: auto; /* Push to the right */
-        }
-        .user-profile span {
-            color: white;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-        .user-profile .profile-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            background: white;
-            border-radius: 50%;
-        }
-        .user-profile .profile-icon i {
-            color: var(--primary-green);
-            font-size: 1.3rem;
-        }
-
-      
-        /* --- Navbar Responsiveness & Mobile Menu --- */
-      .menu-toggle {
-          display: none; /* Hidden by default */
-          font-size: 1.8rem;
-          color: white;
-          cursor: pointer;
-          margin-left: auto; /* Push to the right on mobile */
-          z-index: 1001; /* Above other content */
-      }
-
-      .mobile-menu-overlay {
-          position: fixed;
-          top: 0;
-          left: -100%; /* Start off-screen */
-          width: 250px; /* Width of the mobile menu */
-          height: 100%;
-          background: var(--primary-green);
-          color: white;
-          box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-          transition: left 0.3s ease-in-out;
-          z-index: 2000; /* Ensure it's above everything */
-          display: flex;
-          flex-direction: column;
-          padding-top: 60px; /* Space for close button */
-      }
-
-      .mobile-menu-overlay.active {
-          left: 0; /* Slide in */
-      }
-
-      .mobile-menu-overlay .close-btn {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          font-size: 2.5rem;
-          cursor: pointer;
-          color: white;
-      }
-
-      .mobile-navbar {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          padding: 20px;
-      }
-
-      .mobile-navbar .nav-link {
-          font-size: 1.2rem;
-          padding: 10px 15px;
-          color: white;
-          text-decoration: none;
-          transition: background 0.2s, color 0.2s;
-          border-radius: 5px;
-      }
-
-      .mobile-navbar .nav-link:hover,
-      .mobile-navbar .nav-link.active {
-          background: white;
-          color: var(--primary-green);
-      }
-
-      /* Adjustments for smaller screens */
-      @media (max-width: 900px) {
-          #main-navbar {
-              display: none; /* Hide desktop nav */
-          }
-          .user-profile {
-              display: none; /* Hide profile on smaller screens or adjust its position */
-          }
-          .menu-toggle {
-              display: block; /* Show hamburger */
-          }
-          .header-wrapper {
-              justify-content: space-between; /* Space out logo and toggle */
-              flex-direction: row; /* Keep them in a row */
-              padding: 0 20px; /* Adjust padding */
-          }
-          .logo {
-              margin-right: 0; /* Remove right margin */
-          }
-      }
 
         /* Hero Section */
         .hero-section {
@@ -528,10 +356,6 @@
             .footer-column ul { padding-inline-start: 0; } /* Remove default ul padding */
         }
     </style>
-</head>
-<body>
-
-    @include('partials.header')
 
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -711,26 +535,6 @@
                 });
             });
         });
-
-        // Mobile Menu Toggle
-const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-const mobileMenuClose = document.getElementById('mobile-menu-close');
-
-mobileMenuToggle.addEventListener('click', () => {
-    mobileMenuOverlay.classList.add('active');
-});
-
-mobileMenuClose.addEventListener('click', () => {
-    mobileMenuOverlay.classList.remove('active');
-});
-
-// Close mobile menu when a link is clicked
-mobileMenuOverlay.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenuOverlay.classList.remove('active');
-    });
-});
     </script>
 </body>
 </html>

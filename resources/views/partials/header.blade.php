@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-green: #0bd429;
@@ -338,12 +340,6 @@
                 <span class="profile-icon" id="profile-icon">
                     <i class="fas fa-user"></i>
                 </span>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit">
-                        লগআউট
-                    </button>
-                </form>
             </div>
         @else
             <!-- Not logged in -->
@@ -393,6 +389,13 @@
                 <i class="fas fa-envelope"></i>
                 <span>আমার বার্তাসমূহ</span>
             </a>
+            <form action="{{ route('logout') }}" method="POST" class="sidebar-menu-item" style="border: none; padding: 0;">
+                @csrf
+                <button type="submit" class="sidebar-menu-item" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>লগআউট</span>
+                </button>
+            </form>
         </div>
     </div>
 </div>

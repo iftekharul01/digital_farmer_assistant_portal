@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>About Us | Farmer Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
+@include('partials.header')
+
+<style>
         :root {
             --primary-green: #0bd429;
             --light-green: #eafce9;
@@ -29,85 +21,9 @@
             line-height: 1.6;
         }
 
-        /* Header */
-        .header {
-            background: var(--primary-green);
-            margin: 0;
-            border-radius: 0;
-            box-shadow: 0 2px 12px var(--shadow-light);
         }
-        .header-wrapper {
-            display: flex;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 32px;
-            height: 74px;
-            position: relative; /* For responsiveness */
-        }
-        .logo {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-right: 32px;
-        }
-        .logo a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        nav#main-navbar {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex: 1;
-            min-width: 0;
-        }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 1.05rem;
-            transition: background 0.2s, color 0.2s;
-            white-space: nowrap;
-        }
-        .nav-link:hover, .nav-link.active {
-            background: white !important;
-            color: var(--primary-green) !important;
-            text-decoration: none;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-            margin-left: auto; /* Push to the right */
-        }
-        .user-profile span {
-            color: white;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-        .user-profile .profile-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            background: white;
-            border-radius: 50%;
-        }
-        .user-profile .profile-icon i {
-            color: var(--primary-green);
-            font-size: 1.3rem;
-        }
+
+        /* --- About Us Page Specific Styles --- */
 
        
         /* --- Navbar Responsiveness & Mobile Menu --- */
@@ -827,11 +743,6 @@
         }
 
     </style>
-</head>
-<body>
-
-
-    @include('partials.header')
 
 <main class="main-content">
     <section class="about-hero-section animate__animated animate__fadeIn" data-aos="fade-down" data-aos-duration="1000">
