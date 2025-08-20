@@ -28,6 +28,7 @@
             box-sizing: border-box;
         }
 
+        /* Base Styles */
         body {
             font-family: 'Manrope', sans-serif;
             line-height: 1.6;
@@ -41,7 +42,7 @@
             padding: 0 20px;
         }
 
-        /* Header */
+        /* Header and Navigation */
         .header {
             background: var(--primary-green);
             margin: 0;
@@ -161,6 +162,7 @@
             opacity: 0.9;
         }
 
+        /* Component Styles */
         /* Content Section */
         .content {
             padding: 60px 0;
@@ -512,39 +514,6 @@
         }
 
         /* Video Section */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin: 20px 0;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-description {
-            color: var(--text-color-dark);
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--light-green);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-green);
-        }
-
-        /* Video Section */
         .tutorial-video-section {
             background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
             padding: 60px 0;
@@ -631,6 +600,7 @@
             line-height: 1.7;
             max-width: 700px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .video-description::before {
@@ -1068,7 +1038,7 @@
                 </p>
                 <div class="video-container">
                     <iframe 
-                        src="https://www.youtube.com/embed/M8KjvyWFnWg" 
+                        src="https://www.youtube.com/embed/gtCEWjtbODQ" 
                         title="সরকারি কৃষি ভর্তুকি আবেদনের নিয়ম"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>

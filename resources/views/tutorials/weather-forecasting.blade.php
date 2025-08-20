@@ -4,51 +4,7 @@
     <meta charset="UTF-8" />
     <title>আবহাওয়ার পূর্বাভাস | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link hr        .back-btn:hover {
-            background: #09b824;
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Video Section */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin: 20px 0;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-description {
-            color: var(--text-color-dark);
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--light-green);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-green);
-        }
-
-        .seasonal-tips {ps://fonts.googleap    <div class="tutorial-content">
-        <a href="/tutorials" class="back-btn">
-            <i class="fas fa-arrow-left"></i> টিউটোরিয়াল পেজে ফিরে যান
-        </a>
-        <!-- Tutorial Video Section -->
-        <div class="content-section">/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         :root {
@@ -569,14 +525,14 @@
                 </p>
                 <div class="video-container">
                     <iframe 
-                        src="https://www.youtube.com/embed/ewJ6TI8ccAw" 
+                        src="https://www.youtube.com/embed/fptCBzIwUbU" 
                         title="কৃষকদের জন্য আবহাওয়ার পূর্বাভাস - Weather Forecasting for Farmers"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-description">
-                    এই ভিডিওতে কৃষি কাজের জন্য আবহাওয়ার পূর্বাভাস কীভাবে ব্যবহার করবেন এবং প্রাকৃতিক সংকেত চিনে নেওয়ার উপায় বিস্তারিতভাবে দেখানো হয়েছে।
+                    এই ভিডিওতে কৃষি কাজের জন্য আবহাওয়ার পূর্বাভাস কীভাবে ব্যবহার করবেন এবং প্রাকৃতিক সংকেত চিনে নেওয়ার উপায় বিস্তারিতভাবে দেখানো হয়েছে। আধুনিক প্রযুক্তি ও ঐতিহ্যবাহী পদ্ধতির সমন্বয়ে কৃষকরা কীভাবে আবহাওয়ার পূর্বাভাস নিয়ে সফল হতে পারেন তার সম্পূর্ণ গাইড এখানে পাবেন।
                 </div>
             </div>
         </div>

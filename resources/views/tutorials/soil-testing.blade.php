@@ -4,52 +4,7 @@
     <meta charset="UTF-8" />
     <title>মাটি পরীক্ষার কৌশল | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts        .back-btn:hover {
-            background: #09b824;
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Video Section */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin: 20px 0;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-description {
-            color: var(--text-color-dark);
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--light-green);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-green);
-        }
-
-        @media (max-width: 768px) {   <div class="tutorial-content">
-        <a href="/tutorials" class="back-btn">
-            <i class="fas fa-arrow-left"></i> টিউটোরিয়াল পেজে ফিরে যান
-        </a>
-
-        <!-- Tutorial Video Section -->
-        <div class="content-section">com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         :root {
@@ -426,7 +381,7 @@
             </h2>
             <div class="tools-grid">
                 <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-shovel"></i></div>
+                    <div class="tool-icon"><i class="fas fa-tools"></i></div>
                     <h4>খনন সরঞ্জাম</h4>
                     <p>কোদাল, বেলচা, মাটি নমুনা সংগ্রহের জন্য</p>
                 </div>
@@ -533,14 +488,14 @@
                 </p>
                 <div class="video-container">
                     <iframe 
-                        src="https://www.youtube.com/embed/UqZECN5F7eI" 
+                        src="https://www.youtube.com/embed/_xWXpdgUEb4" 
                         title="মাটি পরীক্ষার কৌশল - Soil Testing Tutorial"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-description">
-                    এই ভিডিওতে মাটি পরীক্ষার সঠিক পদ্ধতি, প্রয়োজনীয় যন্ত্রপাতি এবং ফলাফল বিশ্লেষণের সম্পূর্ণ প্রক্রিয়া বিস্তারিতভাবে দেখানো হয়েছে।
+                    এই ভিডিওতে মাটি পরীক্ষার সঠিক পদ্ধতি, প্রয়োজনীয় যন্ত্রপাতি এবং ফলাফল বিশ্লেষণের সম্পূর্ণ প্রক্রিয়া বিস্তারিতভাবে দেখানো হয়েছে। কৃষকরা কীভাবে ঘরে বসে সহজ পদ্ধতিতে মাটির গুণমান পরীক্ষা করতে পারেন এবং সেই অনুযায়ী সার প্রয়োগের পরিকল্পনা করতে পারেন তার সম্পূর্ণ গাইড এখানে পাবেন।
                 </div>
             </div>
         </div>

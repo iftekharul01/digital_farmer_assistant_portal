@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
+        /* ==================== BASE STYLES ==================== */
         :root {
             --primary-green: #0bd429;
             --light-green: #eafce9;
@@ -19,6 +20,7 @@
             --border-light: #b2eac1;
         }
 
+        /* ==================== COMPONENT STYLES ==================== */
         /* Video Section */
         .tutorial-video-section {
             background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
@@ -106,6 +108,7 @@
             line-height: 1.7;
             max-width: 700px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .video-description::before {
@@ -145,7 +148,13 @@
             line-height: 1.6;
         }
 
-        /* Header Styles - Same as previous */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation and Header Styles */
         .header {
             background: var(--primary-green);
             margin: 0;
@@ -199,7 +208,7 @@
             text-decoration: none;
         }
 
-        /* Tutorial Page Styles */
+        /* Page Layout and Content Styles */
         .tutorial-hero {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
             color: white;
@@ -247,6 +256,7 @@
             gap: 12px;
         }
 
+        /* Component Styles */
         .crops-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -310,6 +320,7 @@
         .kharif-season { background: linear-gradient(135deg, #27ae60, #229954); }
         .summer-season { background: linear-gradient(135deg, #e74c3c, #c0392b); }
 
+        /* Interactive Elements */
         .back-btn {
             background: var(--primary-green);
             color: white;
@@ -329,39 +340,6 @@
             background: #089c24;
             color: white;
             text-decoration: none;
-        }
-
-        /* Video Section */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin: 20px 0;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-description {
-            color: var(--text-color-dark);
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--light-green);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-green);
         }
 
         .calculator-section {
@@ -404,6 +382,7 @@
             border-left: 5px solid var(--primary-green);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             .tutorial-hero h1 { font-size: 2rem; }
             .content-section { padding: 25px; }
@@ -425,8 +404,6 @@
             <i class="fas fa-arrow-left"></i> টিউটোরিয়াল তালিকায় ফিরুন
         </a>
 
-        <!-- Tutorial Video Section -->
-        <div class="content-section">
         <div class="content-section">
             <h2 class="section-title">
                 <i class="fas fa-info-circle"></i> ফসল নির্বাচনের গুরুত্ব
@@ -529,7 +506,7 @@
             </h2>
             <div class="crops-grid">
                 <div class="crop-card">
-                    <div class="crop-icon rice-icon"><i class="fas fa-wheat"></i></div>
+                    <div class="crop-icon rice-icon"><i class="fas fa-bowl-rice"></i></div>
                     <h4>ধান</h4>
                     <p><strong>উপযুক্ত মাটি:</strong> এঁটেল ও দোআঁশ</p>
                     <p><strong>pH:</strong> ৫.৫-৭.০</p>
@@ -545,7 +522,7 @@
                     <p><strong>পানি:</strong> কম পানি প্রয়োজন</p>
                 </div>
                 <div class="crop-card">
-                    <div class="crop-icon corn-icon"><i class="fas fa-corn"></i></div>
+                    <div class="crop-icon corn-icon"><i class="fas fa-bowl-food"></i></div>
                     <h4>ভুট্টা</h4>
                     <p><strong>উপযুক্ত মাটি:</strong> সব ধরনের মাটি</p>
                     <p><strong>pH:</strong> ৫.৮-৭.৮</p>
@@ -666,7 +643,7 @@
                     </iframe>
                 </div>
                 <div class="video-description">
-                    এই ভিডিওতে মাটি, জলবায়ু এবং বাজারের চাহিদা বিবেচনা করে লাভজনক ফসল নির্বাচনের বিস্তারিত পদ্ধতি দেখানো হয়েছে।
+                    এই ভিডিওতে মাটি, জলবায়ু এবং বাজারের চাহিদা বিবেচনা করে লাভজনক ফসল নির্বাচনের বিস্তারিত পদ্ধতি দেখানো হয়েছে। সঠিক ফসল নির্বাচনের মাধ্যমে কৃষকরা কিভাবে বেশি লাভবান হতে পারেন তার সম্পূর্ণ গাইডলাইন এখানে রয়েছে।
                 </div>
             </div>
         </div>
