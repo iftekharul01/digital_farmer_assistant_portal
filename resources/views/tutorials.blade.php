@@ -164,8 +164,6 @@
             .header-wrapper { padding: 10px; }
             .logo { font-size: 1.4rem; }
             .nav-link { font-size: 0.9rem; padding: 4px 8px; }
-            .footer-column { flex: 1 1 100%; text-align: center; } /* Stack footer columns */
-            .footer-column ul { padding-inline-start: 0; } /* Remove default ul padding */
         }
 
         /* Add below your existing styles or at the end of the <style> block */
