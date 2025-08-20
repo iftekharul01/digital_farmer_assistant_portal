@@ -32,18 +32,18 @@
 
         /* Subsidies News Page Styles */
 
-        .news-main-bg {
-
-      
-        /* --- Navbar Responsiveness & Mobile Menu --- */
-      .menu-toggle {
-          display: none; /* Hidden by default */
-          font-size: 1.8rem;
-          color: white;
-          cursor: pointer;
-          margin-left: auto; /* Push to the right on mobile */
-          z-index: 1001; /* Above other content */
-      }
+    .news-main-bg {
+          
+    }
+    /* --- Navbar Responsiveness & Mobile Menu --- */
+          .menu-toggle {
+              display: none; /* Hidden by default */
+              font-size: 1.8rem;
+              color: white;
+              cursor: pointer;
+              margin-left: auto; /* Push to the right on mobile */
+              z-index: 1001; /* Above other content */
+          }
 
       .mobile-menu-overlay {
           position: fixed;

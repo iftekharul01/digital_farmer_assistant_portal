@@ -241,6 +241,13 @@
             margin-top: 5px;
         }
 
+        .text-success {
+            color: green;
+        }
+        .text-danger {
+            color: red;
+        }
+
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -343,14 +350,14 @@
             </div>
         @endif
 
-        <!-- Tutorial Info -->
-        <div class="tutorial-info">
-            <h4><i class="fas fa-info-circle"></i> টিউটোরিয়াল তথ্য</h4>
+                <span class="{{ $tutorial->is_active ? 'text-success' : 'text-danger' }}">
+                    {{ $tutorial->is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়' }}
+                </span>
             <p><strong>তৈরির তারিখ:</strong> {{ $tutorial->created_at->format('d M Y, h:i A') }}</p>
             <p><strong>সর্বশেষ আপডেট:</strong> {{ $tutorial->updated_at->format('d M Y, h:i A') }}</p>
             <p><strong>স্লাগ:</strong> {{ $tutorial->slug }}</p>
             <p><strong>স্ট্যাটাস:</strong> 
-                <span style="color: {{ $tutorial->is_active ? 'green' : 'red' }};">
+                <span class="{{ $tutorial->is_active ? 'text-success' : 'text-danger' }}">
                     {{ $tutorial->is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়' }}
                 </span>
             </p>

@@ -100,23 +100,40 @@
 
         .forecast-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 12px;
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px dashed var(--primary-green);
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) var(--light-green);
+        }
+
+        .forecast-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .forecast-container::-webkit-scrollbar-track {
+            background: var(--light-green);
+            border-radius: 3px;
+        }
+
+        .forecast-container::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 3px;
         }
 
         .forecast-day {
             background: white;
-            padding: 15px;
+            padding: 15px 10px;
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-light);
             text-align: center;
-            flex: 1 1 120px; /* Adjust width of forecast cards */
-            min-width: 100px;
-            max-width: 150px;
+            flex: 0 0 auto;
+            min-width: 110px;
+            width: 110px;
             border: 1px solid var(--border-light);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -127,19 +144,32 @@
         }
 
         .forecast-day img {
-            width: 50px;
-            height: 50px;
-            margin: 5px 0;
+            width: 45px;
+            height: 45px;
+            margin: 8px 0 5px 0;
         }
 
         .forecast-day div {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--dark-green);
+            margin: 2px 0;
         }
         .forecast-day div:first-child {
             font-weight: bold;
             color: var(--primary-green);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .forecast-day div:nth-child(3) {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1rem;
+        }
+
+        .forecast-day div:last-child {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
 
@@ -219,9 +249,31 @@
             .weather-wrapper {
                 padding: 20px;
             }
+
+        /* Keep forecast items side by side on all screen sizes */
+        @media (max-width: 768px) {
+            .forecast-container {
+                gap: 8px;
+                padding-bottom: 10px;
+            }
+            
             .forecast-day {
-                flex: 1 1 100%; /* Stack forecast days on very small screens */
-                max-width: none;
+                min-width: 95px;
+                width: 95px;
+                padding: 12px 8px;
+            }
+            
+            .forecast-day img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .forecast-day div:first-child {
+                font-size: 0.8rem;
+            }
+            
+            .forecast-day div:nth-child(3) {
+                font-size: 0.9rem;
             }
         }
 
@@ -402,18 +454,25 @@ function displayForecast(data) {
     const forecastDiv = document.getElementById('forecast-container');
     forecastDiv.innerHTML = '';
 
-    // Get one forecast per day (at 12:00)
+    // Get one forecast per day (at 12:00 or closest available time)
     const daily = {};
     data.list.forEach(item => {
         const date = new Date(item.dt * 1000);
-        const day = getDayInBangla(date);
-        if (date.getHours() === 12 && !daily[day]) {
-            daily[day] = item;
+        const dateKey = date.toDateString();
+        
+        // Prefer 12:00 PM data, but take any if not available
+        if (!daily[dateKey] || date.getHours() === 12) {
+            daily[dateKey] = {
+                data: item,
+                dayName: getDayInBangla(date)
+            };
         }
     });
 
-    Object.keys(daily).slice(0, 5).forEach(day => {
-        const item = daily[day];
+    // Take first 6 days of forecast (including today)
+    Object.values(daily).slice(0, 6).forEach(dayData => {
+        const item = dayData.data;
+        const day = dayData.dayName;
         const icon = item.weather[0].icon;
         const temp = toBanglaDigits(Math.round(item.main.temp));
         const desc = getWeatherConditionInBangla(item.weather[0].main);
