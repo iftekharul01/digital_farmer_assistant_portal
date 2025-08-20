@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sign Up | Farmer Portal</title>
+  <title>সাইন আপ | কৃষক পোর্টাল</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -332,13 +332,13 @@
     <div class="container header-wrapper">
       <div class="logo">
         <a href="{{ url('/') }}" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
-          <i class="fas fa-seedling"></i> <span>Farmer Portal</span>
+          <i class="fas fa-seedling"></i> <span>কৃষক পোর্টাল</span>
         </a>
       </div>
       <div class="header-right">
         <div class="auth-links">
-          <a href="{{ route('login') }}">Login</a>
-          <a href="{{ route('signup') }}" class="signup-btn">Signup</a>
+          <a href="{{ route('login') }}">লগইন</a>
+          <a href="{{ route('signup') }}" class="signup-btn">সাইন আপ</a>
         </div>
         <div class="language-toggle">
           <button id="lang-en" class="lang-btn active">EN</button>
@@ -353,8 +353,8 @@
     <div class="signup-logo">
       <i class="fas fa-seedling"></i>
     </div>
-    <div class="signup-subtitle">Create your free account</div>
-    <div class="signup-title">Sign Up for Farmer Portal</div>
+    <div class="signup-subtitle">আপনার বিনামূল্যে অ্যাকাউন্ট তৈরি করুন</div>
+    <div class="signup-title">কৃষক পোর্টালে সাইন আপ করুন</div>
     
     @if ($errors->any())
       <div style="background: #fee; border: 1px solid #fcc; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #c33;">
@@ -368,32 +368,32 @@
 
     <form action="{{ route('signup.post') }}" method="POST">
       @csrf
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Choose a username" value="{{ old('username') }}" required>
+      <label for="username">ইউজারনেম</label>
+      <input type="text" id="username" name="username" placeholder="একটি ইউজারনেম বেছে নিন" value="{{ old('username') }}" required>
       
-      <label for="full_name">Full Name</label>
-      <input type="text" id="full_name" name="full_name" placeholder="Your full name" value="{{ old('full_name') }}" required>
+      <label for="full_name">পূর্ণ নাম</label>
+      <input type="text" id="full_name" name="full_name" placeholder="আপনার পূর্ণ নাম" value="{{ old('full_name') }}" required>
       
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="you@email.com" value="{{ old('email') }}" required>
+      <label for="email">ইমেইল ঠিকানা</label>
+      <input type="email" id="email" name="email" placeholder="আপনার@ইমেইল.কম" value="{{ old('email') }}" required>
       
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Create a password (min 8 characters)" required>
+      <label for="password">পাসওয়ার্ড</label>
+      <input type="password" id="password" name="password" placeholder="একটি পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৮ অক্ষর)" required>
       
-      <label for="confirm_password">Confirm Password</label>
-      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+      <label for="confirm_password">পাসওয়ার্ড নিশ্চিত করুন</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="আপনার পাসওয়ার্ড নিশ্চিত করুন" required>
       
-      <button type="submit" class="signup-btn">Sign Up</button>
+      <button type="submit" class="signup-btn">সাইন আপ</button>
     </form>
     
-    <div class="or-divider">or</div>
+    <div class="or-divider">অথবা</div>
     <a href="{{ route('login.google') }}" class="social-btn google-btn">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" style="width:22px;vertical-align:middle;margin-right:8px;">
-      Continue with Google
+      Google দিয়ে চালিয়ে যান
     </a>
     
     <div class="login-link">
-      Already have an account? <a href="{{ route('login') }}">Login</a>
+      ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="{{ route('login') }}">লগইন</a>
     </div>
   </div>
 
@@ -401,27 +401,27 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-column">
-        <h3>Farmer Portal</h3>
-        <p>Connecting technology to every farmer's hand. Agriculture made smarter and accessible.</p>
+        <h3>কৃষক পোর্টাল</h3>
+        <p>প্রতিটি কৃষকের হাতে প্রযুক্তির সংযোগ স্থাপন। কৃষিকাজকে আরও স্মার্ট এবং সহজলভ্য করে তোলা।</p>
       </div>
       <div class="footer-column">
-        <h4>Resources</h4>
+        <h4>সম্পদ</h4>
         <ul>
-          <li><a href="#">Crop Tips</a></li>
-          <li><a href="#">Market Watch</a></li>
-          <li><a href="#">Weather Alerts</a></li>
+          <li><a href="#">ফসলের টিপস</a></li>
+          <li><a href="#">বাজার পর্যবেক্ষণ</a></li>
+          <li><a href="#">আবহাওয়া সতর্কতা</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Community</h4>
+        <h4>কমিউনিটি</h4>
         <ul>
-          <li><a href="#">Success Stories</a></li>
-          <li><a href="#">Ask Experts</a></li>
-          <li><a href="#">Forum</a></li>
+          <li><a href="#">সফলতার গল্প</a></li>
+          <li><a href="#">বিশেষজ্ঞদের জিজ্ঞাসা</a></li>
+          <li><a href="#">ফোরাম</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Stay Connected</h4>
+        <h4>যুক্ত থাকুন</h4>
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-youtube"></i></a>
@@ -430,7 +430,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      © 2025 Farmer Portal. Designed with ❤️ for our farmers.
+      © ২০২৫ কৃষক পোর্টাল। আমাদের কৃষকদের জন্য ❤️ দিয়ে ডিজাইন করা।
     </div>
   </footer>
 
