@@ -5,8 +5,15 @@
 
 <header class="admin-header">
     <div class="admin-nav">
-        <div class="admin-logo">
-            <i class="fas fa-seedling"></i> কৃষক পোর্টাল অ্যাডমিন
+        <div class="admin-left">
+            <div class="admin-logo">
+                <i class="fas fa-seedling"></i> কৃষক পোর্টাল অ্যাডমিন
+            </div>
+            <div class="admin-menu">
+                <a href="{{ route('admin.dashboard') }}" class="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড
+                </a>
+            </div>
         </div>
         <div class="admin-user">
             <span><i class="fas fa-user-shield"></i> অ্যাডমিন</span>
@@ -37,6 +44,12 @@
         padding: 0 20px;
     }
 
+    .admin-left {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
     .admin-logo {
         font-size: 1.5rem;
         font-weight: 800;
@@ -49,6 +62,35 @@
     .admin-logo i {
         font-size: 1.8rem;
         color: #ffffff;
+    }
+
+    .admin-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .dashboard-btn {
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: 'Manrope', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .dashboard-btn:hover {
+        background: rgba(255,255,255,0.25);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .admin-user {
@@ -85,8 +127,17 @@
             padding: 0 15px;
         }
         
+        .admin-left {
+            gap: 15px;
+        }
+        
         .admin-logo {
             font-size: 1.2rem;
+        }
+        
+        .dashboard-btn {
+            padding: 8px 12px;
+            font-size: 12px;
         }
         
         .admin-user span {
