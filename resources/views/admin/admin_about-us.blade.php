@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>এডমিন - About Us পেজ ম্যানেজমেন্ট | কৃষক পোর্টাল</title>
+    <title>অ্যাডমিন - About Us পেজ ম্যানেজমেন্ট | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -285,16 +285,7 @@
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <h1><i class="fas fa-info-circle"></i> About Us পেজ ম্যানেজমেন্ট</h1>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('about-us') }}" target="_blank"><i class="fas fa-external-link-alt"></i> পেজ দেখুন</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="main-container">
         @if(session('success'))
@@ -408,7 +399,7 @@
                             <div class="team-member" id="member-{{ $index }}">
                                 <div class="team-member-header">
                                     <span class="team-member-title">সদস্য #{{ $index + 1 }}</span>
-                                    <button type="button" class="remove-member" onclick="removeMember({{ $index }})">
+                                    <button type="button" class="remove-member" onclick="removeMember('{{ $index }}')">
                                         <i class="fas fa-trash"></i> মুছুন
                                     </button>
                                 </div>
@@ -539,7 +530,7 @@
     </div>
 
     <script>
-        let memberCount = {{ $content && $content->team_members ? count($content->team_members) : 1 }};
+        let memberCount = {!! $content && $content->team_members ? count($content->team_members) : 1 !!};
 
         function addTeamMember() {
             const container = document.getElementById('team-members-container');

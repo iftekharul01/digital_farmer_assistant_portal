@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | Farmer Portal</title>
+    <title>অ্যাডমিন ড্যাশবোর্ড | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -131,89 +131,59 @@
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> Farmer Portal Admin
-            </div>
-            <div class="admin-user">
-                <span>Welcome, {{ Session::get('admin_username') }}!</span>
-                <a href="{{ route('admin.logout') }}" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="dashboard-container">
-        <h1 class="dashboard-title">Admin Dashboard</h1>
-        <p class="dashboard-subtitle">Manage your Farmer Portal content and settings</p>
+        <h1 class="dashboard-title">অ্যাডমিন ড্যাশবোর্ড</h1>
+        <p class="dashboard-subtitle">আপনার কৃষক পোর্টাল কন্টেন্ট এবং সেটিংস পরিচালনা করুন</p>
 
         <div class="admin-grid">
             <a href="{{ route('admin.home') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-home"></i></div>
-                <h3 class="card-title">Home Page</h3>
-                <p class="card-description">Manage home page content, hero sections, and featured content.</p>
+                <h3 class="card-title">হোম পেজ</h3>
+                <p class="card-description">হোম পেজের কন্টেন্ট, হিরো সেকশন এবং ফিচার্ড কন্টেন্ট পরিচালনা করুন।</p>
             </a>
 
             <a href="{{ route('admin.about-us') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-info-circle"></i></div>
-                <h3 class="card-title">About Us</h3>
-                <p class="card-description">Edit about us page content, team information, and company details.</p>
+                <h3 class="card-title">আমাদের সম্পর্কে</h3>
+                <p class="card-description">আমাদের সম্পর্কে পেজের কন্টেন্ট, টিম তথ্য এবং কোম্পানির বিস্তারিত সম্পাদনা করুন।</p>
             </a>
 
             <a href="{{ route('admin.contact') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                <h3 class="card-title">Contact</h3>
-                <p class="card-description">Manage contact information, forms, and customer inquiries.</p>
-            </a>
-
-            <a href="{{ route('admin.crop-doctor') }}" class="admin-card">
-                <div class="card-icon"><i class="fas fa-leaf"></i></div>
-                <h3 class="card-title">Crop Doctor</h3>
-                <p class="card-description">Manage crop diseases, treatments, and diagnostic tools.</p>
+                <h3 class="card-title">যোগাযোগ</h3>
+                <p class="card-description">যোগাযোগের তথ্য, ফর্ম এবং গ্রাহকদের জিজ্ঞাসা পরিচালনা করুন।</p>
             </a>
 
             <a href="{{ route('admin.market-prices') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                <h3 class="card-title">Market Prices</h3>
-                <p class="card-description">Update product prices, market trends, and commodity data.</p>
+                <h3 class="card-title">বাজার মূল্য</h3>
+                <p class="card-description">পণ্যের দাম, বাজারের প্রবণতা এবং পণ্য তথ্য আপডেট করুন।</p>
             </a>
 
             <a href="{{ route('admin.tutorials') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3 class="card-title">Tutorials</h3>
-                <p class="card-description">Create and manage farming tutorials, guides, and educational content.</p>
-            </a>
-
-            <a href="{{ route('admin.subsidies-news') }}" class="admin-card">
-                <div class="card-icon"><i class="fas fa-newspaper"></i></div>
-                <h3 class="card-title">Subsidies & News</h3>
-                <p class="card-description">Manage government subsidies, news articles, and announcements.</p>
-            </a>
-
-            <a href="{{ route('admin.weather') }}" class="admin-card">
-                <div class="card-icon"><i class="fas fa-cloud-sun"></i></div>
-                <h3 class="card-title">Weather</h3>
-                <p class="card-description">Configure weather data sources and location settings.</p>
+                <h3 class="card-title">টিউটোরিয়াল</h3>
+                <p class="card-description">কৃষি টিউটোরিয়াল, গাইড এবং শিক্ষামূলক কন্টেন্ট তৈরি ও পরিচালনা করুন।</p>
             </a>
 
             <a href="{{ route('admin.welcome') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-star"></i></div>
-                <h3 class="card-title">Welcome Page</h3>
-                <p class="card-description">Customize welcome page layout, banners, and promotional content.</p>
+                <h3 class="card-title">স্বাগতম পেজ</h3>
+                <p class="card-description">স্বাগতম পেজের লেআউট, ব্যানার এবং প্রমোশনাল কন্টেন্ট কাস্টমাইজ করুন।</p>
             </a>
 
             <a href="{{ route('admin.notifications') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-bell"></i></div>
-                <h3 class="card-title">Notification Management</h3>
-                <p class="card-description">Create, edit and manage system notifications for users.</p>
+                <h3 class="card-title">নোটিফিকেশন ব্যবস্থাপনা</h3>
+                <p class="card-description">ব্যবহারকারীদের জন্য সিস্টেম নোটিফিকেশন তৈরি, সম্পাদনা এবং পরিচালনা করুন।</p>
             </a>
 
             <a href="{{ route('admin.announcements') }}" class="admin-card">
                 <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
-                <h3 class="card-title">Announcement Management</h3>
-                <p class="card-description">Create, edit and manage announcements, events and news.</p>
+                <h3 class="card-title">ঘোষণা ব্যবস্থাপনা</h3>
+                <p class="card-description">ঘোষণা, ইভেন্ট এবং সংবাদ তৈরি, সম্পাদনা এবং পরিচালনা করুন।</p>
             </a>
         </div>
     </div>

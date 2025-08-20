@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>টিউটোরিয়াল ম্যানেজমেন্ট | অ্যাডমিন প্যানেল</title>
+    <title>অ্যাডমিন - টিউটোরিয়াল ম্যানেজমেন্ট | অ্যাডমিন প্যানেল</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -237,6 +237,7 @@
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
         }
 
@@ -346,24 +347,7 @@
     </style>
 </head>
 <body>
-    <div class="admin-header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="header-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    টিউটোরিয়াল ম্যানেজমেন্ট
-                </h1>
-                <div class="header-actions">
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
-                        <i class="fas fa-dashboard"></i> ড্যাশবোর্ড
-                    </a>
-                    <a href="{{ route('admin.tutorials.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> নতুন টিউটোরিয়াল
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.admin_header')
 
     <div class="container">
         @if(session('success'))

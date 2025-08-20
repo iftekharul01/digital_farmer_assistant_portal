@@ -27,43 +27,6 @@
             font-family: 'Manrope', sans-serif;
         }
 
-        .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
         .content-container {
             max-width: 1200px;
             margin: 30px auto;
@@ -279,26 +242,7 @@
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> অ্যাডমিন প্যানেল
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('admin.home') }}"><i class="fas fa-home"></i> হোম</a>
-                <a href="{{ route('admin.market-prices') }}"><i class="fas fa-chart-line"></i> বাজার দর</a>
-                <a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> নোটিফিকেশন</a>
-                <a href="{{ route('admin.announcements') }}"><i class="fas fa-bullhorn"></i> ঘোষণা</a>
-                <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" style="background: none; border: none; color: white; cursor: pointer; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">
-                        <i class="fas fa-sign-out-alt"></i> লগআউট
-                    </button>
-                </form>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="content-container">
         <h1 class="page-title"><i class="fas fa-envelope"></i> যোগাযোগ ব্যবস্থাপনা</h1>
@@ -351,6 +295,25 @@
                                value="{{ $contactSettings->page_title ?? 'আমাদের সাথে যোগাযোগ করুন' }}" required>
                     </div>
                     <div class="form-group">
+                        <label for="page_subtitle">পেজ সাবটাইটেল *</label>
+                        <input type="text" id="page_subtitle" name="page_subtitle" 
+                               value="{{ $contactSettings->page_subtitle ?? 'আপনার কোন প্রশ্ন বা মতামত থাকলে আমাদের সাথে যোগাযোগ করুন' }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="office_address">অফিস ঠিকানা *</label>
+                    <textarea id="office_address" name="office_address" required>{{ $contactSettings->office_address ?? 'ঢাকা, বাংলাদেশ' }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="primary_phone">প্রাথমিক ফোন *</label>
+                        <input type="text" id="primary_phone" name="primary_phone" 
+                               value="{{ $contactSettings->primary_phone ?? '+৮৮০ ১৭১১ ১২৩৪৫৬' }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="secondary_phone">দ্বিতীয় ফোন</label>
                         <label for="page_subtitle">পেজ সাবটাইটেল *</label>
                         <input type="text" id="page_subtitle" name="page_subtitle" 
                                value="{{ $contactSettings->page_subtitle ?? 'আপনার কোন প্রশ্ন বা মতামত থাকলে আমাদের সাথে যোগাযোগ করুন' }}" required>

@@ -27,43 +27,6 @@
             font-family: 'Manrope', sans-serif;
         }
 
-        .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
         .content-container {
             max-width: 800px;
             margin: 30px auto;
@@ -282,23 +245,7 @@
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> অ্যাডমিন প্যানেল
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('admin.contact') }}"><i class="fas fa-envelope"></i> যোগাযোগ</a>
-                <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" style="background: none; border: none; color: white; cursor: pointer; padding: 8px 12px; border-radius: 6px; transition: background 0.2s;">
-                        <i class="fas fa-sign-out-alt"></i> লগআউট
-                    </button>
-                </form>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="content-container">
         <a href="{{ route('admin.contact') }}" class="back-link">

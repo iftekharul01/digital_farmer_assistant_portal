@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Announcements | Digital Farmer Assistant</title>
+    <title>অ্যাডমিন ঘোষণা | ডিজিটাল কৃষক সহায়ক</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+
+@include('admin.admin_header')
 
 <style>
     :root {
@@ -35,44 +37,6 @@
         line-height: 1.6;
         color: var(--text-color-dark);
     }
-
-    .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
 
     .admin-container {
         max-width: 1400px;
@@ -429,18 +393,6 @@
     }
 </style>
 
-<header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> এডমিন প্যানেল
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
-            </div>
-        </nav>
-    </header>
-
 <div class="admin-container">
     <div class="page-header">
         <h1><i class="fas fa-bullhorn"></i> ঘোষণা ব্যবস্থাপনা</h1>
@@ -462,49 +414,49 @@
                 <form method="POST" action="{{ route('admin.announcements.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label class="form-label">ক্যাটেগরি</label>
+                        <label class="form-label">বিভাগ</label>
                         <select name="category" class="form-select" required>
-                            <option value="">ক্যাটেগরি নির্বাচন করুন</option>
-                            <option value="event">ইভেন্ট</option>
+                            <option value="">বিভাগ নির্বাচন করুন</option>
+                            <option value="event">অনুষ্ঠান</option>
                             <option value="subsidy">ভর্তুকি</option>
                             <option value="alert">সতর্কতা</option>
                             <option value="training">প্রশিক্ষণ</option>
                             <option value="general">সাধারণ</option>
-                            <option value="emergency">জরুরী</option>
+                            <option value="emergency">জরুরি</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">শিরোনাম</label>
-                        <input type="text" name="title" class="form-input" placeholder="ঘোষণার শিরোনাম লিখুন" required>
+                        <label class="form-label">মূল শিরোনাম</label>
+                        <input type="text" name="title" class="form-input" placeholder="ঘোষণার মূল শিরোনাম লিখুন" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">উপ-শিরোনাম (ঐচ্ছিক)</label>
-                        <input type="text" name="subtitle" class="form-input" placeholder="উপ-শিরোনাম লিখুন">
+                        <label class="form-label">উপশিরোনাম (ঐচ্ছিক)</label>
+                        <input type="text" name="subtitle" class="form-input" placeholder="অতিরিক্ত উপশিরোনাম লিখুন">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">বিবরণ</label>
-                        <textarea name="description" class="form-textarea" placeholder="ঘোষণার বিস্তারিত বিবরণ লিখুন" required></textarea>
+                        <label class="form-label">বিস্তারিত বিবরণ</label>
+                        <textarea name="description" class="form-textarea" placeholder="ঘোষণার সম্পূর্ণ বিবরণ এখানে লিখুন" required></textarea>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">অগ্রাধিকার</label>
                             <select name="priority" class="form-select" required>
-                                <option value="medium">মধ্যম</option>
+                                <option value="medium">মাঝারি</option>
                                 <option value="high">উচ্চ</option>
                                 <option value="low">নিম্ন</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">স্ট্যাটাস</label>
+                            <label class="form-label">অবস্থা</label>
                             <div class="checkbox-group">
                                 <input type="hidden" name="is_active" value="0">
                                 <input type="checkbox" name="is_active" class="checkbox-input" value="1" checked>
-                                <label>সক্রিয়</label>
+                                <label>সক্রিয় রাখুন</label>
                             </div>
                         </div>
                     </div>
@@ -531,17 +483,23 @@
                                     @if($announcement->subtitle)
                                         <p class="item-subtitle">{{ $announcement->subtitle }}</p>
                                     @endif
-                                    <span class="item-category">{{ ucfirst($announcement->category) }}</span>
+                                    <span class="item-category">
+                                        {{ $announcement->category == 'event' ? 'অনুষ্ঠান' : 
+                                           ($announcement->category == 'subsidy' ? 'ভর্তুকি' : 
+                                           ($announcement->category == 'alert' ? 'সতর্কতা' : 
+                                           ($announcement->category == 'training' ? 'প্রশিক্ষণ' : 
+                                           ($announcement->category == 'emergency' ? 'জরুরি' : 'সাধারণ')))) }}
+                                    </span>
                                 </div>
                                 <div class="item-actions">
-                                    <button class="btn btn-warning btn-sm" onclick="toggleEditForm({{ $announcement->id }})">
+                                    <button class="btn btn-warning btn-sm" onclick="toggleEditForm('{{ $announcement->id }}')">
                                         <i class="fas fa-edit"></i> সম্পাদনা
                                     </button>
                                     <form method="POST" action="{{ route('admin.announcements.destroy', $announcement->id) }}" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('আপনি কি নিশ্চিত?')">
-                                            <i class="fas fa-trash"></i> মুছুন
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('আপনি কি নিশ্চিত যে এটি মুছে দিতে চান?')">
+                                            <i class="fas fa-trash"></i> মুছে দিন
                                         </button>
                                     </form>
                                 </div>
@@ -554,12 +512,12 @@
                             <div class="item-meta">
                                 <span>
                                     <span class="priority-indicator priority-{{ $announcement->priority }}"></span>
-                                    {{ $announcement->priority == 'high' ? 'উচ্চ' : ($announcement->priority == 'medium' ? 'মধ্যম' : 'নিম্ন') }} অগ্রাধিকার
+                                    {{ $announcement->priority == 'high' ? 'উচ্চ' : ($announcement->priority == 'medium' ? 'মাঝারি' : 'নিম্ন') }} অগ্রাধিকার
                                 </span>
                                 <span class="status-badge {{ $announcement->is_active ? 'status-active' : 'status-inactive' }}">
                                     {{ $announcement->is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়' }}
                                 </span>
-                                <span>{{ $announcement->created_at->format('M d, Y') }}</span>
+                                <span>{{ $announcement->created_at->format('d M Y') }}</span>
                             </div>
 
                             <!-- Edit Form -->
@@ -569,14 +527,14 @@
                                     @method('PUT')
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="form-label">ক্যাটেগরি</label>
+                                            <label class="form-label">বিভাগ</label>
                                             <select name="category" class="form-select" required>
-                                                <option value="event" {{ $announcement->category == 'event' ? 'selected' : '' }}>ইভেন্ট</option>
+                                                <option value="event" {{ $announcement->category == 'event' ? 'selected' : '' }}>অনুষ্ঠান</option>
                                                 <option value="subsidy" {{ $announcement->category == 'subsidy' ? 'selected' : '' }}>ভর্তুকি</option>
                                                 <option value="alert" {{ $announcement->category == 'alert' ? 'selected' : '' }}>সতর্কতা</option>
                                                 <option value="training" {{ $announcement->category == 'training' ? 'selected' : '' }}>প্রশিক্ষণ</option>
                                                 <option value="general" {{ $announcement->category == 'general' ? 'selected' : '' }}>সাধারণ</option>
-                                                <option value="emergency" {{ $announcement->category == 'emergency' ? 'selected' : '' }}>জরুরী</option>
+                                                <option value="emergency" {{ $announcement->category == 'emergency' ? 'selected' : '' }}>জরুরি</option>
                                             </select>
                                         </div>
 
@@ -584,39 +542,39 @@
                                             <label class="form-label">অগ্রাধিকার</label>
                                             <select name="priority" class="form-select" required>
                                                 <option value="low" {{ $announcement->priority == 'low' ? 'selected' : '' }}>নিম্ন</option>
-                                                <option value="medium" {{ $announcement->priority == 'medium' ? 'selected' : '' }}>মধ্যম</option>
+                                                <option value="medium" {{ $announcement->priority == 'medium' ? 'selected' : '' }}>মাঝারি</option>
                                                 <option value="high" {{ $announcement->priority == 'high' ? 'selected' : '' }}>উচ্চ</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">শিরোনাম</label>
+                                        <label class="form-label">মূল শিরোনাম</label>
                                         <input type="text" name="title" class="form-input" value="{{ $announcement->title }}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">উপ-শিরোনাম</label>
+                                        <label class="form-label">উপশিরোনাম</label>
                                         <input type="text" name="subtitle" class="form-input" value="{{ $announcement->subtitle }}">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">বিবরণ</label>
+                                        <label class="form-label">বিস্তারিত বিবরণ</label>
                                         <textarea name="description" class="form-textarea" required>{{ $announcement->description }}</textarea>
                                     </div>
 
                                     <div class="checkbox-group">
                                         <input type="hidden" name="is_active" value="0">
                                         <input type="checkbox" name="is_active" class="checkbox-input" value="1" {{ $announcement->is_active ? 'checked' : '' }}>
-                                        <label>সক্রিয়</label>
+                                        <label>সক্রিয় রাখুন</label>
                                     </div>
 
                                     <div style="margin-top: 15px; display: flex; gap: 10px;">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-save"></i> আপডেট করুন
+                                            <i class="fas fa-save"></i> পরিবর্তন সংরক্ষণ করুন
                                         </button>
-                                        <button type="button" class="btn btn-warning btn-sm" onclick="toggleEditForm({{ $announcement->id }})">
-                                            <i class="fas fa-times"></i> বাতিল
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="toggleEditForm('{{ $announcement->id }}')">
+                                            <i class="fas fa-times"></i> বাতিল করুন
                                         </button>
                                     </div>
                                 </form>
@@ -624,7 +582,7 @@
                         </div>
                     @empty
                         <div class="empty-state" style="text-align: center; padding: 40px;">
-                            <h3 style="color: var(--text-color-dark);">কোনো ঘোষণা পাওয়া যায়নি</h3>
+                            <h3 style="color: var(--text-color-dark);">কোনো ঘোষণা খুঁজে পাওয়া যায়নি</h3>
                             <p>এখনও কোনো ঘোষণা তৈরি করা হয়নি। উপরের ফর্ম ব্যবহার করে নতুন ঘোষণা যোগ করুন।</p>
                         </div>
                     @endforelse
@@ -679,7 +637,7 @@
             
             if (!isValid) {
                 e.preventDefault();
-                alert('অনুগ্রহ করে সকল প্রয়োজনীয় ক্ষেত্র পূরণ করুন।');
+                alert('অনুগ্রহ করে সকল আবশ্যক ক্ষেত্রগুলি পূরণ করুন।');
             }
         });
     });

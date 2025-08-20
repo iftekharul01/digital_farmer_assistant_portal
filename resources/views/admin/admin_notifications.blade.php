@@ -3,148 +3,163 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Notifications | Digital Farmer Assistant</title>
+    <title>অ্যাডমিন নোটিফিকেশন | ডিজিটাল কৃষক সহায়ক</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-<style>
+@include('admin.admin_header')
 
-:root {
-            --primary-green: #0bd429;
-            --text-dark: #1f2f1f;
-            --success-green: #28a745;
-            --warning-yellow: #ffc107;
-            --danger-red: #dc3545;
-        }
+<style>
+    :root {
+        --primary-green: #0bd429;
+        --light-green: #eafce9;
+        --dark-green: #1e3d2c;
+        --shadow-light: rgba(11,212,41,0.07);
+        --shadow-medium: rgba(11,212,41,0.08);
+        --shadow-card: rgba(11, 212, 41, 0.06);
+        --text-color-light: #f2fff6;
+        --text-color-dark: #555;
+        --border-light: #b2eac1;
+        --off-white-bg: #fdfdfd;
+        --soft-gray-border: #eee;
+        --success-green: #28a745;
+        --warning-yellow: #ffc107;
+        --danger-red: #dc3545;
+    }
+
+    body {
+        background: #f9fafb;
+        font-family: 'Manrope', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        color: var(--text-color-dark);
+    }
 
     .admin-container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 20px auto;
         padding: 0 20px;
     }
 
-    .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
     .page-header {
         background: linear-gradient(135deg, var(--primary-green), #0a8220);
         color: white;
-        padding: 30px;
-        border-radius: 12px;
+        padding: 40px;
+        border-radius: 15px;
         margin-bottom: 30px;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        animation: float 15s ease-in-out infinite;
     }
 
     .page-header h1 {
         margin: 0;
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 2.5rem;
+        font-weight: 800;
+        position: relative;
+        z-index: 2;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        margin-bottom: 30px;
     }
 
     .admin-card {
         background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px var(--shadow-card);
         overflow: hidden;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .admin-card:hover {
+        border-color: var(--primary-green);
+        transform: translateY(-5px);
     }
 
     .card-header {
-        background: #f8f9fa;
-        padding: 20px;
-        border-bottom: 1px solid #dee2e6;
+        background: linear-gradient(135deg, var(--light-green), #f0fff4);
+        padding: 25px;
+        border-bottom: 2px solid var(--border-light);
     }
 
-    .card-header h2 {
+    .card-header h3 {
         margin: 0;
-        color: var(--primary-green);
         font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--dark-green);
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
-    .card-body {
-        padding: 30px;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 20px;
+    .card-content {
+        padding: 25px;
     }
 
     .form-group {
         margin-bottom: 20px;
     }
 
-    .form-group label {
+    .form-label {
         display: block;
+        font-weight: 700;
+        color: var(--dark-green);
         margin-bottom: 8px;
-        font-weight: 600;
-        color: #495057;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-input,
+    .form-select,
+    .form-textarea {
         width: 100%;
-        padding: 12px;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: border-color 0.2s;
+        padding: 12px 15px;
+        border: 2px solid var(--border-light);
+        border-radius: 10px;
         font-family: 'Manrope', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
         outline: none;
         border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(11, 212, 41, 0.1);
     }
 
-    .form-group textarea {
-        resize: vertical;
+    .form-textarea {
         min-height: 120px;
+        resize: vertical;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
     }
 
     .checkbox-group {
@@ -154,238 +169,260 @@
         margin-top: 10px;
     }
 
-    .checkbox-group input[type="checkbox"] {
-        width: auto;
-        margin: 0;
+    .checkbox-input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary-green);
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .btn-primary {
         background: var(--primary-green);
         color: white;
-        padding: 12px 30px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
     }
 
     .btn-primary:hover {
-        background: #0a8220;
-        transform: translateY(-1px);
+        background: var(--dark-green);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px var(--shadow-medium);
     }
 
-    .btn-secondary {
-        background: #6c757d;
-        color: white;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
+    .btn-warning {
+        background: var(--warning-yellow);
+        color: #333;
     }
 
-    .btn-secondary:hover {
-        background: #5a6268;
-        color: white;
-        text-decoration: none;
+    .btn-warning:hover {
+        background: #e0a800;
+        transform: translateY(-2px);
     }
 
     .btn-danger {
-        background: #dc3545;
+        background: var(--danger-red);
         color: white;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
     }
 
     .btn-danger:hover {
         background: #c82333;
+        transform: translateY(-2px);
     }
 
-    .notifications-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
+    .notifications-list {
+        max-height: 600px;
+        overflow-y: auto;
     }
 
-    .notifications-table th,
-    .notifications-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .notifications-table th {
+    .notification-item {
         background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .notification-item:hover {
+        border-color: var(--primary-green);
+        transform: translateX(5px);
+    }
+
+    .notification-item.editing {
+        border-color: var(--warning-yellow);
+        background: #fff9e6;
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .item-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dark-green);
+        margin: 0;
+    }
+
+    .item-subtitle {
+        font-size: 0.9rem;
+        color: var(--primary-green);
+        margin: 5px 0;
         font-weight: 600;
-        color: #495057;
     }
 
-    .priority-badge {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    .priority-high {
-        background: #ffebee;
-        color: #c62828;
-    }
-
-    .priority-medium {
-        background: #fff8e1;
-        color: #f57f17;
-    }
-
-    .priority-low {
-        background: #e8f5e8;
-        color: #2e7d32;
-    }
-
-    .category-badge {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
+    .item-category {
         background: var(--primary-green);
         color: white;
-    }
-
-    .status-badge {
         padding: 4px 12px;
         border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .item-description {
+        color: var(--text-color-dark);
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .item-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: 0.8rem;
-        font-weight: 600;
+        color: #6c757d;
     }
 
-    .status-active {
-        background: #e8f5e8;
-        color: #2e7d32;
-    }
-
-    .status-inactive {
-        background: #ffebee;
-        color: #c62828;
-    }
-
-    .action-buttons {
+    .item-actions {
         display: flex;
         gap: 8px;
     }
 
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .priority-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+    .priority-high { background: #ff4757; }
+    .priority-medium { background: #ffa502; }
+    .priority-low { background: #2ed573; }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .status-active {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-inactive {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
     .alert {
-        padding: 15px;
-        border-radius: 8px;
+        padding: 15px 20px;
+        border-radius: 10px;
         margin-bottom: 20px;
+        font-weight: 600;
     }
 
     .alert-success {
         background: #d4edda;
         color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-
-    .alert-error {
-        background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-
-    .pagination-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
+        border: 2px solid #c3e6cb;
     }
 
     .edit-form {
         display: none;
-        background: #f8f9fa;
+        background: white;
+        border: 2px solid var(--warning-yellow);
+        border-radius: 12px;
         padding: 20px;
-        border-radius: 8px;
-        margin-top: 10px;
+        margin-top: 15px;
+    }
+
+    .edit-form.active {
+        display: block;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 1200px) {
+        .admin-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     @media (max-width: 768px) {
         .admin-container {
-            padding: 0 10px;
+            padding: 10px;
         }
 
-        .card-body {
-            padding: 20px;
+        .page-header {
+            padding: 30px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
         }
 
         .form-row {
             grid-template-columns: 1fr;
         }
 
-        .notifications-table {
-            font-size: 0.9rem;
+        .item-header {
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .action-buttons {
-            flex-direction: column;
+        .item-actions {
+            width: 100%;
+            justify-content: space-between;
         }
     }
 </style>
 
-<header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> এডমিন প্যানেল
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
-            </div>
-        </nav>
-    </header>
-
 <div class="admin-container">
+    <div class="page-header">
+        <h1><i class="fas fa-bell"></i> নোটিফিকেশন ব্যবস্থাপনা</h1>
+    </div>
+
     @if(session('success'))
         <div class="alert alert-success">
             <i class="fas fa-check-circle"></i> {{ session('success') }}
         </div>
     @endif
 
-    @if($errors->any())
-        <div class="alert alert-error">
-            <i class="fas fa-exclamation-circle"></i>
-            @foreach($errors->all() as $error)
-                <div>{{ $error }}</div>
-            @endforeach
-        </div>
-    @endif
-
-    <div class="page-header">
-        <h1><i class="fas fa-bell"></i> নোটিফিকেশন ম্যানেজমেন্ট</h1>
-        <p>নোটিফিকেশন তৈরি, সম্পাদনা এবং পরিচালনা করুন</p>
-    </div>
-
-    <!-- Add New Notification -->
-    <div class="admin-card">
-        <div class="card-header">
-            <h2><i class="fas fa-plus-circle"></i> নতুন নোটিফিকেশন যোগ করুন</h2>
-        </div>
-        <div class="card-body">
-            <form action="/admin/notifications" method="POST">
-                @csrf
-                
-                <div class="form-row">
+    <div class="admin-grid">
+        <!-- Create New Notification Form -->
+        <div class="admin-card">
+            <div class="card-header">
+                <h3><i class="fas fa-plus-circle"></i> নতুন নোটিফিকেশন যোগ করুন</h3>
+            </div>
+            <div class="card-content">
+                <form method="POST" action="/admin/notifications">
+                    @csrf
+                    
                     <div class="form-group">
-                        <label for="category">ক্যাটেগরি *</label>
-                        <select id="category" name="category" required>
-                            <option value="">ক্যাটেগরি নির্বাচন করুন</option>
+                        <label class="form-label">বিভাগ</label>
+                        <select name="category" class="form-select" required>
+                            <option value="">বিভাগ নির্বাচন করুন</option>
                             <option value="আবহাওয়া">আবহাওয়া</option>
                             <option value="বাজার">বাজার</option>
                             <option value="ভর্তুকি">ভর্তুকি</option>
@@ -394,187 +431,217 @@
                             <option value="প্রযুক্তি">প্রযুক্তি</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="priority">অগ্রাধিকার *</label>
-                        <select id="priority" name="priority" required>
-                            <option value="medium">মাঝারি</option>
-                            <option value="low">নিম্ন</option>
-                            <option value="high">উচ্চ</option>
-                        </select>
+                        <label class="form-label">মূল শিরোনাম</label>
+                        <input type="text" name="title" class="form-input" placeholder="নোটিফিকেশনের মূল শিরোনাম লিখুন" required>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="title">শিরোনাম *</label>
-                    <input type="text" id="title" name="title" required 
-                           placeholder="নোটিফিকেশনের শিরোনাম লিখুন" value="{{ old('title') }}">
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">উপশিরোনাম (ঐচ্ছিক)</label>
+                        <input type="text" name="subtitle" class="form-input" placeholder="অতিরিক্ত উপশিরোনাম লিখুন">
+                    </div>
 
-                <div class="form-group">
-                    <label for="subtitle">উপশিরোনাম</label>
-                    <input type="text" id="subtitle" name="subtitle" 
-                           placeholder="ঐচ্ছিক উপশিরোনাম" value="{{ old('subtitle') }}">
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">বিস্তারিত বিবরণ</label>
+                        <textarea name="description" class="form-textarea" placeholder="নোটিফিকেশনের সম্পূর্ণ বিবরণ এখানে লিখুন" required></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="description">বিবরণ *</label>
-                    <textarea id="description" name="description" required 
-                              placeholder="নোটিফিকেশনের বিস্তারিত বিবরণ লিখুন">{{ old('description') }}</textarea>
-                </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">অগ্রাধিকার</label>
+                            <select name="priority" class="form-select" required>
+                                <option value="medium">মাঝারি</option>
+                                <option value="high">উচ্চ</option>
+                                <option value="low">নিম্ন</option>
+                            </select>
+                        </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="is_active" name="is_active" checked>
-                    <label for="is_active">সক্রিয় রাখুন</label>
-                </div>
+                        <div class="form-group">
+                            <label class="form-label">অবস্থা</label>
+                            <div class="checkbox-group">
+                                <input type="hidden" name="is_active" value="0">
+                                <input type="checkbox" name="is_active" class="checkbox-input" value="1" checked>
+                                <label>সক্রিয় রাখুন</label>
+                            </div>
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-save"></i> নোটিফিকেশন সংরক্ষণ করুন
-                </button>
-            </form>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> নোটিফিকেশন সংরক্ষণ করুন
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Notifications List -->
-    <div class="admin-card">
-        <div class="card-header">
-            <h2><i class="fas fa-list"></i> সকল নোটিফিকেশন ({{ $notifications->total() }})</h2>
-        </div>
-        <div class="card-body">
-            @if($notifications->count() > 0)
-                <div style="overflow-x: auto;">
-                    <table class="notifications-table">
-                        <thead>
-                            <tr>
-                                <th>শিরোনাম</th>
-                                <th>ক্যাটেগরি</th>
-                                <th>অগ্রাধিকার</th>
-                                <th>স্ট্যাটাস</th>
-                                <th>তারিখ</th>
-                                <th>অ্যাকশন</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($notifications as $notification)
-                                <tr>
-                                    <td>
-                                        <strong>{{ $notification->title }}</strong>
-                                        @if($notification->subtitle)
-                                            <br><small style="color: #6c757d;">{{ $notification->subtitle }}</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <span class="category-badge">{{ $notification->category }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="priority-badge priority-{{ $notification->priority }}">
-                                            {{ $notification->priority == 'high' ? 'উচ্চ' : ($notification->priority == 'medium' ? 'মাঝারি' : 'নিম্ন') }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge {{ $notification->is_active ? 'status-active' : 'status-inactive' }}">
-                                            {{ $notification->is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়' }}
-                                        </span>
-                                    </td>
-                                    <td>{{ $notification->created_at->format('d M Y') }}</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button onclick="toggleEditForm('{{ $notification->id }}')" class="btn-secondary">
-                                                <i class="fas fa-edit"></i> সম্পাদনা
-                                            </button>
-                                            <form action="/admin/notifications/{{ $notification->id }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn-danger" 
-                                                        onclick="return confirm('আপনি কি এই নোটিফিকেশনটি ডিলিট করতে চান?')">
-                                                    <i class="fas fa-trash"></i> ডিলিট
-                                                </button>
-                                            </form>
+        <!-- Notifications List -->
+        <div class="admin-card">
+            <div class="card-header">
+                <h3><i class="fas fa-list"></i> বিদ্যমান নোটিফিকেশন ({{ $notifications->count() }}টি)</h3>
+            </div>
+            <div class="card-content">
+                <div class="notifications-list">
+                    @forelse($notifications as $notification)
+                        <div class="notification-item" id="notification-{{ $notification->id }}">
+                            <div class="item-header">
+                                <div>
+                                    <h4 class="item-title">{{ $notification->title }}</h4>
+                                    @if($notification->subtitle)
+                                        <p class="item-subtitle">{{ $notification->subtitle }}</p>
+                                    @endif
+                                    <span class="item-category">{{ $notification->category }}</span>
+                                </div>
+                                <div class="item-actions">
+                                    <button class="btn btn-warning btn-sm" onclick="toggleEditForm('{{ $notification->id }}')">
+                                        <i class="fas fa-edit"></i> সম্পাদনা
+                                    </button>
+                                    <form method="POST" action="/admin/notifications/{{ $notification->id }}" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('আপনি কি নিশ্চিত যে এই নোটিফিকেশনটি মুছে দিতে চান?')">
+                                            <i class="fas fa-trash"></i> মুছে দিন
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="item-description">
+                                {{ Str::limit($notification->description, 150) }}
+                            </div>
+
+                            <div class="item-meta">
+                                <span>
+                                    <span class="priority-indicator priority-{{ $notification->priority }}"></span>
+                                    {{ $notification->priority == 'high' ? 'উচ্চ' : ($notification->priority == 'medium' ? 'মাঝারি' : 'নিম্ন') }} অগ্রাধিকার
+                                </span>
+                                <span class="status-badge {{ $notification->is_active ? 'status-active' : 'status-inactive' }}">
+                                    {{ $notification->is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়' }}
+                                </span>
+                                <span>{{ $notification->created_at->format('d M Y') }}</span>
+                            </div>
+
+                            <!-- Edit Form -->
+                            <div class="edit-form" id="edit-form-{{ $notification->id }}">
+                                <form method="POST" action="/admin/notifications/{{ $notification->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label">বিভাগ</label>
+                                            <select name="category" class="form-select" required>
+                                                <option value="আবহাওয়া" {{ $notification->category == 'আবহাওয়া' ? 'selected' : '' }}>আবহাওয়া</option>
+                                                <option value="বাজার" {{ $notification->category == 'বাজার' ? 'selected' : '' }}>বাজার</option>
+                                                <option value="ভর্তুকি" {{ $notification->category == 'ভর্তুকি' ? 'selected' : '' }}>ভর্তুকি</option>
+                                                <option value="সাধারণ" {{ $notification->category == 'সাধারণ' ? 'selected' : '' }}>সাধারণ</option>
+                                                <option value="জরুরি" {{ $notification->category == 'জরুরি' ? 'selected' : '' }}>জরুরি</option>
+                                                <option value="প্রযুক্তি" {{ $notification->category == 'প্রযুক্তি' ? 'selected' : '' }}>প্রযুক্তি</option>
+                                            </select>
                                         </div>
 
-                                        <!-- Edit Form -->
-                                        <div id="edit-form-{{ $notification->id }}" class="edit-form">
-                                            <form action="/admin/notifications/{{ $notification->id }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label>ক্যাটেগরি</label>
-                                                        <select name="category" required>
-                                                            <option value="আবহাওয়া" {{ $notification->category == 'আবহাওয়া' ? 'selected' : '' }}>আবহাওয়া</option>
-                                                            <option value="বাজার" {{ $notification->category == 'বাজার' ? 'selected' : '' }}>বাজার</option>
-                                                            <option value="ভর্তুকি" {{ $notification->category == 'ভর্তুকি' ? 'selected' : '' }}>ভর্তুকি</option>
-                                                            <option value="সাধারণ" {{ $notification->category == 'সাধারণ' ? 'selected' : '' }}>সাধারণ</option>
-                                                            <option value="জরুরি" {{ $notification->category == 'জরুরি' ? 'selected' : '' }}>জরুরি</option>
-                                                            <option value="প্রযুক্তি" {{ $notification->category == 'প্রযুক্তি' ? 'selected' : '' }}>প্রযুক্তি</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>অগ্রাধিকার</label>
-                                                        <select name="priority" required>
-                                                            <option value="low" {{ $notification->priority == 'low' ? 'selected' : '' }}>নিম্ন</option>
-                                                            <option value="medium" {{ $notification->priority == 'medium' ? 'selected' : '' }}>মাঝারি</option>
-                                                            <option value="high" {{ $notification->priority == 'high' ? 'selected' : '' }}>উচ্চ</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>শিরোনাম</label>
-                                                    <input type="text" name="title" value="{{ $notification->title }}" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>উপশিরোনাম</label>
-                                                    <input type="text" name="subtitle" value="{{ $notification->subtitle }}">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>বিবরণ</label>
-                                                    <textarea name="description" required>{{ $notification->description }}</textarea>
-                                                </div>
-
-                                                <div class="checkbox-group">
-                                                    <input type="checkbox" name="is_active" {{ $notification->is_active ? 'checked' : '' }}>
-                                                    <label>সক্রিয় রাখুন</label>
-                                                </div>
-
-                                                <div style="margin-top: 15px;">
-                                                    <button type="submit" class="btn-primary">আপডেট করুন</button>
-                                                    <button type="button" onclick="toggleEditForm('{{ $notification->id }}')" class="btn-secondary">বাতিল</button>
-                                                </div>
-                                            </form>
+                                        <div class="form-group">
+                                            <label class="form-label">অগ্রাধিকার</label>
+                                            <select name="priority" class="form-select" required>
+                                                <option value="low" {{ $notification->priority == 'low' ? 'selected' : '' }}>নিম্ন</option>
+                                                <option value="medium" {{ $notification->priority == 'medium' ? 'selected' : '' }}>মাঝারি</option>
+                                                <option value="high" {{ $notification->priority == 'high' ? 'selected' : '' }}>উচ্চ</option>
+                                            </select>
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                    </div>
 
-                <div class="pagination-wrapper">
-                    {{ $notifications->links() }}
+                                    <div class="form-group">
+                                        <label class="form-label">মূল শিরোনাম</label>
+                                        <input type="text" name="title" class="form-input" value="{{ $notification->title }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">উপশিরোনাম</label>
+                                        <input type="text" name="subtitle" class="form-input" value="{{ $notification->subtitle }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">বিস্তারিত বিবরণ</label>
+                                        <textarea name="description" class="form-textarea" required>{{ $notification->description }}</textarea>
+                                    </div>
+
+                                    <div class="checkbox-group">
+                                        <input type="hidden" name="is_active" value="0">
+                                        <input type="checkbox" name="is_active" class="checkbox-input" value="1" {{ $notification->is_active ? 'checked' : '' }}>
+                                        <label>সক্রিয় রাখুন</label>
+                                    </div>
+
+                                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-save"></i> পরিবর্তন সংরক্ষণ করুন
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="toggleEditForm('{{ $notification->id }}')">
+                                            <i class="fas fa-times"></i> বাতিল করুন
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="empty-state" style="text-align: center; padding: 40px;">
+                            <h3 style="color: var(--text-color-dark);">কোনো নোটিফিকেশন খুঁজে পাওয়া যায়নি</h3>
+                            <p>এখনও কোনো নোটিফিকেশন তৈরি করা হয়নি। উপরের ফর্ম ব্যবহার করে নতুন নোটিফিকেশন যোগ করুন।</p>
+                        </div>
+                    @endforelse
                 </div>
-            @else
-                <div style="text-align: center; padding: 60px 20px; color: #6c757d;">
-                    <i class="fas fa-bell-slash" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
-                    <h3>কোনো নোটিফিকেশন নেই</h3>
-                    <p>এখনও কোনো নোটিফিকেশন তৈরি করা হয়নি। উপরের ফর্ম ব্যবহার করে নতুন নোটিফিকেশন যোগ করুন।</p>
-                </div>
-            @endif
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-function toggleEditForm(id) {
-    const form = document.getElementById('edit-form-' + id);
-    if (form.style.display === 'none' || form.style.display === '') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
+    function toggleEditForm(notificationId) {
+        const item = document.getElementById(`notification-${notificationId}`);
+        const editForm = document.getElementById(`edit-form-${notificationId}`);
+        
+        // Close all other edit forms
+        document.querySelectorAll('.edit-form.active').forEach(form => {
+            form.classList.remove('active');
+        });
+        document.querySelectorAll('.notification-item.editing').forEach(item => {
+            item.classList.remove('editing');
+        });
+        
+        // Toggle current form
+        editForm.classList.toggle('active');
+        item.classList.toggle('editing');
     }
-}
+
+    // Auto-hide success messages
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert-success');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            alert.style.transform = 'translateY(-20px)';
+            setTimeout(() => alert.remove(), 300);
+        });
+    }, 5000);
+
+    // Form validation enhancements
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--danger-red)';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = 'var(--border-light)';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('অনুগ্রহ করে সকল আবশ্যক ক্ষেত্রগুলি পূরণ করুন।');
+            }
+        });
+    });
 </script>
 
 </body>

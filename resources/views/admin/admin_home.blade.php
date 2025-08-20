@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Home Page | Farmer Portal</title>
+    <title>অ্যাডমিন - হোম পেজ | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,43 +21,7 @@
         body {
             background: #f8f9fa;
             font-family: 'Manrope', sans-serif;
-        }
-
-        .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
+            direction: ltr; /* সঠিক লেআউটের জন্য */
         }
 
         .content-container {
@@ -105,11 +69,14 @@
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
         }
 
         input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(11, 212, 41, 0.1);
         }
 
         .btn-primary {
@@ -120,26 +87,37 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
         }
 
         .btn-primary:hover {
             background: #0aa51c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(11, 212, 41, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 0 15px;
+                margin: 15px auto;
+            }
+            
+            .admin-section {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> Admin Panel
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> Dashboard</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="content-container">
         <h1 class="page-title"><i class="fas fa-home"></i> হোম পেজ ম্যানেজমেন্ট</h1>
@@ -186,9 +164,9 @@
                     <label for="hero_background_image">ব্যাকগ্রাউন্ড ইমেজ (ফাইলের নাম)</label>
                     <input type="text" id="hero_background_image" name="hero_background_image" 
                            value="{{ old('hero_background_image', $heroContent->hero_background_image) }}" 
-                           placeholder="যেমন: farm_landscape.jpg">
+                           placeholder="উদাহরণ: farm_landscape.jpg">
                     <small style="color: #666; font-size: 0.875rem; display: block; margin-top: 5px;">
-                        ছবিটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন
+                        ছবিটি storage/app/public/assets/hero_sections/ ফোল্ডারে রাখুন এবং শুধু ফাইলের নাম লিখুন (যেমন: farm_landscape.jpg)
                     </small>
                     @error('hero_background_image')
                         <span style="color: #dc3545; font-size: 0.875rem;">{{ $message }}</span>
@@ -219,11 +197,11 @@
                     <div style="margin-top: 15px;">
                         <strong>ব্যাকগ্রাউন্ড ইমেজ:</strong><br>
                         <img src="{{ '/storage/assets/hero_sections/' . $heroContent->hero_background_image }}" 
-                             alt="Hero Background" 
+                             alt="হিরো ব্যাকগ্রাউন্ড" 
                              style="max-width: 300px; height: 150px; object-fit: cover; border-radius: 8px; margin-top: 5px;"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <div style="display: none; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-top: 5px;">
-                            ছবি পাওয়া যায়নি। অনুগ্রহ করে সঠিক ফাইলের নাম দিন।
+                            ছবি খুঁজে পাওয়া যায়নি। অনুগ্রহ করে সঠিক ফাইলের নাম প্রদান করুন।
                         </div>
                     </div>
                 @endif

@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>এডমিন - বাজার দর | কৃষক পোর্টাল</title>
+    <title>অ্যাডমিন - বাজার দর | কৃষক পোর্টাল</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -25,44 +25,6 @@
         body {
             background: #f8f9fa;
             font-family: 'Manrope', sans-serif;
-        }
-
-        .admin-header {
-            background: var(--primary-green);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
         }
 
         .content-container {
@@ -414,17 +376,7 @@
     </style>
 </head>
 <body>
-    <header class="admin-header">
-        <nav class="admin-nav">
-            <div class="admin-logo">
-                <i class="fas fa-seedling"></i> এডমিন প্যানেল
-            </div>
-            <div class="nav-links">
-                <a href="{{ route('admin.dashboard') }}"><i class="fas fa-dashboard"></i> ড্যাশবোর্ড</a>
-                <a href="{{ route('admin.logout') }}"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
-            </div>
-        </nav>
-    </header>
+    @include('admin.admin_header')
 
     <div class="content-container">
         <div class="page-header">
@@ -662,8 +614,8 @@
                             </td>
                             <td>{{ $product->variety_type ?: 'N/A' }}</td>
                             <td>{{ $product->market_location }}</td>
-                            <td><strong>৳{{ number_format($product->current_price, 2) }}/{{ $product->unit }}</strong></td>
-                            <td>৳{{ number_format($product->previous_price ?: 0, 2) }}/{{ $product->unit }}</td>
+                            <td><strong>৳{{ number_format((float)$product->current_price ?: 0, 2) }}/{{ $product->unit }}</strong></td>
+                            <td>৳{{ number_format((float)$product->previous_price ?: 0, 2) }}/{{ $product->unit }}</td>
                             <td>
                                 @if($product->previous_price && $product->previous_price > 0)
                                     @php

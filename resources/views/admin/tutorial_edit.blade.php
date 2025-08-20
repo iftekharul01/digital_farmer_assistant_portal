@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>টিউটোরিয়াল সম্পাদনা | অ্যাডমিন প্যানেল</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="styl    </style>
+<</head>
+<body>
+    @include('admin.admin_header')
+    
+    <div class="container">
+        <div class="page-header" style="background: linear-gradient(135deg, var(--primary-green), #089c24); color: white; padding: 30px; border-radius: 15px; margin: 30px auto; text-align: center;">
+            <h1 style="margin: 0; font-size: 2rem; font-weight: 800;">
+                <i class="fas fa-edit"></i> টিউটোরিয়াল সম্পাদনা
+            </h1>
+            <a href="{{ route('admin.tutorials') }}" class="btn btn-secondary" style="background: white; color: var(--primary-green); margin-top: 15px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 10px 20px; border-radius: 8px;">
+                <i class="fas fa-arrow-left"></i> ফিরে যান
+            </a>
+        </div>
+
+    <div class="main-container">k rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             --primary-green: #0bd429;
@@ -41,26 +55,8 @@
         }
 
         /* Header */
-        .admin-header {
-            background: linear-gradient(135deg, var(--primary-green), #089c24);
-            color: white;
-            padding: 20px 0;
+        .page-header {
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px var(--shadow-medium);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .btn {
