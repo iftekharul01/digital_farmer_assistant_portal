@@ -745,40 +745,40 @@
 <main class="main-content">
     <section class="about-hero-section animate__animated animate__fadeIn" data-aos="fade-down" data-aos-duration="1000">
         <div class="about-page-wrapper">
-            <h1>{{ $content && $content->hero_title ? $content->hero_title : 'Our Story: Cultivating Progress' }}</h1>
+            <h1>{{ $content && $content->hero_title ? $content->hero_title : 'আমাদের গল্প: উন্নতির চাষাবাদ' }}</h1>
             <p>
-                {{ $content && $content->hero_subtitle ? $content->hero_subtitle : 'Empowering farmers through technology and knowledge, we\'re dedicated to fostering a resilient and prosperous agricultural community. Discover our journey, values, and the team making it happen.' }}
+                {{ $content && $content->hero_subtitle ? $content->hero_subtitle : 'প্রযুক্তি ও জ্ঞানের মাধ্যমে কৃষকদের ক্ষমতায়ন করে, আমরা একটি স্থিতিশীল ও সমৃদ্ধ কৃষি সম্প্রদায় গড়ে তুলতে প্রতিশ্রুতিবদ্ধ। আমাদের যাত্রা, মূল্যবোধ এবং এই কাজে নিয়োজিত দলের সাথে পরিচিত হন।' }}
             </p>
         </div>
     </section>
 
     <div class="about-page-wrapper">         <section class="section-container animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="section-heading"><i class="fas fa-hand-holding-heart"></i> Our Motivation</h2>
+            <h2 class="section-heading"><i class="fas fa-hand-holding-heart"></i> আমাদের অনুপ্রেরণা</h2>
             <div class="section-content">
                 <p>
-                    {{ $content && $content->our_motivation ? $content->our_motivation : 'At Farmer Portal, we\'re driven by a deep understanding of the challenges farmers face daily. From unpredictable weather to volatile markets and stubborn crop diseases, modern agriculture demands resilience and quick adaptation. Our motivation stems from a fundamental belief: technology can be a powerful ally for every farmer, no matter their scale or location.' }}
+                    {{ $content && $content->our_motivation ? $content->our_motivation : 'ডিজিটাল কৃষক পোর্টালে, আমরা কৃষকদের প্রতিদিনের চ্যালেঞ্জগুলির গভীর বোঝাপড়া দ্বারা অনুপ্রাণিত। অনির্ভরযোগ্য আবহাওয়া থেকে শুরু করে অস্থির বাজার এবং জেদী ফসলের রোগ পর্যন্ত, আধুনিক কৃষিকাজে স্থিতিশীলতা এবং দ্রুত অভিযোজনের প্রয়োজন। আমাদের অনুপ্রেরণা একটি মৌলিক বিশ্বাস থেকে উদ্ভূত: প্রযুক্তি প্রতিটি কৃষকের জন্য একটি শক্তিশালী সহায়ক হতে পারে, তাদের আকার বা অবস্থান যাই হোক না কেন।' }}
                 </p>
             </div>
         </section>
 
         <section class="mission-vision-section animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="300">
-            <h2 class="section-heading"><i class="fas fa-lightbulb"></i> Our Mission & Vision</h2>
+            <h2 class="section-heading"><i class="fas fa-lightbulb"></i> আমাদের মিশন ও দৃষ্টিভঙ্গি</h2>
             <div class="mission-vision-grid">
                 <div class="mission-vision-card" data-aos="zoom-in-up" data-aos-delay="400">
                     <i class="fas fa-chart-line"></i>
-                    <h4>Our Mission</h4>
-                    <p>{{ $content && $content->our_mission ? $content->our_mission : 'To provide cutting-edge digital tools and comprehensive knowledge resources that empower farmers to make informed decisions, optimize yields, and achieve economic sustainability in an ever-evolving agricultural landscape.' }}</p>
+                    <h4>আমাদের মিশন</h4>
+                    <p>{{ $content && $content->our_mission ? $content->our_mission : 'অত্যাধুনিক ডিজিটাল সরঞ্জাম এবং ব্যাপক জ্ঞান সম্পদ প্রদান করা যা কৃষকদের সচেতন সিদ্ধান্ত নিতে, ফলন অপ্টিমাইজ করতে এবং ক্রমবর্ধমান কৃষি ল্যান্ডস্কেপে অর্থনৈতিক স্থায়িত্ব অর্জনে ক্ষমতায়ন করে।' }}</p>
                 </div>
                 <div class="mission-vision-card" data-aos="zoom-in-up" data-aos-delay="500">
                     <i class="fas fa-globe-asia"></i>
-                    <h4>Our Vision</h4>
-                    <p>{{ $content && $content->our_vision ? $content->our_vision : 'To cultivate a globally connected and resilient farming community, where every farmer has equitable access to technology, expertise, and market opportunities, ensuring a prosperous and sustainable future for agriculture worldwide.' }}</p>
+                    <h4>আমাদের দৃষ্টিভঙ্গি</h4>
+                    <p>{{ $content && $content->our_vision ? $content->our_vision : 'একটি বিশ্বব্যাপী সংযুক্ত এবং স্থিতিশীল কৃষক সম্প্রদায় গড়ে তোলা, যেখানে প্রতিটি কৃষক প্রযুক্তি, দক্ষতা এবং বাজারের সুযোগের সমান অ্যাক্সেস পায়, বিশ্বব্যাপী কৃষির জন্য একটি সমৃদ্ধ এবং টেকসই ভবিষ্যত নিশ্চিত করে।' }}</p>
                 </div>
             </div>
         </section>
 
         <section class="impact-section animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="600">
-            <h2 class="section-heading"><i class="fas fa-leaf"></i> What We Value</h2>
+            <h2 class="section-heading"><i class="fas fa-leaf"></i> আমাদের মূল্যবোধ</h2>
             <div class="impact-grid">
                 @if($content && $content->what_we_value)
                     @php
@@ -805,41 +805,41 @@
                 @else
                     <div class="impact-item" data-aos="fade-right" data-aos-delay="700">
                         <i class="fas fa-handshake"></i>
-                        <h5>Community</h5>
-                        <p>Fostering a supportive network where farmers share, learn, and grow together.</p>
+                        <h5>সম্প্রদায়</h5>
+                        <p>একটি সহায়ক নেটওয়ার্ক গড়ে তোলা যেখানে কৃষকরা একসাথে শেয়ার, শেখে এবং বেড়ে ওঠে।</p>
                     </div>
                     <div class="impact-item" data-aos="fade-right" data-aos-delay="800">
                         <i class="fas fa-laptop-code"></i>
-                        <h5>Innovation</h5>
-                        <p>Constantly developing smart solutions to tackle agricultural challenges.</p>
+                        <h5>উদ্ভাবন</h5>
+                        <p>কৃষি চ্যালেঞ্জগুলি মোকাবেলার জন্য ক্রমাগত স্মার্ট সমাধান বিকাশ করা।</p>
                     </div>
                     <div class="impact-item" data-aos="fade-right" data-aos-delay="900">
                         <i class="fas fa-heart"></i>
-                        <h5>Sustainability</h5>
-                        <p>Promoting practices that protect the planet for future generations.</p>
+                        <h5>টেকসইতা</h5>
+                        <p>ভবিষ্যত প্রজন্মের জন্য পৃথিবীকে রক্ষা করে এমন অনুশীলনের প্রচার।</p>
                     </div>
                     <div class="impact-item" data-aos="fade-right" data-aos-delay="1000">
                         <i class="fas fa-lightbulb"></i>
-                        <h5>Education</h5>
-                        <p>Providing accessible knowledge to enhance farming skills and decision-making.</p>
+                        <h5>শিক্ষা</h5>
+                        <p>কৃষি দক্ষতা এবং সিদ্ধান্ত গ্রহণ বৃদ্ধির জন্য অ্যাক্সেসযোগ্য জ্ঞান প্রদান।</p>
                     </div>
                 @endif
             </div>
         </section>
 
         <section class="team-section animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="1100">
-            <h2 class="section-heading"><i class="fas fa-users-gear"></i> Meet Our Team</h2>
+            <h2 class="section-heading"><i class="fas fa-users-gear"></i> আমাদের দলের সাথে পরিচিত হন</h2>
             <div class="team-grid">
                 @if($content && $content->team_members && count($content->team_members) > 0)
                     @foreach($content->team_members as $index => $member)
                         <div class="team-member-card" data-aos="zoom-in" data-aos-delay="{{ 1200 + ($index * 100) }}">
                             @if($member['image'] ?? null)
-                                <img src="{{ asset('storage/assets/hero_sections/' . $member['image']) }}" alt="{{ $member['name'] ?? 'Team Member' }}" class="member-image">
+                                <img src="{{ asset('storage/assets/hero_sections/' . $member['image']) }}" alt="{{ $member['name'] ?? 'দলের সদস্য' }}" class="member-image">
                             @else
-                                <img src="https://via.placeholder.com/150/0bd429/ffffff?text={{ urlencode(substr($member['name'] ?? 'TM', 0, 1)) }}" alt="{{ $member['name'] ?? 'Team Member' }}" class="member-image">
+                                <img src="https://via.placeholder.com/150/0bd429/ffffff?text={{ urlencode(substr($member['name'] ?? 'TM', 0, 1)) }}" alt="{{ $member['name'] ?? 'দলের সদস্য' }}" class="member-image">
                             @endif
-                            <div class="member-name">{{ $member['name'] ?? 'Team Member' }}</div>
-                            <div class="member-title">{{ $member['title'] ?? 'Team Member' }}</div>
+                            <div class="member-name">{{ $member['name'] ?? 'দলের সদস্য' }}</div>
+                            <div class="member-title">{{ $member['title'] ?? 'দলের সদস্য' }}</div>
                             @if($member['subtitle'] ?? null)
                                 <div class="member-subtitle">{{ $member['subtitle'] }}</div>
                             @endif
@@ -859,10 +859,10 @@
                 @else
                     <!-- Default team members when no data exists -->
                     <div class="team-member-card" data-aos="zoom-in" data-aos-delay="1200">
-                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Shahriar" alt="Md Asif Shahriar Arpon" class="member-image">
-                        <div class="member-name">Md Asif Shahriar Arpon</div>
-                        <div class="member-title">Founder & Lead Developer</div>
-                        <div class="member-subtitle">Visionary behind Farmer Portal's technology.</div>
+                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Shahriar" alt="মো আসিফ শাহরিয়ার অর্পণ" class="member-image">
+                        <div class="member-name">মো আসিফ শাহরিয়ার অর্পণ</div>
+                        <div class="member-title">প্রতিষ্ঠাতা ও প্রধান ডেভেলপার</div>
+                        <div class="member-subtitle">ডিজিটাল কৃষক পোর্টালের প্রযুক্তিগত দূরদর্শী।</div>
                         <div class="member-socials">
                             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="#" aria-label="Twitter"><i class="fab fa-twitter-square"></i></a>
@@ -871,10 +871,10 @@
                     </div>
 
                     <div class="team-member-card" data-aos="zoom-in" data-aos-delay="1300">
-                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Sadia" alt="Iftekharul Islam" class="member-image">
-                        <div class="member-name">Iftekharul Islam</div>
-                        <div class="member-title">Head of Agricultural Content</div>
-                        <div class="member-subtitle">Expert in crop science and sustainable farming.</div>
+                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Sadia" alt="ইফতেখারুল ইসলাম" class="member-image">
+                        <div class="member-name">ইফতেখারুল ইসলাম</div>
+                        <div class="member-title">কৃষি বিষয়বস্তুর প্রধান</div>
+                        <div class="member-subtitle">ফসল বিজ্ঞান ও টেকসই কৃষিকাজের বিশেষজ্ঞ।</div>
                         <div class="member-socials">
                             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="#" aria-label="ResearchGate"><i class="fas fa-flask"></i></a>
@@ -882,10 +882,10 @@
                     </div>
 
                     <div class="team-member-card" data-aos="zoom-in" data-aos-delay="1400">
-                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Imran" alt="Foujia Afrose Tanha" class="member-image">
-                        <div class="member-name">Foujia Afrose Tanha</div>
-                        <div class="member-title">Community Manager</div>
-                        <div class="member-subtitle">Facilitates farmer discussions and support.</div>
+                        <img src="https://via.placeholder.com/150/0bd429/ffffff?text=Imran" alt="ফৌজিয়া আফরোজ তানহা" class="member-image">
+                        <div class="member-name">ফৌজিয়া আফরোজ তানহা</div>
+                        <div class="member-title">কমিউনিটি ম্যানেজার</div>
+                        <div class="member-subtitle">কৃষক আলোচনা ও সহায়তা সুবিধা প্রদান।</div>
                         <div class="member-socials">
                             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
