@@ -18,6 +18,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminAboutUsController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\SavedNewsController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -93,6 +94,17 @@ Route::get('/crop-doctor', function () {
 Route::get('/subsidies-news', function () {
     return view('subsidies-news'); 
 })->name('subsidies-news');
+
+// Saved News Routes
+Route::get('/saved-news', [SavedNewsController::class, 'index'])->name('saved-news');
+Route::post('/saved-news', [SavedNewsController::class, 'store'])->name('saved-news.store');
+Route::delete('/saved-news/{id}', [SavedNewsController::class, 'destroy'])->name('saved-news.destroy');
+Route::post('/saved-news/check', [SavedNewsController::class, 'checkSaved'])->name('saved-news.check');
+
+// Test route for saved news
+Route::get('/test-saved-news', function () {
+    return 'Saved news route is working!';
+});
 
 // Route for  tutorials page
 Route::get('/tutorials', function () {

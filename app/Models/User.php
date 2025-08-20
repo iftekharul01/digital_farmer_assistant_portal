@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the saved news for the user.
+     */
+    public function savedNews()
+    {
+        return $this->hasMany(SavedNews::class);
+    }
 }
