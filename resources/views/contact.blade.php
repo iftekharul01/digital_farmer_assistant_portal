@@ -601,85 +601,120 @@
 
 <main>
     <section class="contact-hero">
-        <h1>Contact Us</h1>
-        <p>We're here to help! Reach out to us for any inquiries, support, or feedback.</p>
+        <h1>{{ $contactSettings->page_title ?? 'আমাদের সাথে যোগাযোগ করুন' }}</h1>
+        <p>{{ $contactSettings->page_subtitle ?? 'আপনার কোন প্রশ্ন বা মতামত থাকলে আমাদের সাথে যোগাযোগ করুন। আমরা আপনাকে সাহায্য করতে এখানে আছি।' }}</p>
     </section>
 
     <div class="contact-content-wrapper">
         <section class="contact-info-section">
             <div class="info-card" data-aos="fade-up">
                 <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
-                <h3>Our Office</h3>
-                <p>123 Agri-Tech Road, Farmville</p>
-                <p>Ashulia, Dhaka 1341, Bangladesh</p>
+                <h3>আমাদের অফিস</h3>
+                <p>{{ $contactSettings->office_address ?? 'ঢাকা, বাংলাদেশ' }}</p>
             </div>
             <div class="info-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
-                <h3>Call Us</h3>
-                <p>+880 123 456 7890</p>
-                <p>Mon - Fri: 9:00 AM - 5:00 PM</p>
+                <h3>আমাদের কল করুন</h3>
+                <p>{{ $contactSettings->primary_phone ?? '+৮৮০ ১৭১১ ১২৩৪৫৬' }}</p>
+                @if($contactSettings->secondary_phone ?? null)
+                    <p>{{ $contactSettings->secondary_phone }}</p>
+                @endif
+                <p>{{ $contactSettings->working_hours ?? 'রবিবার - বৃহস্পতিবার: সকাল ৯টা - বিকাল ৬টা' }}</p>
             </div>
             <div class="info-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-circle"><i class="fas fa-envelope"></i></div>
-                <h3>Email Us</h3>
-                <p>support@farmerportal.com</p>
-                <p>info@farmerportal.com</p>
+                <h3>আমাদের ইমেইল করুন</h3>
+                <p>{{ $contactSettings->primary_email ?? 'info@digitalfarmer.com' }}</p>
+                @if($contactSettings->support_email ?? null)
+                    <p>{{ $contactSettings->support_email }}</p>
+                @endif
             </div>
         </section>
 
         <section class="form-and-faq-section">
             <div class="contact-form-container" data-aos="fade-right">
-                <h2 class="section-heading"><i class="fas fa-comments"></i> Send Us a Message</h2>
-                <form class="contact-form" action="#" method="POST">
+                <h2 class="section-heading"><i class="fas fa-comments"></i> আমাদের একটি বার্তা পাঠান</h2>
+                
+                @if(session('success'))
+                    <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+                        <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form class="contact-form" action="{{ route('contact.store') }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name">আপনার নাম *</label>
+                        <input type="text" id="name" name="name" 
+                               value="{{ old('name', $userInfo->name ?? '') }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email">আপনার ইমেইল *</label>
+                        <input type="email" id="email" name="email" 
+                               value="{{ old('email', $userInfo->email ?? '') }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject">
+                        <label for="subject">বিষয় *</label>
+                        <input type="text" id="subject" name="subject" value="{{ old('subject') }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
+                        <label for="message">আপনার বার্তা *</label>
+                        <textarea id="message" name="message" rows="6" required>{{ old('message') }}</textarea>
                     </div>
-                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> বার্তা পাঠান</button>
                 </form>
             </div>
 
             <div class="quick-contact-options" data-aos="fade-left">
-                <h2 class="section-heading"><i class="fas fa-question-circle"></i> Quick Answers & More</h2>
+                <h2 class="section-heading"><i class="fas fa-question-circle"></i> দ্রুত উত্তর ও আরও</h2>
                 
-                <h4>Frequently Asked Questions</h4>
+                <h4>প্রায়শই জিজ্ঞাসিত প্রশ্ন</h4>
                 <div class="faq-item">
-                    <h4>How can I reset my password?</h4>
-                    <p>You can reset your password from the login page by clicking the "Forgot Password" link.</p>
+                    <h4>আমি কিভাবে আমার পাসওয়ার্ড রিসেট করতে পারি?</h4>
+                    <p>লগইন পেজ থেকে "পাসওয়ার্ড ভুলে গেছেন?" লিংকে ক্লিক করে আপনি আপনার পাসওয়ার্ড রিসেট করতে পারেন।</p>
                 </div>
                 <div class="faq-item">
-                    <h4>Where can I find current market prices?</h4>
-                    <p>Live market prices for various crops are available on the "Market Prices" page.</p>
+                    <h4>বর্তমান বাজার দর কোথায় পাব?</h4>
+                    <p>বিভিন্ন ফসলের লাইভ বাজার দর "বাজার দর" পেজে পাওয়া যায়।</p>
                 </div>
                 <div class="faq-item">
-                    <h4>Do you offer direct farming advice?</h4>
-                    <p>Our "Crop Doctor" feature provides AI-powered advice, and you can also consult experts via our community forum.</p>
+                    <h4>আপনারা কি সরাসরি কৃষি পরামর্শ প্রদান করেন?</h4>
+                    <p>আমাদের "ক্রপ ডক্টর" ফিচার AI-চালিত পরামর্শ প্রদান করে, এবং আপনি আমাদের কমিউনিটি ফোরামের মাধ্যমে বিশেষজ্ঞদের সাথে পরামর্শ করতে পারেন।</p>
                 </div>
                 
-                <h4 style="margin-top: 30px;">Connect With Us</h4>
+                <h4 style="margin-top: 30px;">আমাদের সাথে যুক্ত হন</h4>
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    @if($contactSettings->facebook_url ?? null)
+                        <a href="{{ $contactSettings->facebook_url }}" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+                    @if($contactSettings->twitter_url ?? null)
+                        <a href="{{ $contactSettings->twitter_url }}" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                    @endif
+                    @if($contactSettings->linkedin_url ?? null)
+                        <a href="{{ $contactSettings->linkedin_url }}" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    @endif
+                    @if($contactSettings->instagram_url ?? null)
+                        <a href="{{ $contactSettings->instagram_url }}" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    @endif
+                    @if($contactSettings->youtube_url ?? null)
+                        <a href="{{ $contactSettings->youtube_url }}" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+                    @endif
                 </div>
             </div>
         </section>
 
         <section class="map-section" data-aos="fade-up">
-            <h2 class="section-heading"><i class="fas fa-map-marked-alt"></i> Find Us on the Map</h2>
+            <h2 class="section-heading"><i class="fas fa-map-marked-alt"></i> মানচিত্রে আমাদের খুঁজুন</h2>
             <div class="map-container">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116776.62171120288!2d90.25265634594248!3d23.900984042880946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b92b6a033f%3A0xc3f6d7732a933221!2sAshulia!5e0!3m2!1sen!2sbd!4v1701388888888!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

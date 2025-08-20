@@ -14,6 +14,10 @@ use App\Http\Controllers\AdminNotificationController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AdminAnnouncementController;
 use App\Http\Controllers\AdminHomeController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminContactController;
+use App\Http\Controllers\AdminAboutUsController;
+use App\Http\Controllers\AboutUsController;
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/admin/welcome', [AdminWelcomeController::class, 'index']);
@@ -137,14 +141,26 @@ Route::get('/tutorials/farm-laws', function () {
 })->name('tutorials.farm-laws');
 
 // Route for about-us page
-Route::get('/about-us', function () {
-    return view('about-us'); 
-})->name('about-us');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 
-// Route for contact page
-Route::get('/contact', function () {
-    return view('contact'); 
+// Route for contact page (requires login)
+Route::get('/contact', function() {
+    if (!Session::get('logged_in')) {
+        return redirect()->route('login')->with('error', 'যোগাযোগ পেজ দেখার জন্য অনুগ্রহ করে লগইন করুন।');
+    }
+    return app(ContactController::class)->index();
 })->name('contact');
+
+Route::post('/contact', function(Illuminate\Http\Request $request) {
+    if (!Session::get('logged_in')) {
+        return redirect()->route('login')->with('error', 'বার্তা পাঠানোর জন্য অনুগ্রহ করে লগইন করুন।');
+    }
+    return app(ContactController::class)->store($request);
+})->name('contact.store');
+
+// Route for user's contact messages and replies
+Route::get('/my-messages', [ContactController::class, 'myMessages'])->name('user.messages');
+Route::get('/my-messages/{id}', [ContactController::class, 'viewMyMessage'])->name('user.message.view');
 
 // Google OAuth Routes
 Route::get('/login/google', [RegistrationController::class, 'redirectToGoogle'])->name('login.google');
@@ -175,13 +191,14 @@ Route::prefix('admin')->group(function () {
         Route::delete('/market-prices/{id}', [AdminPriceController::class, 'destroy'])->name('admin.market-prices.destroy');
         Route::post('/market-prices/bulk-update', [AdminPriceController::class, 'bulkUpdate'])->name('admin.market-prices.bulk-update');
         
-        Route::get('/about-us', function () {
-            return view('admin.admin_about-us');
-        })->name('admin.about-us');
+        Route::get('/about-us', [App\Http\Controllers\AdminAboutUsController::class, 'index'])->name('admin.about-us');
+        Route::put('/about-us', [App\Http\Controllers\AdminAboutUsController::class, 'update'])->name('admin.about-us.update');
         
-        Route::get('/contact', function () {
-            return view('admin.admin_contact');
-        })->name('admin.contact');
+        Route::get('/contact', [AdminContactController::class, 'index'])->name('admin.contact');
+        Route::post('/contact/settings', [AdminContactController::class, 'updateSettings'])->name('admin.contact.settings');
+        Route::get('/contact/message/{id}', [AdminContactController::class, 'viewMessage'])->name('admin.contact.message');
+        Route::put('/contact/message/{id}', [AdminContactController::class, 'updateMessageStatus'])->name('admin.contact.message.update');
+        Route::delete('/contact/message/{id}', [AdminContactController::class, 'deleteMessage'])->name('admin.contact.message.delete');
         
         Route::get('/crop-doctor', function () {
             return view('admin.admin_crop-doctor');

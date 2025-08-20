@@ -389,6 +389,10 @@
                 <i class="fas fa-heart"></i>
                 <span>আমার পছন্দের তালিকা</span>
             </a>
+            <a href="{{ route('user.messages') }}" class="sidebar-menu-item">
+                <i class="fas fa-envelope"></i>
+                <span>আমার বার্তাসমূহ</span>
+            </a>
         </div>
     </div>
 </div>
