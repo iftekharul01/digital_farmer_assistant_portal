@@ -3,22 +3,11 @@
 <style>
         /* Hero Section */
         .hero-section {
-            background: var(--gradient-primary);
+            background: url('https://static.vecteezy.com/system/resources/thumbnails/031/111/833/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg') center/cover no-repeat;
             padding: 100px 0 60px;
             text-align: center;
             color: white;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(255,255,255,.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>') repeat;
         }
 
         .hero-content {
@@ -26,14 +15,14 @@
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
-            z-index: 1;
+            z-index: 3;
         }
 
         .hero-title {
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
 
         .hero-subtitle {
@@ -54,15 +43,17 @@
             align-items: center;
             gap: 10px;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             padding: 12px 20px;
             border-radius: 25px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
         .hero-feature:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .hero-feature i {
@@ -537,10 +528,28 @@
             }
             .hero-title {
                 font-size: 2.5rem;
+                background: none;
+                -webkit-text-fill-color: white;
+                color: white;
             }
+            
+            .hero-section {
+                background-attachment: scroll;
+                padding: 80px 0 50px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
             .hero-features {
                 flex-direction: column;
                 gap: 15px;
+            }
+            
+            .hero-feature {
+                max-width: 250px;
+                margin: 0 auto;
             }
             .upload-section {
                 padding: 30px 20px;
