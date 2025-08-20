@@ -19,6 +19,124 @@
             --border-light: #b2eac1;
         }
 
+        /* Video Section */
+        .tutorial-video-section {
+            background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
+            padding: 60px 0;
+            margin-top: 50px;
+            border-top: 3px solid var(--primary-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutorial-video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><polygon fill="rgba(11,212,41,0.05)" points="1000,0 1000,100 0,100"/></svg>');
+            pointer-events: none;
+        }
+
+        .video-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .video-title i {
+            color: var(--primary-green);
+            font-size: 2.2rem;
+        }
+
+        .video-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 0 auto 30px;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            max-width: 800px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .video-description {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(11,212,41,0.1);
+            border-left: 5px solid var(--primary-green);
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .video-description::before {
+            content: "💡";
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-video-section {
+                padding: 40px 0;
+            }
+            .video-title {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .video-subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            .video-container {
+                max-width: 100%;
+                border: 2px solid white;
+            }
+            .video-description {
+                padding: 20px;
+                font-size: 1rem;
+            }
+        }
+
         body {
             background: #f9fafb;
             font-family: 'Manrope', sans-serif;
@@ -213,6 +331,39 @@
             text-decoration: none;
         }
 
+        /* Video Section */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 20px 0;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-description {
+            color: var(--text-color-dark);
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--light-green);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+
         .calculator-section {
             background: #f8f9fa;
             padding: 30px;
@@ -274,6 +425,8 @@
             <i class="fas fa-arrow-left"></i> টিউটোরিয়াল তালিকায় ফিরুন
         </a>
 
+        <!-- Tutorial Video Section -->
+        <div class="content-section">
         <div class="content-section">
             <h2 class="section-title">
                 <i class="fas fa-info-circle"></i> ফসল নির্বাচনের গুরুত্ব
@@ -492,6 +645,32 @@
             `;
         }
     </script>
+
+    <!-- Tutorial Video Section -->
+    <section class="tutorial-video-section">
+        <div class="container">
+            <div class="video-content">
+                <h2 class="video-title">
+                    <i class="fas fa-play-circle"></i>
+                    টিউটোরিয়াল ভিডিও
+                </h2>
+                <p class="video-subtitle">
+                    সঠিক ফসল নির্বাচনের কৌশল ও লাভজনক কৃষির বিস্তারিত ভিডিও টিউটোরিয়াল
+                </p>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/boeI9UHFI1I" 
+                        title="সঠিক ফসল নির্বাচনের উপায় - Crop Selection Guide"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-description">
+                    এই ভিডিওতে মাটি, জলবায়ু এবং বাজারের চাহিদা বিবেচনা করে লাভজনক ফসল নির্বাচনের বিস্তারিত পদ্ধতি দেখানো হয়েছে।
+                </div>
+            </div>
+        </div>
+    </section>
 
     @include('partials.footer')
 </body>
