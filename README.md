@@ -1,64 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Digital Farmer Assistant Portal
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<p align="center">
+  <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌾 Project Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The **Digital Farmer Assistant Portal** is a comprehensive web application designed to empower farmers with essential tools and information. It provides real-time weather updates, agricultural news, tutorials, and market prices, while enabling admins to manage content like announcements, notifications, and tutorials dynamically. The platform is fully localized in Bangla, ensuring accessibility and relevance for Bangladeshi farmers.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### For Farmers:
+- **Weather Updates**: Real-time weather data and 6-day forecasts tailored to regions in Bangladesh.
+- **Agricultural News**: Latest updates on subsidies, policies, and farming techniques.
+- **Tutorials**: Static and dynamic tutorials covering crop selection, irrigation, pest control, and more.
+- **Market Prices**: Real-time crop price updates for informed decision-making.
+- **Saved News**: Bookmark important articles for later reference.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### For Admins:
+- **Content Management**: Add/edit tutorials, announcements, and notifications dynamically.
+- **User Communication**: Send notifications and announcements to users.
+- **Data Management**: Update market prices and homepage content.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠️ Tools & Technologies
 
-### Premium Partners
+1. **Laravel Framework**: Backend development, routing, controllers, and database management.
+2. **Blade Templates**: Dynamic and reusable views for the frontend.
+3. **Font Awesome**: Icon library for visual elements like buttons and headers.
+4. **Google Fonts**: Professional typography (e.g., Manrope).
+5. **OpenWeatherMap API**: Real-time weather data integration.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 📂 Project Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+resources/views/
+├── admin/ (Admin dashboard)
+├── tutorials/ (Static tutorial pages)
+├── partials/ (Reusable components)
+├── notifications.blade.php
+├── subsidies-news.blade.php
+├── weather.blade.php
+└── saved-news.blade.php
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📸 Screenshots
 
-## Security Vulnerabilities
+### Homepage
+![Homepage](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Admin Dashboard
+![Admin Dashboard](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
 
-## License
+### Weather Updates
+![Weather Updates](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
 
-# Prototype
-![Prototype](public/assets/images/prototype.jpg)
+## 🎥 Demo Video
+
+Watch the full demo of the project [here](https://drive.google.com/file/d/1aN2UgaocRFS2fH5qhr5mTLziIZjhOM6L/view?usp=sharing).
+
+---
+
+## 📖 How to Run the Project
+
+### Prerequisites:
+- PHP 8.0+
+- Composer
+- MySQL
+- Node.js & npm
+
+### Steps:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/digital-farmer-assistant-portal.git
+   ```
+2. Install dependencies:
+   ```bash
+   composer install
+   npm install
+   ```
+3. Configure `.env` file:
+   - Set database credentials.
+   - Add OpenWeatherMap API key.
+4. Run migrations:
+   ```bash
+   php artisan migrate
+   ```
+5. Start the development server:
+   ```bash
+   php artisan serve
+   ```
+
+---
+
+## 📜 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to improve the project. Please follow the [contribution guide](https://laravel.com/docs/contributions).
+
+---
+
+## 🌟 Acknowledgments
+
+Special thanks to the Laravel community and all contributors for their support in building this project.
