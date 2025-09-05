@@ -62,14 +62,7 @@ resources/views/
 
 ## 📸 Screenshots
 
-### Homepage
-![Homepage](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
-
-### Admin Dashboard
-![Admin Dashboard](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
-
-### Weather Updates
-![Weather Updates](https://drive.google.com/uc?id=1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42)
+Watch the screenshots of the project [here](https://drive.google.com/drive/folders/1ZcJ9sSDYSi3TjTYodbnfhT-36lgT0F42?usp=sharing).
 
 ---
 
